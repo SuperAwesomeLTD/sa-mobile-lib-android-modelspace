@@ -39,7 +39,10 @@ public class SACreative implements Parcelable, JSONSerializable {
     public SACreativeFormat creativeFormat;
     public String viewableImpressionUrl;
     public String trackingUrl;
-    public String parentalGateClickUrl;
+    public String parentalGateOpenUrl;
+    public String parentalGateCloseUrl;
+    public String parentalGateFailUrl;
+    public String parentalGateSuccessUrl;
 
     /**
      * public constructor
@@ -67,7 +70,10 @@ public class SACreative implements Parcelable, JSONSerializable {
         creativeFormat = in.readParcelable(SACreativeFormat.class.getClassLoader());
         viewableImpressionUrl = in.readString();
         trackingUrl = in.readString();
-        parentalGateClickUrl = in.readString();
+        parentalGateCloseUrl = in.readString();
+        parentalGateFailUrl = in.readString();
+        parentalGateOpenUrl = in.readString();
+        parentalGateSuccessUrl = in.readString();
     }
 
     public static final Creator<SACreative> CREATOR = new Creator<SACreative>() {
@@ -97,13 +103,16 @@ public class SACreative implements Parcelable, JSONSerializable {
         dest.writeString(customPayload);
         dest.writeString(clickUrl);
         dest.writeByte((byte) (approved ? 1 : 0));
-        dest.writeByte((byte) (live ? 1: 0));
+        dest.writeByte((byte) (live ? 1 : 0));
         dest.writeParcelable(details, flags);
 
         dest.writeString(viewableImpressionUrl);
         dest.writeString(trackingUrl);
         dest.writeParcelable(creativeFormat, flags);
-        dest.writeString(parentalGateClickUrl);
+        dest.writeString(parentalGateCloseUrl);
+        dest.writeString(parentalGateFailUrl);
+        dest.writeString(parentalGateOpenUrl);
+        dest.writeString(parentalGateSuccessUrl);
 
     }
 
@@ -150,8 +159,17 @@ public class SACreative implements Parcelable, JSONSerializable {
         if (!json.isNull("trackingUrl")){
             trackingUrl = json.optString("trackingUrl");
         }
-        if (!json.isNull("parentalGateClickUrl")){
-            parentalGateClickUrl = json.optString("parentalGateClickUrl");
+        if (!json.isNull("parentalGateSuccessUrl")) {
+            parentalGateSuccessUrl = json.optString("parentalGateSuccessUrl");
+        }
+        if (!json.isNull("parentalGateFailUrl")) {
+            parentalGateFailUrl= json.optString("parentalGateFailUrl");
+        }
+        if (!json.isNull("parentalGateCloseUrl")) {
+            parentalGateCloseUrl= json.optString("parentalGateCloseUrl");
+        }
+        if (!json.isNull("parentalGateOpenUrl")) {
+            parentalGateOpenUrl= json.optString("parentalGateOpenUrl");
         }
         if (!json.isNull("creativeFormat")){
             String obj = json.optString("creativeFormat");
@@ -241,7 +259,22 @@ public class SACreative implements Parcelable, JSONSerializable {
             e.printStackTrace();
         }
         try {
-            json.put("parentalGateClickUrl", parentalGateClickUrl);
+            json.put("parentalGateCloseUrl", parentalGateCloseUrl);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        try {
+            json.put("parentalGateFailUrl", parentalGateFailUrl);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        try {
+            json.put("parentalGateOpenUrl", parentalGateOpenUrl);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        try {
+            json.put("parentalGateSuccessUrl", parentalGateSuccessUrl);
         } catch (JSONException e) {
             e.printStackTrace();
         }
