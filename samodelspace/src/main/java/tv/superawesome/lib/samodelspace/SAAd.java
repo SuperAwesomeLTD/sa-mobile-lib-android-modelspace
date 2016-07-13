@@ -16,6 +16,8 @@ import android.os.Parcelable;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayDeque;
+
 import tv.superawesome.lib.sajsonparser.JSONSerializable;
 
 /**
@@ -26,6 +28,8 @@ import tv.superawesome.lib.sajsonparser.JSONSerializable;
 public class SAAd implements Parcelable, JSONSerializable {
 
     public int error;
+    public int advertiserId;
+    public int publisherId;
     public int app;
     public int placementId;
     public int lineItemId;
@@ -49,6 +53,8 @@ public class SAAd implements Parcelable, JSONSerializable {
 
     protected SAAd(Parcel in) {
         error = in.readInt();
+        advertiserId = in.readInt();
+        publisherId = in.readInt();
         app = in.readInt();
         placementId = in.readInt();
         lineItemId = in.readInt();
@@ -80,6 +86,8 @@ public class SAAd implements Parcelable, JSONSerializable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(error);
+        dest.writeInt(advertiserId);
+        dest.writeInt(publisherId);
         dest.writeInt(app);
         dest.writeInt(placementId);
         dest.writeInt(lineItemId);
@@ -95,6 +103,12 @@ public class SAAd implements Parcelable, JSONSerializable {
     public void readFromJson(JSONObject json) {
         if (!json.isNull("error")) {
             error = json.optInt("error");
+        }
+        if (!json.isNull("advertiserId")) {
+            advertiserId = json.optInt("advertiserId");
+        }
+        if (!json.isNull("publisherId")) {
+            publisherId = json.optInt("publisherId");
         }
         if (!json.isNull("app")){
             app = json.optInt("app");
@@ -135,6 +149,16 @@ public class SAAd implements Parcelable, JSONSerializable {
         JSONObject json = new JSONObject();
         try {
             json.put("error", error);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        try {
+            json.put("publisherId", publisherId);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        try {
+            json.put("advertiserId", advertiserId);
         } catch (JSONException e) {
             e.printStackTrace();
         }
