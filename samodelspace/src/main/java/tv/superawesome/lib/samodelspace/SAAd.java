@@ -38,6 +38,8 @@ public class SAAd implements Parcelable, JSONSerializable {
     public boolean isFallback;
     public boolean isFill;
     public boolean isHouse;
+    public boolean safeAdApproved;
+    public boolean showPadlock;
     public SACreative creative;
 
     /**
@@ -63,6 +65,8 @@ public class SAAd implements Parcelable, JSONSerializable {
         isFallback = in.readByte() != 0;
         isFill = in.readByte() != 0;
         isHouse = in.readByte() != 0;
+        safeAdApproved = in.readByte() != 0;
+        showPadlock = in.readByte() != 0;
         creative = in.readParcelable(SACreative.class.getClassLoader());
     }
 
@@ -96,6 +100,8 @@ public class SAAd implements Parcelable, JSONSerializable {
         dest.writeByte((byte) (isFallback ? 1 : 0));
         dest.writeByte((byte) (isFill ? 1 : 0));
         dest.writeByte((byte) (isHouse ? 1 : 0));
+        dest.writeByte((byte) (safeAdApproved ? 1 : 0));
+        dest.writeByte((byte) (showPadlock ? 1 : 0));
         dest.writeParcelable(creative, flags);
     }
 
@@ -133,6 +139,12 @@ public class SAAd implements Parcelable, JSONSerializable {
         }
         if (!json.isNull("is_house")){
             isHouse = json.optBoolean("is_house");
+        }
+        if (!json.isNull("safe_ad_approved")) {
+            safeAdApproved = json.optBoolean("safe_ad_approved");
+        }
+        if (!json.isNull("show_padlock")) {
+            showPadlock = json.optBoolean("show_padlock");
         }
         if (!json.isNull("creative")){
             JSONObject obj = json.optJSONObject("creative");
@@ -199,6 +211,16 @@ public class SAAd implements Parcelable, JSONSerializable {
         }
         try {
             json.put("is_house", isHouse);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        try {
+            json.put("safe_ad_approved", safeAdApproved);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        try {
+            json.put("show_padlock", showPadlock);
         } catch (JSONException e) {
             e.printStackTrace();
         }
