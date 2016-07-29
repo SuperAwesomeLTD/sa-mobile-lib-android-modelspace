@@ -10,6 +10,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import tv.superawesome.lib.sajsonparser.JSONSerializable;
+import tv.superawesome.lib.sajsonparser.SAJsonParser;
 
 public class SAVASTAd implements Parcelable, JSONSerializable {
 
@@ -26,7 +27,7 @@ public class SAVASTAd implements Parcelable, JSONSerializable {
 
     }
 
-    public SAVASTAd(JSONObject json)  throws JSONException {
+    public SAVASTAd(JSONObject json) {
         readFromJson(json);
     }
 
@@ -89,121 +90,62 @@ public class SAVASTAd implements Parcelable, JSONSerializable {
 
     @Override
     public void readFromJson(JSONObject json) {
-        if (!json.isNull("id")){
-            id = json.optString("id");
+        id = SAJsonParser.getString(json, "id");
+        sequence = SAJsonParser.getString(json, "sequence");
+        redirectUri = SAJsonParser.getString(json, "redirectUri");
+        isImpressionSent = SAJsonParser.getBoolean(json, "isImpressionSent");
+        creative = new SAVASTCreative(SAJsonParser.getJsonObject(json, "creative"));
+
+        String typeStr = SAJsonParser.getString(json, "type", SAVASTAdType.Invalid.toString());
+        if (typeStr.equals(SAVASTAdType.Invalid.toString())) {
+            type = SAVASTAdType.Invalid;
         }
-        if (!json.isNull("sequence")){
-            sequence = json.optString("sequence");
+        if (typeStr.equals(SAVASTAdType.InLine.toString())){
+            type = SAVASTAdType.InLine;
         }
-        if (!json.isNull("redirectUri")) {
-            redirectUri = json.optString("redirectUri");
+        if (typeStr.equals(SAVASTAdType.Wrapper.toString())){
+            type = SAVASTAdType.Wrapper;
         }
-        if (!json.isNull("isImpressionSent")){
-            isImpressionSent = json.optBoolean("isImpressionSent");
-        }
-        if (!json.isNull("type")){
-            String obj = json.optString("type");
-            if (obj != null) {
-                if (obj.equals(SAVASTAdType.Invalid.toString())) {
-                    type = SAVASTAdType.Invalid;
-                }
-                if (obj.equals(SAVASTAdType.InLine.toString())){
-                    type = SAVASTAdType.InLine;
-                }
-                if (obj.equals(SAVASTAdType.Wrapper.toString())){
-                    type = SAVASTAdType.Wrapper;
-                }
-            }
-        }
-        if (!json.isNull("errors")){
-            errors = new ArrayList<String>();
-            JSONArray jsonArray = json.optJSONArray("errors");
-            for (int i = 0; i < jsonArray.length(); i++) {
-                String obj = jsonArray.optString(i);
-                if (obj != null) {
-                    errors.add(obj);
-                }
-            }
-        }
-        if (!json.isNull("impressions")){
-            impressions = new ArrayList<String>();
-            JSONArray jsonArray = json.optJSONArray("impressions");
-            for (int i = 0; i < jsonArray.length(); i++) {
-                String obj = jsonArray.optString(i);
-                if (obj != null) {
-                    impressions.add(obj);
-                }
-            }
-        }
-        if (!json.isNull("creative")) {
-            JSONObject obj = json.optJSONObject("creative");
+
+        errors = new ArrayList<>();
+        JSONArray jsonArray1 = SAJsonParser.getJsonArray(json, "errors", new JSONArray());
+        for (int i = 0; i < jsonArray1.length(); i++){
             try {
-                creative = new SAVASTCreative(obj);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+                errors.add(jsonArray1.getString(i));
+            } catch (JSONException ignored) {}
+        }
+
+        impressions = new ArrayList<>();
+        JSONArray jsonArray2 = SAJsonParser.getJsonArray(json, "impressions", new JSONArray());
+        for (int i = 0; i < jsonArray2.length(); i++) {
+            try {
+                impressions.add(jsonArray2.getString(i));
+            } catch (JSONException ignored) {}
         }
     }
 
     @Override
     public JSONObject writeToJson() {
-        JSONObject json = new JSONObject();
-        try {
-            json.put("type", type);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        try {
-            json.put("id", id);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        try {
-            json.put("redirectUri", redirectUri);
-        } catch (JSONException e){
-            e.printStackTrace();
-        }
-        try {
-            json.put("sequence", sequence);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        try {
-            json.put("isImpressionSent", isImpressionSent);
-        } catch (JSONException e) {
-            e.printStackTrace();
+
+        JSONArray errorsJsonArray = new JSONArray();
+        for (String error : errors) {
+            errorsJsonArray.put(error);
         }
 
-        if (errors != null) {
-            JSONArray errorsJsonArray = new JSONArray();
-            for (String error : errors) {
-                errorsJsonArray.put(error);
-            }
-            try {
-                json.put("errors", errorsJsonArray);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+        JSONArray impressionsJsonArray = new JSONArray();
+        for (String impression : impressions) {
+            impressionsJsonArray.put(impression);
         }
 
-        if (impressions != null) {
-            JSONArray impressionsJsonArray = new JSONArray();
-            for (String impression : impressions) {
-                impressionsJsonArray.put(impression);
-            }
-            try {
-                json.put("impressions", impressionsJsonArray);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-
-        try {
-            json.put("creative", creative.writeToJson());
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        return json;
+        return SAJsonParser.newObject(new Object[] {
+                "type", type.toString(),
+                "id", id,
+                "redirectUri", redirectUri,
+                "sequence", sequence,
+                "isImpressionSent", isImpressionSent,
+                "creative", creative.writeToJson(),
+                "errors", errorsJsonArray,
+                "impressions", impressionsJsonArray
+        });
     }
 }

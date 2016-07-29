@@ -7,6 +7,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import tv.superawesome.lib.sajsonparser.JSONSerializable;
+import tv.superawesome.lib.sajsonparser.SAJsonParser;
 
 /**
  * Created by gabriel.coman on 22/12/15.
@@ -22,7 +23,7 @@ public class SAVASTMediaFile implements Parcelable, JSONSerializable {
 
     }
 
-    public SAVASTMediaFile(JSONObject json) throws JSONException {
+    public SAVASTMediaFile(JSONObject json) {
         readFromJson(json);
     }
 
@@ -60,43 +61,19 @@ public class SAVASTMediaFile implements Parcelable, JSONSerializable {
 
     @Override
     public void readFromJson(JSONObject json) {
-        if (!json.isNull("width")){
-            width = json.optString("width");
-        }
-        if (!json.isNull("height")){
-            height = json.optString("height");
-        }
-        if (!json.isNull("url")){
-            url = json.optString("url");
-        }
-        if (!json.isNull("type")){
-            type = json.optString("type");
-        }
+        width = SAJsonParser.getString(json, "width");
+        height = SAJsonParser.getString(json, "height");
+        url = SAJsonParser.getString(json, "url");
+        type = SAJsonParser.getString(json, "type");
     }
 
     @Override
     public JSONObject writeToJson() {
-        JSONObject json = new JSONObject();
-        try {
-            json.put("width", width);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        try {
-            json.put("height", height);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        try {
-            json.put("url", url);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        try {
-            json.put("type", type);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return json;
+        return SAJsonParser.newObject(new Object[]{
+                "width", width,
+                "height", height,
+                "url", height,
+                "type", type
+        });
     }
 }

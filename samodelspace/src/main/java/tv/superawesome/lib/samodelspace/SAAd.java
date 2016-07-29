@@ -19,6 +19,7 @@ import org.json.JSONObject;
 import java.util.ArrayDeque;
 
 import tv.superawesome.lib.sajsonparser.JSONSerializable;
+import tv.superawesome.lib.sajsonparser.SAJsonParser;
 
 /**
  * This model class contains all information that is received from the server
@@ -49,7 +50,7 @@ public class SAAd implements Parcelable, JSONSerializable {
         /** do nothing */
     }
 
-    public SAAd(JSONObject json) throws JSONException {
+    public SAAd(JSONObject json) {
         readFromJson(json);
     }
 
@@ -107,128 +108,39 @@ public class SAAd implements Parcelable, JSONSerializable {
 
     @Override
     public void readFromJson(JSONObject json) {
-        if (!json.isNull("error")) {
-            error = json.optInt("error");
-        }
-        if (!json.isNull("advertiserId")) {
-            advertiserId = json.optInt("advertiserId");
-        }
-        if (!json.isNull("publisherId")) {
-            publisherId = json.optInt("publisherId");
-        }
-        if (!json.isNull("app")){
-            app = json.optInt("app");
-        }
-        if (!json.isNull("placementId")){
-            placementId = json.optInt("placementId");
-        }
-        if (!json.isNull("line_item_id")){
-            lineItemId = json.optInt("line_item_id");
-        }
-        if (!json.isNull("campaign_id")){
-            campaignId = json.optInt("campaign_id");
-        }
-        if (!json.isNull("test")){
-            test = json.optBoolean("test");
-        }
-        if (!json.isNull("is_fallback")){
-            isFallback = json.optBoolean("is_fallback");
-        }
-        if (!json.isNull("is_fill")){
-            isFill = json.optBoolean("is_fill");
-        }
-        if (!json.isNull("is_house")){
-            isHouse = json.optBoolean("is_house");
-        }
-        if (!json.isNull("safe_ad_approved")) {
-            safeAdApproved = json.optBoolean("safe_ad_approved");
-        }
-        if (!json.isNull("show_padlock")) {
-            showPadlock = json.optBoolean("show_padlock");
-        }
-        if (!json.isNull("creative")){
-            JSONObject obj = json.optJSONObject("creative");
-            try {
-                creative = new SACreative(obj);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
+        error = SAJsonParser.getInt(json, "error");
+        advertiserId = SAJsonParser.getInt(json, "advertiserId");
+        publisherId = SAJsonParser.getInt(json, "publisherId");
+        app = SAJsonParser.getInt(json, "app");
+        placementId = SAJsonParser.getInt(json, "placementId");
+        lineItemId = SAJsonParser.getInt(json, "line_item_id");
+        campaignId = SAJsonParser.getInt(json, "campaign_id");
+        test = SAJsonParser.getBoolean(json, "test");
+        isFallback = SAJsonParser.getBoolean(json, "is_fallback");
+        isFill = SAJsonParser.getBoolean(json, "is_fill");
+        isHouse = SAJsonParser.getBoolean(json, "is_house");
+        safeAdApproved = SAJsonParser.getBoolean(json, "safe_ad_approved");
+        showPadlock = SAJsonParser.getBoolean(json, "show_padlock");
+        creative = new SACreative(SAJsonParser.getJsonObject(json, "creative"));
     }
 
     @Override
     public JSONObject writeToJson() {
-        JSONObject json = new JSONObject();
-        try {
-            json.put("error", error);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        try {
-            json.put("publisherId", publisherId);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        try {
-            json.put("advertiserId", advertiserId);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        try {
-            json.put("app", app);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        try {
-            json.put("placementId", placementId);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        try {
-            json.put("line_item_id", lineItemId);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        try {
-            json.put("campaign_id", campaignId);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        try {
-            json.put("test", test);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        try {
-            json.put("is_fallback", isFallback);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        try {
-            json.put("is_fill", isFill);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        try {
-            json.put("is_house", isHouse);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        try {
-            json.put("safe_ad_approved", safeAdApproved);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        try {
-            json.put("show_padlock", showPadlock);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        try {
-            json.put("creative", creative.writeToJson());
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return json;
+        return SAJsonParser.newObject(new Object[]{
+                "error", error,
+                "publisherId", publisherId,
+                "advertiserId", advertiserId,
+                "app", app,
+                "placementId", placementId,
+                "line_item_id", lineItemId,
+                "campaign_id", campaignId,
+                "test", test,
+                "is_fallback", isFallback,
+                "is_fill", isFill,
+                "is_house", isHouse,
+                "safe_ad_approved", safeAdApproved,
+                "show_padlock", showPadlock,
+                "creative", creative.writeToJson()
+        });
     }
 }

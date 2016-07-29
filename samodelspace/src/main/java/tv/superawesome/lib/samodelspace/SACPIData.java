@@ -7,6 +7,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import tv.superawesome.lib.sajsonparser.JSONSerializable;
+import tv.superawesome.lib.sajsonparser.SAJsonParser;
 
 /**
  * Created by gabriel.coman on 15/07/16.
@@ -72,51 +73,21 @@ public class SACPIData implements Parcelable, JSONSerializable {
 
     @Override
     public void readFromJson(JSONObject json) {
-        if (!json.isNull("utm_source")){
-            advertiserId = json.optInt("utm_source");
-        }
-        if (!json.isNull("utm_campaign")) {
-            campaignId = json.optInt("utm_campaign");
-        }
-        if (!json.isNull("utm_term")) {
-            lineItemId = json.optInt("utm_term");
-        }
-        if (!json.isNull("utm_content")) {
-            creativeId = json.optInt("utm_content");
-        }
-        if (!json.isNull("utm_medium")) {
-            placementId = json.optInt("utm_medium");
-        }
+        advertiserId = SAJsonParser.getInt(json, "utm_source");
+        campaignId = SAJsonParser.getInt(json, "utm_campaign");
+        lineItemId = SAJsonParser.getInt(json, "utm_term");
+        creativeId = SAJsonParser.getInt(json, "utm_content");
+        placementId = SAJsonParser.getInt(json, "utm_medium");
     }
 
     @Override
     public JSONObject writeToJson() {
-        JSONObject jsonObject = new JSONObject();
-        try {
-            jsonObject.put("advertiserId", advertiserId);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        try {
-            jsonObject.put("campaignId", campaignId);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        try {
-            jsonObject.put("lineItemId", lineItemId);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        try {
-            jsonObject.put("creativeId", creativeId);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        try {
-            jsonObject.put("placementId", placementId);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return jsonObject;
+        return SAJsonParser.newObject(new Object[]{
+                "advertiserId", advertiserId,
+                "campaignId", campaignId,
+                "lineItemId", lineItemId,
+                "creativeId", creativeId,
+                "placementId", placementId
+        });
     }
 }

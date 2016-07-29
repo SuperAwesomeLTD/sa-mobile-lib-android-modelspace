@@ -16,7 +16,10 @@ import android.os.Parcelable;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.jar.JarEntry;
+
 import tv.superawesome.lib.sajsonparser.JSONSerializable;
+import tv.superawesome.lib.sajsonparser.SAJsonParser;
 
 
 /**
@@ -51,7 +54,7 @@ public class SACreative implements Parcelable, JSONSerializable {
         /** do nothing */
     }
 
-    public SACreative(JSONObject json) throws JSONException {
+    public SACreative(JSONObject json) {
         readFromJson(json);
     }
 
@@ -118,171 +121,62 @@ public class SACreative implements Parcelable, JSONSerializable {
 
     @Override
     public void readFromJson(JSONObject json) {
-        if (!json.isNull("id")){
-            id = json.optInt("id");
+        id = SAJsonParser.getInt(json, "id");
+        name = SAJsonParser.getString(json, "name");
+        cpm = SAJsonParser.getInt(json, "cpm");
+        format = SAJsonParser.getString(json, "format");
+        impressionUrl = SAJsonParser.getString(json, "impression_url");
+        clickUrl = SAJsonParser.getString(json, "click_url");
+        customPayload = SAJsonParser.getString(json, "customPayload");
+        approved = SAJsonParser.getBoolean(json, "approved");
+        live = SAJsonParser.getBoolean(json, "live");
+        details = new SADetails(SAJsonParser.getJsonObject(json, "details"));
+        viewableImpressionUrl = SAJsonParser.getString(json, "viewableImpressionUrl");
+        trackingUrl = SAJsonParser.getString(json, "trackingUrl");
+        parentalGateSuccessUrl = SAJsonParser.getString(json, "parentalGateSuccessUrl");
+        parentalGateFailUrl = SAJsonParser.getString(json, "parentalGateFailUrl");
+        parentalGateCloseUrl = SAJsonParser.getString(json, "parentalGateCloseUrl");
+        parentalGateOpenUrl = SAJsonParser.getString(json, "parentalGateOpenUrl");
+
+        String obj = SAJsonParser.getString(json, "creativeFormat", SACreativeFormat.invalid.toString());
+        if (obj.equals(SACreativeFormat.invalid.toString())){
+            creativeFormat = SACreativeFormat.invalid;
         }
-        if (!json.isNull("name")){
-            name = json.optString("name");
+        if (obj.equals(SACreativeFormat.image.toString())){
+            creativeFormat = SACreativeFormat.image;
         }
-        if (!json.isNull("cpm")){
-            cpm = json.optInt("cpm");
+        if (obj.equals(SACreativeFormat.video.toString())){
+            creativeFormat = SACreativeFormat.video;
         }
-        if (!json.isNull("format")){
-            format = json.optString("format");
+        if (obj.equals(SACreativeFormat.rich.toString())){
+            creativeFormat = SACreativeFormat.rich;
         }
-        if (!json.isNull("impression_url")){
-            impressionUrl = json.optString("impression_url");
-        }
-        if (!json.isNull("click_url")){
-            clickUrl = json.optString("click_url");
-        }
-        if (!json.isNull("customPayload")) {
-            customPayload = json.optString("customPayload");
-        }
-        if (!json.isNull("approved")){
-            approved = json.optBoolean("approved");
-        }
-        if (!json.isNull("live")){
-            live = json.optBoolean("live");
-        }
-        if (!json.isNull("details")){
-            JSONObject obj = json.optJSONObject("details");
-            try {
-                details = new SADetails(obj);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-        if (!json.isNull("viewableImpressionUrl")){
-            viewableImpressionUrl = json.optString("viewableImpressionUrl");
-        }
-        if (!json.isNull("trackingUrl")){
-            trackingUrl = json.optString("trackingUrl");
-        }
-        if (!json.isNull("parentalGateSuccessUrl")) {
-            parentalGateSuccessUrl = json.optString("parentalGateSuccessUrl");
-        }
-        if (!json.isNull("parentalGateFailUrl")) {
-            parentalGateFailUrl= json.optString("parentalGateFailUrl");
-        }
-        if (!json.isNull("parentalGateCloseUrl")) {
-            parentalGateCloseUrl= json.optString("parentalGateCloseUrl");
-        }
-        if (!json.isNull("parentalGateOpenUrl")) {
-            parentalGateOpenUrl= json.optString("parentalGateOpenUrl");
-        }
-        if (!json.isNull("creativeFormat")){
-            String obj = json.optString("creativeFormat");
-            if (obj != null) {
-                if (obj.equals(SACreativeFormat.invalid.toString())){
-                    creativeFormat = SACreativeFormat.invalid;
-                }
-                if (obj.equals(SACreativeFormat.image.toString())){
-                    creativeFormat = SACreativeFormat.image;
-                }
-                if (obj.equals(SACreativeFormat.video.toString())){
-                    creativeFormat = SACreativeFormat.video;
-                }
-                if (obj.equals(SACreativeFormat.rich.toString())){
-                    creativeFormat = SACreativeFormat.rich;
-                }
-                if (obj.equals(SACreativeFormat.tag.toString())){
-                    creativeFormat = SACreativeFormat.tag;
-                }
-            }
+        if (obj.equals(SACreativeFormat.tag.toString())){
+            creativeFormat = SACreativeFormat.tag;
         }
     }
 
     @Override
     public JSONObject writeToJson() {
-        JSONObject json = new JSONObject();
-        try {
-            json.put("id", id);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        try {
-            json.put("name", name);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        try {
-            json.put("cpm", cpm);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        try {
-            json.put("format", format);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        try {
-            json.put("impression_url", impressionUrl);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        try {
-            json.put("customPayload", customPayload);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        try {
-            json.put("click_url", clickUrl);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        try {
-            json.put("live", live);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        try {
-            json.put("approved", approved);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        if (details != null) {
-            try {
-                json.put("details", details.writeToJson());
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-        try {
-            json.put("creativeFormat", creativeFormat);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        try {
-            json.put("viewableImpressionUrl", viewableImpressionUrl);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        try {
-            json.put("parentalGateCloseUrl", parentalGateCloseUrl);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        try {
-            json.put("parentalGateFailUrl", parentalGateFailUrl);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        try {
-            json.put("parentalGateOpenUrl", parentalGateOpenUrl);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        try {
-            json.put("parentalGateSuccessUrl", parentalGateSuccessUrl);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        try {
-            json.put("trackingUrl", trackingUrl);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return json;
+        return SAJsonParser.newObject(new Object[]{
+                "id", id,
+                "name", name,
+                "cpm", cpm,
+                "format", format,
+                "impression_url", impressionUrl,
+                "customPayload", customPayload,
+                "click_url", clickUrl,
+                "live", live,
+                "approved", approved,
+                "details", details.writeToJson(),
+                "creativeFormat", creativeFormat.toString(),
+                "viewableImpressionUrl", viewableImpressionUrl,
+                "parentalGateCloseUrl", parentalGateCloseUrl,
+                "parentalGateFailUrl", parentalGateFailUrl,
+                "parentalGateSuccessUrl", parentalGateSuccessUrl,
+                "parentalGateOpenUrl", parentalGateOpenUrl,
+                "trackingUrl", trackingUrl
+        });
+
     }
 }

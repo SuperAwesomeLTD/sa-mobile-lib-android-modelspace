@@ -6,6 +6,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import tv.superawesome.lib.sajsonparser.JSONSerializable;
+import tv.superawesome.lib.sajsonparser.SAJsonParser;
 
 /**
  * Created by gabriel.coman on 19/04/16.
@@ -20,7 +21,7 @@ public class SAData implements Parcelable, JSONSerializable {
         /** standard constructor */
     }
 
-    public SAData(JSONObject json) throws JSONException {
+    public SAData(JSONObject json) {
         readFromJson(json);
     }
 
@@ -56,44 +57,17 @@ public class SAData implements Parcelable, JSONSerializable {
 
     @Override
     public void readFromJson(JSONObject json) {
-        if (!json.isNull("adHtml")) {
-            adHtml = json.optString("adHtml");
-        }
-        if (!json.isNull("imagePath")) {
-            imagePath = json.optString("imagePath");
-        }
-        if (!json.isNull("vastAd")) {
-            JSONObject obj = json.optJSONObject("vastAd");
-            try {
-                vastAd = new SAVASTAd(obj);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
+        adHtml = SAJsonParser.getString(json, "adHtml");
+        imagePath = SAJsonParser.getString(json, "imagePath");
+        vastAd = new SAVASTAd(SAJsonParser.getJsonObject(json, "vastAd"));
     }
 
     @Override
     public JSONObject writeToJson() {
-        JSONObject json = new JSONObject();
-        try {
-            json.put("adHtml", adHtml);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        try {
-            json.put("imagePath", imagePath);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        if (vastAd != null) {
-            try {
-                json.put("vastAd", vastAd.writeToJson());
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-
-        return json;
+        return SAJsonParser.newObject(new Object[]{
+                "adHtml", adHtml,
+                "imagePath", imagePath,
+                "vastAd", vastAd.writeToJson()
+        });
     }
 }

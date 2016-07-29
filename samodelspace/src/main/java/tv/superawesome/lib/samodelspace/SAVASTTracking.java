@@ -7,6 +7,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import tv.superawesome.lib.sajsonparser.JSONSerializable;
+import tv.superawesome.lib.sajsonparser.SAJsonParser;
 
 /**
  * Created by gabriel.coman on 22/12/15.
@@ -20,7 +21,7 @@ public class SAVASTTracking implements Parcelable, JSONSerializable {
 
     }
 
-    public SAVASTTracking(JSONObject json) throws JSONException{
+    public SAVASTTracking(JSONObject json) {
         readFromJson(json);
     }
 
@@ -54,27 +55,15 @@ public class SAVASTTracking implements Parcelable, JSONSerializable {
 
     @Override
     public void readFromJson(JSONObject json){
-        if (!json.isNull("event")){
-            event = json.optString("event");
-        }
-        if (!json.isNull("url")){
-            url = json.optString("url");
-        }
+        event = SAJsonParser.getString(json, "event");
+        url = SAJsonParser.getString(json, "url");
     }
 
     @Override
     public JSONObject writeToJson() {
-        JSONObject json = new JSONObject();
-        try {
-            json.put("event", event);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        try {
-            json.put("url", url);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return json;
+        return SAJsonParser.newObject(new Object[]{
+                "event", event,
+                "url", url
+        });
     }
 }

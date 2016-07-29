@@ -12,11 +12,13 @@ package tv.superawesome.lib.samodelspace;
  **/
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.view.View;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import tv.superawesome.lib.sajsonparser.JSONSerializable;
+import tv.superawesome.lib.sajsonparser.SAJsonParser;
 
 /**
  * The SADetails class contains fine grained information about the creative
@@ -51,7 +53,7 @@ public class SADetails implements Parcelable, JSONSerializable{
         /** do nothing */
     }
 
-    public SADetails(JSONObject json) throws JSONException {
+    public SADetails(JSONObject json) {
         readFromJson(json);
     }
 
@@ -111,138 +113,40 @@ public class SADetails implements Parcelable, JSONSerializable{
 
     @Override
     public void readFromJson(JSONObject json) {
-        if (!json.isNull("width")){
-            width = json.optInt("width");
-        }
-        if (!json.isNull("height")){
-            height = json.optInt("height");
-        }
-        if (!json.isNull("image")){
-            image = json.optString("image");
-        }
-        if (!json.isNull("value")){
-            value = json.optInt("value");
-        }
-        if (!json.isNull("name")){
-            name = json.optString("name");
-        }
-        if (!json.isNull("video")){
-            video = json.optString("video");
-        }
-        if (!json.isNull("bitrate")){
-            bitrate = json.optInt("bitrate");
-        }
-        if (!json.isNull("duration")){
-            duration = json.optInt("duration");
-        }
-        if (!json.isNull("vast")){
-            vast = json.optString("vast");
-        }
-        if (!json.isNull("tag")){
-            tag = json.optString("tag");
-        }
-        if (!json.isNull("zipFile")){
-            zipFile = json.optString("zipFile");
-        }
-        if (!json.isNull("url")){
-            url = json.optString("url");
-        }
-        if (!json.isNull("placement_format")){
-            placementFormat = json.optString("placement_format");
-        }
-        if (!json.isNull("cdnUrl")) {
-            cdnUrl = json.optString("cdnUrl");
-        }
-        if (!json.isNull("data")){
-            JSONObject obj = json.optJSONObject("data");
-            try {
-                data = new SAData(obj);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
+        width = SAJsonParser.getInt(json, "width");
+        height = SAJsonParser.getInt(json, "height");
+        image = SAJsonParser.getString(json, "image");
+        value = SAJsonParser.getInt(json, "value");
+        name = SAJsonParser.getString(json, "name");
+        video = SAJsonParser.getString(json, "video");
+        bitrate = SAJsonParser.getInt(json, "bitrate");
+        duration = SAJsonParser.getInt(json, "duration");
+        vast = SAJsonParser.getString(json, "vast");
+        tag = SAJsonParser.getString(json, "tag");
+        zipFile = SAJsonParser.getString(json, "zipFile");
+        url = SAJsonParser.getString(json, "url");
+        placementFormat = SAJsonParser.getString(json, "placement_format");
+        cdnUrl = SAJsonParser.getString(json, "cdnUrl");
+        data = new SAData(SAJsonParser.getJsonObject(json, "data"));
     }
 
     @Override
     public JSONObject writeToJson() {
-        JSONObject json = new JSONObject();
-        try {
-            json.put("width", width);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        try {
-            json.put("height", height);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        try {
-            json.put("image", image);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        try {
-            json.put("value", value);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        try {
-            json.put("name", name);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        try {
-            json.put("video", video);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        try {
-            json.put("bitrate", bitrate);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        try {
-            json.put("duration", duration);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        try {
-            json.put("vast", vast);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        try {
-            json.put("tag", tag);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        try {
-            json.put("zipFile", zipFile);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        try {
-            json.put("url", url);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        try {
-            json.put("placement_format", placementFormat);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        try {
-            json.put("cdnUrl", cdnUrl);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        if (data != null) {
-            try {
-                json.put("data", data.writeToJson());
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-        return json;
+        return SAJsonParser.newObject(new Object[]{
+                "width", width,
+                "height", height,
+                "image", image,
+                "value", value,
+                "name", name,
+                "video", video,
+                "bitrate", bitrate,
+                "duration", duration,
+                "vast", vast,
+                "tag", tag,
+                "zipFile", zipFile,
+                "placement_format", placementFormat,
+                "cdnUrl", cdnUrl,
+                "data", data.writeToJson()
+        });
     }
 }

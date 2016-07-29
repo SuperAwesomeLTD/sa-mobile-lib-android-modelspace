@@ -13,6 +13,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import tv.superawesome.lib.sajsonparser.JSONSerializable;
+import tv.superawesome.lib.sajsonparser.SAJsonParser;
 
 /**
  * Created by gabriel.coman on 22/12/15.
@@ -36,7 +37,7 @@ public class SAVASTCreative implements Parcelable, JSONSerializable {
 
     }
 
-    public SAVASTCreative(JSONObject json) throws JSONException{
+    public SAVASTCreative(JSONObject json) {
         readFromJson(json);
     }
 
@@ -85,17 +86,17 @@ public class SAVASTCreative implements Parcelable, JSONSerializable {
         }
 
         /** now add all other things */
-        for (Iterator<SAVASTMediaFile> i = creative.mediaFiles.iterator(); i.hasNext(); ) {
-            this.mediaFiles.add(i.next());
+        for (SAVASTMediaFile mediaFile : creative.mediaFiles) {
+            this.mediaFiles.add(mediaFile);
         }
-        for (Iterator<SAVASTTracking> i = creative.trackingEvents.iterator(); i.hasNext(); ) {
-            this.trackingEvents.add(i.next());
+        for (SAVASTTracking trackingEvent : creative.trackingEvents) {
+            this.trackingEvents.add(trackingEvent);
         }
-        for (Iterator<String> i = creative.clickTracking.iterator(); i.hasNext(); ) {
-            this.clickTracking.add(i.next());
+        for (String aClickTracking : creative.clickTracking) {
+            this.clickTracking.add(aClickTracking);
         }
-        for (Iterator<String> i = creative.customClicks.iterator(); i.hasNext(); ) {
-            this.customClicks.add(i.next());
+        for (String customClick : creative.customClicks) {
+            this.customClicks.add(customClick);
         }
     }
 
@@ -123,183 +124,86 @@ public class SAVASTCreative implements Parcelable, JSONSerializable {
 
     @Override
     public void readFromJson(JSONObject json) {
-        if (!json.isNull("id")) {
-            id = json.optString("id");
+        id = SAJsonParser.getString(json, "id");
+        sequence = SAJsonParser.getString(json, "sequence");
+        duration = SAJsonParser.getString(json, "duration");
+        clickThrough = SAJsonParser.getString(json, "clickThrough");
+        playableMediaUrl = SAJsonParser.getString(json, "playableMediaUrl");
+        playableDiskUrl = SAJsonParser.getString(json, "playableDiskUrl");
+        isOnDisk = SAJsonParser.getBoolean(json, "isOnDisk");
+
+        mediaFiles = new ArrayList<>();
+        JSONArray jsonArray1 = SAJsonParser.getJsonArray(json, "mediaFiles", new JSONArray());
+        for (int i = 0; i < jsonArray1.length(); i++){
+            mediaFiles.add(new SAVASTMediaFile(jsonArray1.optJSONObject(i)));
         }
-        if (!json.isNull("sequence")) {
-            sequence = json.optString("sequence");
+
+        trackingEvents = new ArrayList<>();
+        JSONArray jsonArray2 = SAJsonParser.getJsonArray(json, "trackingEvents", new JSONArray());
+        for (int i = 0; i < jsonArray2.length(); i++) {
+            trackingEvents.add(new SAVASTTracking(jsonArray2.optJSONObject(i)));
         }
-        if (!json.isNull("duration")) {
-            duration = json.optString("duration");
+
+        clickTracking = new ArrayList<>();
+        JSONArray jsonArray3 = SAJsonParser.getJsonArray(json, "clickTracking", new JSONArray());
+        for (int i = 0; i < jsonArray3.length(); i++) {
+            try {
+                clickTracking.add(jsonArray3.getString(i));
+            } catch (JSONException ignored) {}
         }
-        if (!json.isNull("clickThrough")) {
-            clickThrough = json.optString("clickThrough");
+
+        customClicks = new ArrayList<>();
+        JSONArray jsonArray4 = SAJsonParser.getJsonArray(json, "customClicks", new JSONArray());
+        for (int i = 0; i < jsonArray4.length(); i++) {
+            try {
+                customClicks.add(jsonArray4.getString(i));
+            } catch (JSONException ignored) {}
         }
-        if (!json.isNull("playableMediaUrl")) {
-            playableMediaUrl = json.optString("playableMediaUrl");
+
+        String typeStr = SAJsonParser.getString(json, "type", SAVASTCreativeType.Linear.toString());
+        if (typeStr.equals(SAVASTCreativeType.Linear.toString())) {
+            type = SAVASTCreativeType.Linear;
         }
-        if (!json.isNull("playableDiskUrl")) {
-            playableDiskUrl = json.optString("playableDiskUrl");
+        if (typeStr.equals(SAVASTCreativeType.NonLinear.toString())) {
+            type = SAVASTCreativeType.NonLinear;
         }
-        if (!json.isNull("isOnDisk")){
-            isOnDisk = json.optBoolean("isOnDisk");
-        }
-        if (!json.isNull("mediaFiles")) {
-            mediaFiles = new ArrayList<SAVASTMediaFile>();
-            JSONArray jsonArray = json.optJSONArray("mediaFiles");
-            for (int i = 0; i < jsonArray.length(); i++){
-                JSONObject obj = jsonArray.optJSONObject(i);
-                try {
-                    SAVASTMediaFile mediaFile = new SAVASTMediaFile(obj);
-                    mediaFiles.add(mediaFile);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        if (!json.isNull("trackingEvents")) {
-            trackingEvents = new ArrayList<SAVASTTracking>();
-            JSONArray jsonArray = json.optJSONArray("trackingEvents");
-            for (int i = 0; i < jsonArray.length(); i++){
-                JSONObject obj = jsonArray.optJSONObject(i);
-                try {
-                    SAVASTTracking tracking = new SAVASTTracking(obj);
-                    trackingEvents.add(tracking);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        if (!json.isNull("clickTracking")){
-            clickTracking = new ArrayList<String>();
-            JSONArray jsonArray = json.optJSONArray("clickTracking");
-            for (int i = 0; i < jsonArray.length(); i++){
-                String obj = jsonArray.optString(i);
-                if (obj != null) {
-                    clickTracking.add(obj);
-                }
-            }
-        }
-        if (!json.isNull("customClicks")){
-            customClicks = new ArrayList<String>();
-            JSONArray jsonArray = json.optJSONArray("customClicks");
-            for (int i = 0; i < jsonArray.length(); i++) {
-                String obj = jsonArray.optString(i);
-                if (obj != null) {
-                    customClicks.add(obj);
-                }
-            }
-        }
-        if (!json.isNull("type")){
-            String obj = json.optString("type");
-            if (obj != null) {
-                if (obj.equals(SAVASTCreativeType.Linear.toString())) {
-                    type = SAVASTCreativeType.Linear;
-                }
-                if (obj.equals(SAVASTCreativeType.NonLinear.toString())) {
-                    type = SAVASTCreativeType.NonLinear;
-                }
-                if (obj.equals(SAVASTCreativeType.CompanionAds.toString())) {
-                    type = SAVASTCreativeType.CompanionAds;
-                }
-            }
+        if (typeStr.equals(SAVASTCreativeType.CompanionAds.toString())) {
+            type = SAVASTCreativeType.CompanionAds;
         }
     }
 
     @Override
     public JSONObject writeToJson() {
-        JSONObject json = new JSONObject();
-        try {
-            json.put("id", id);
-        } catch (JSONException e) {
-            e.printStackTrace();
+        JSONArray mediaFilesArray = new JSONArray();
+        for (SAVASTMediaFile mediaFile : mediaFiles) {
+            mediaFilesArray.put(mediaFile.writeToJson());
         }
-        try {
-            json.put("sequence", sequence);
-        } catch (JSONException e) {
-            e.printStackTrace();
+        JSONArray trackingEventsArray = new JSONArray();
+        for (SAVASTTracking tracking : trackingEvents) {
+            trackingEventsArray.put(tracking.writeToJson());
         }
-        try {
-            json.put("duration", duration);
-        } catch (JSONException e) {
-            e.printStackTrace();
+        JSONArray clickTrackingJsonArray = new JSONArray();
+        for (String click : clickTracking) {
+            clickTrackingJsonArray.put(click);
         }
-        try {
-            json.put("type", type);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        try {
-            json.put("clickThrough", clickThrough);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        try {
-            json.put("playableMediaUrl", playableMediaUrl);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        try {
-            json.put("playableDiskUrl", playableDiskUrl);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        try {
-            json.put("isOnDisk", isOnDisk);
-        } catch (JSONException e) {
-            e.printStackTrace();
+        JSONArray customClicksJsonArray = new JSONArray();
+        for (String click : customClicks) {
+            customClicksJsonArray.put(click);
         }
 
-        if (mediaFiles != null) {
-            JSONArray mediaFileJsonArray = new JSONArray();
-            for (SAVASTMediaFile mediaFile : mediaFiles) {
-                mediaFileJsonArray.put(mediaFile.writeToJson());
-            }
-            try {
-                json.put("mediaFiles", mediaFileJsonArray);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-
-        if (trackingEvents != null) {
-            JSONArray trackingEventsJsonArray = new JSONArray();
-            for (SAVASTTracking tracking : trackingEvents) {
-                trackingEventsJsonArray.put(tracking.writeToJson());
-            }
-            try {
-                json.put("trackingEvents", trackingEventsJsonArray);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-
-        if (clickTracking != null) {
-            JSONArray clickTrackingJsonArray = new JSONArray();
-            for (String click : clickTracking) {
-                clickTrackingJsonArray.put(click);
-            }
-            try {
-                json.put("clickTracking", clickTrackingJsonArray);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-
-        if (customClicks != null) {
-            JSONArray customClicksJsonArray = new JSONArray();
-            for (String click : customClicks) {
-                customClicksJsonArray.put(click);
-            }
-            try {
-                json.put("customClicks", customClicksJsonArray);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-
-        return json;
+        return SAJsonParser.newObject(new Object[]{
+                "id", id,
+                "sequence", sequence,
+                "duration", duration,
+                "type", type.toString(),
+                "clickThrough", clickThrough,
+                "playableDiskUrl", playableDiskUrl,
+                "playableMediaUrl", playableMediaUrl,
+                "isOnDisk", isOnDisk,
+                "mediaFiles", mediaFilesArray,
+                "trackingEvents", trackingEventsArray,
+                "clickTracking", clickTrackingJsonArray,
+                "customClicks", customClicksJsonArray
+        });
     }
-
-
 }
