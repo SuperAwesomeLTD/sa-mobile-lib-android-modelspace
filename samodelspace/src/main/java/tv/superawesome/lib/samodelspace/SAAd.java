@@ -143,4 +143,22 @@ public class SAAd implements Parcelable, JSONSerializable {
                 "creative", creative != null ? creative.writeToJson() : null
         });
     }
+
+    @Override
+    public boolean isValid() {
+
+        if (creative == null)  return false;
+        if (creative.creativeFormat == SACreativeFormat.invalid) return false;
+        if (creative.details == null) return false;
+
+        switch (creative.creativeFormat) {
+            case image:{ if (creative.details.image == null) return false; break; }
+            case video:{ if (creative.details.vast == null)  return false; break; }
+            case rich:{ if (creative.details.url == null)  return false; break; }
+            case tag:{ if (creative.details.tag == null)  return false; break; }
+            default:{ break; }
+        }
+
+        return true;
+    }
 }

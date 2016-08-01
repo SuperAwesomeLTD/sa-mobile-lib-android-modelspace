@@ -90,4 +90,9 @@ public class SACPIData implements Parcelable, JSONSerializable {
                 "placementId", placementId
         });
     }
+
+    @Override
+    public boolean isValid() {
+        return true;
+    }
 }

@@ -10,7 +10,9 @@ import java.util.Iterator;
 import java.util.List;
 
 import tv.superawesome.lib.sajsonparser.JSONSerializable;
+import tv.superawesome.lib.sajsonparser.SAJsonToList;
 import tv.superawesome.lib.sajsonparser.SAJsonParser;
+import tv.superawesome.lib.sajsonparser.SAListToJson;
 
 public class SAVASTAd implements Parcelable, JSONSerializable {
 
@@ -107,35 +109,49 @@ public class SAVASTAd implements Parcelable, JSONSerializable {
             type = SAVASTAdType.Wrapper;
         }
 
-        errors = new ArrayList<>();
-        JSONArray jsonArray1 = SAJsonParser.getJsonArray(json, "errors", new JSONArray());
-        for (int i = 0; i < jsonArray1.length(); i++){
-            try {
-                errors.add(jsonArray1.getString(i));
-            } catch (JSONException ignored) {}
-        }
+        errors = SAJsonParser.getListFromJsonArray(json, "errors", new SAJsonToList<String, String>() {
+            @Override
+            public String traverseItem(String s) {
+                return s;
+            }
+        });
 
-        impressions = new ArrayList<>();
-        JSONArray jsonArray2 = SAJsonParser.getJsonArray(json, "impressions", new JSONArray());
-        for (int i = 0; i < jsonArray2.length(); i++) {
-            try {
-                impressions.add(jsonArray2.getString(i));
-            } catch (JSONException ignored) {}
-        }
+        impressions = SAJsonParser.getListFromJsonArray(json, "impressions", new SAJsonToList<String, String>() {
+            @Override
+            public String traverseItem(String s) {
+                return s;
+            }
+        });
+
+//        errors = new ArrayList<>();
+//        JSONArray jsonArray1 = SAJsonParser.getJsonArray(json, "errors", new JSONArray());
+//        for (int i = 0; i < jsonArray1.length(); i++){
+//            try {
+//                errors.add(jsonArray1.getString(i));
+//            } catch (JSONException ignored) {}
+//        }
+
+//        impressions = new ArrayList<>();
+//        JSONArray jsonArray2 = SAJsonParser.getJsonArray(json, "impressions", new JSONArray());
+//        for (int i = 0; i < jsonArray2.length(); i++) {
+//            try {
+//                impressions.add(jsonArray2.getString(i));
+//            } catch (JSONException ignored) {}
+//        }
     }
 
     @Override
     public JSONObject writeToJson() {
 
-        JSONArray errorsJsonArray = new JSONArray();
-        for (String error : errors) {
-            errorsJsonArray.put(error);
-        }
-
-        JSONArray impressionsJsonArray = new JSONArray();
-        for (String impression : impressions) {
-            impressionsJsonArray.put(impression);
-        }
+//        JSONArray errorsJsonArray = new JSONArray();
+//        for (String error : errors) {
+//            errorsJsonArray.put(error);
+//        }
+//
+//        JSONArray impressionsJsonArray = new JSONArray();
+//        for (String impression : impressions) {
+//            impressionsJsonArray.put(impression);
+//        }
 
         return SAJsonParser.newObject(new Object[] {
                 "type", type.toString(),
@@ -144,8 +160,23 @@ public class SAVASTAd implements Parcelable, JSONSerializable {
                 "sequence", sequence,
                 "isImpressionSent", isImpressionSent,
                 "creative", creative != null ? creative.writeToJson() : null,
-                "errors", errorsJsonArray,
-                "impressions", impressionsJsonArray
+                "errors", SAJsonParser.getJsonArrayFromList(errors, new SAListToJson<String, String>() {
+                        @Override
+                        public String traverseItem(String s) {
+                            return s;
+                        }
+                    }),
+                "impressions", SAJsonParser.getJsonArrayFromList(impressions, new SAListToJson<String, String>() {
+                        @Override
+                        public String traverseItem(String s) {
+                            return s;
+                        }
+                    })
         });
+    }
+
+    @Override
+    public boolean isValid() {
+        return true;
     }
 }

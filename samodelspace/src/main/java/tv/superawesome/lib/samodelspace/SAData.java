@@ -70,4 +70,9 @@ public class SAData implements Parcelable, JSONSerializable {
                 "vastAd", vastAd != null ? vastAd.writeToJson() : null
         });
     }
+
+    @Override
+    public boolean isValid() {
+        return true;
+    }
 }

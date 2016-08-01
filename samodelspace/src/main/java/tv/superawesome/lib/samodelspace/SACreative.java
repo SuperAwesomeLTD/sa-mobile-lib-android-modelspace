@@ -179,4 +179,9 @@ public class SACreative implements Parcelable, JSONSerializable {
         });
 
     }
+
+    @Override
+    public boolean isValid() {
+        return true;
+    }
 }

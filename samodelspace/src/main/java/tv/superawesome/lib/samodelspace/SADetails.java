@@ -149,4 +149,9 @@ public class SADetails implements Parcelable, JSONSerializable{
                 "data", data != null ? data.writeToJson() : null
         });
     }
+
+    @Override
+    public boolean isValid() {
+        return true;
+    }
 }

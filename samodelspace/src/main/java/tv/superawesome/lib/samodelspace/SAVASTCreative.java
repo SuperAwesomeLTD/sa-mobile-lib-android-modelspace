@@ -13,7 +13,9 @@ import java.util.Iterator;
 import java.util.List;
 
 import tv.superawesome.lib.sajsonparser.JSONSerializable;
+import tv.superawesome.lib.sajsonparser.SAJsonToList;
 import tv.superawesome.lib.sajsonparser.SAJsonParser;
+import tv.superawesome.lib.sajsonparser.SAListToJson;
 
 /**
  * Created by gabriel.coman on 22/12/15.
@@ -132,33 +134,62 @@ public class SAVASTCreative implements Parcelable, JSONSerializable {
         playableDiskUrl = SAJsonParser.getString(json, "playableDiskUrl");
         isOnDisk = SAJsonParser.getBoolean(json, "isOnDisk");
 
-        mediaFiles = new ArrayList<>();
-        JSONArray jsonArray1 = SAJsonParser.getJsonArray(json, "mediaFiles", new JSONArray());
-        for (int i = 0; i < jsonArray1.length(); i++){
-            mediaFiles.add(new SAVASTMediaFile(jsonArray1.optJSONObject(i)));
-        }
+        mediaFiles = SAJsonParser.getListFromJsonArray(json, "mediaFiles", new SAJsonToList<SAVASTMediaFile, JSONObject>() {
+            @Override
+            public SAVASTMediaFile traverseItem(JSONObject jsonObject) {
+                return new SAVASTMediaFile(jsonObject);
+            }
+        });
 
-        trackingEvents = new ArrayList<>();
-        JSONArray jsonArray2 = SAJsonParser.getJsonArray(json, "trackingEvents", new JSONArray());
-        for (int i = 0; i < jsonArray2.length(); i++) {
-            trackingEvents.add(new SAVASTTracking(jsonArray2.optJSONObject(i)));
-        }
+        trackingEvents = SAJsonParser.getListFromJsonArray(json, "trackingEvents", new SAJsonToList<SAVASTTracking, JSONObject>() {
+            @Override
+            public SAVASTTracking traverseItem(JSONObject jsonObject) {
+                return new SAVASTTracking(jsonObject);
+            }
+        });
 
-        clickTracking = new ArrayList<>();
-        JSONArray jsonArray3 = SAJsonParser.getJsonArray(json, "clickTracking", new JSONArray());
-        for (int i = 0; i < jsonArray3.length(); i++) {
-            try {
-                clickTracking.add(jsonArray3.getString(i));
-            } catch (JSONException ignored) {}
-        }
+        clickTracking = SAJsonParser.getListFromJsonArray(json, "clickTracking", new SAJsonToList<String, String>() {
+            @Override
+            public String traverseItem(String s) {
+                return s;
+            }
+        });
 
-        customClicks = new ArrayList<>();
-        JSONArray jsonArray4 = SAJsonParser.getJsonArray(json, "customClicks", new JSONArray());
-        for (int i = 0; i < jsonArray4.length(); i++) {
-            try {
-                customClicks.add(jsonArray4.getString(i));
-            } catch (JSONException ignored) {}
-        }
+        customClicks = SAJsonParser.getListFromJsonArray(json, "customClicks", new SAJsonToList<String, String>() {
+            @Override
+            public String traverseItem(String s) {
+                return s;
+            }
+        });
+
+
+//        mediaFiles = new ArrayList<>();
+//        JSONArray jsonArray1 = SAJsonParser.getJsonArray(json, "mediaFiles", new JSONArray());
+//        for (int i = 0; i < jsonArray1.length(); i++){
+//            mediaFiles.add(new SAVASTMediaFile(jsonArray1.optJSONObject(i)));
+//        }
+
+//        trackingEvents = new ArrayList<>();
+//        JSONArray jsonArray2 = SAJsonParser.getJsonArray(json, "trackingEvents", new JSONArray());
+//        for (int i = 0; i < jsonArray2.length(); i++) {
+//            trackingEvents.add(new SAVASTTracking(jsonArray2.optJSONObject(i)));
+//        }
+
+//        clickTracking = new ArrayList<>();
+//        JSONArray jsonArray3 = SAJsonParser.getJsonArray(json, "clickTracking", new JSONArray());
+//        for (int i = 0; i < jsonArray3.length(); i++) {
+//            try {
+//                clickTracking.add(jsonArray3.getString(i));
+//            } catch (JSONException ignored) {}
+//        }
+
+//        customClicks = new ArrayList<>();
+//        JSONArray jsonArray4 = SAJsonParser.getJsonArray(json, "customClicks", new JSONArray());
+//        for (int i = 0; i < jsonArray4.length(); i++) {
+//            try {
+//                customClicks.add(jsonArray4.getString(i));
+//            } catch (JSONException ignored) {}
+//        }
 
         String typeStr = SAJsonParser.getString(json, "type", SAVASTCreativeType.Linear.toString());
         if (typeStr.equals(SAVASTCreativeType.Linear.toString())) {
@@ -174,22 +205,22 @@ public class SAVASTCreative implements Parcelable, JSONSerializable {
 
     @Override
     public JSONObject writeToJson() {
-        JSONArray mediaFilesArray = new JSONArray();
-        for (SAVASTMediaFile mediaFile : mediaFiles) {
-            mediaFilesArray.put(mediaFile.writeToJson());
-        }
-        JSONArray trackingEventsArray = new JSONArray();
-        for (SAVASTTracking tracking : trackingEvents) {
-            trackingEventsArray.put(tracking.writeToJson());
-        }
-        JSONArray clickTrackingJsonArray = new JSONArray();
-        for (String click : clickTracking) {
-            clickTrackingJsonArray.put(click);
-        }
-        JSONArray customClicksJsonArray = new JSONArray();
-        for (String click : customClicks) {
-            customClicksJsonArray.put(click);
-        }
+//        JSONArray mediaFilesArray = new JSONArray();
+//        for (SAVASTMediaFile mediaFile : mediaFiles) {
+//            mediaFilesArray.put(mediaFile.writeToJson());
+//        }
+//        JSONArray trackingEventsArray = new JSONArray();
+//        for (SAVASTTracking tracking : trackingEvents) {
+//            trackingEventsArray.put(tracking.writeToJson());
+//        }
+//        JSONArray clickTrackingJsonArray = new JSONArray();
+//        for (String click : clickTracking) {
+//            clickTrackingJsonArray.put(click);
+//        }
+//        JSONArray customClicksJsonArray = new JSONArray();
+//        for (String click : customClicks) {
+//            customClicksJsonArray.put(click);
+//        }
 
         return SAJsonParser.newObject(new Object[]{
                 "id", id,
@@ -200,10 +231,35 @@ public class SAVASTCreative implements Parcelable, JSONSerializable {
                 "playableDiskUrl", playableDiskUrl,
                 "playableMediaUrl", playableMediaUrl,
                 "isOnDisk", isOnDisk,
-                "mediaFiles", mediaFilesArray,
-                "trackingEvents", trackingEventsArray,
-                "clickTracking", clickTrackingJsonArray,
-                "customClicks", customClicksJsonArray
+                "mediaFiles", SAJsonParser.getJsonArrayFromList(mediaFiles, new SAListToJson<JSONObject, SAVASTMediaFile>() {
+                        @Override
+                        public JSONObject traverseItem(SAVASTMediaFile savastMediaFile) {
+                            return savastMediaFile.writeToJson();
+                        }
+                    }),
+                "trackingEvents", SAJsonParser.getJsonArrayFromList(trackingEvents, new SAListToJson<JSONObject, SAVASTTracking>() {
+                        @Override
+                        public JSONObject traverseItem(SAVASTTracking savastTracking) {
+                            return savastTracking.writeToJson();
+                        }
+                    }),
+                "clickTracking", SAJsonParser.getJsonArrayFromList(clickTracking, new SAListToJson<String, String>() {
+                        @Override
+                        public String traverseItem(String s) {
+                            return s;
+                        }
+                    }),
+                "customClicks", SAJsonParser.getJsonArrayFromList(customClicks, new SAListToJson<String, String>() {
+                        @Override
+                        public String traverseItem(String s) {
+                            return s;
+                        }
+                    })
         });
+    }
+
+    @Override
+    public boolean isValid() {
+        return true;
     }
 }

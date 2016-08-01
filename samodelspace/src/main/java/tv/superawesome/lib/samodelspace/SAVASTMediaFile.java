@@ -76,4 +76,9 @@ public class SAVASTMediaFile implements Parcelable, JSONSerializable {
                 "type", type
         });
     }
+
+    @Override
+    public boolean isValid() {
+        return true;
+    }
 }

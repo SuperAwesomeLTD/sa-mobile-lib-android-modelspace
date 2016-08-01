@@ -66,4 +66,9 @@ public class SAVASTTracking implements Parcelable, JSONSerializable {
                 "url", url
         });
     }
+
+    @Override
+    public boolean isValid() {
+        return true;
+    }
 }
