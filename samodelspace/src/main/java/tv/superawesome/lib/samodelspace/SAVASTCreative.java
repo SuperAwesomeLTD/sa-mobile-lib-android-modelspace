@@ -162,35 +162,6 @@ public class SAVASTCreative implements Parcelable, JSONSerializable {
             }
         });
 
-
-//        mediaFiles = new ArrayList<>();
-//        JSONArray jsonArray1 = SAJsonParser.getJsonArray(json, "mediaFiles", new JSONArray());
-//        for (int i = 0; i < jsonArray1.length(); i++){
-//            mediaFiles.add(new SAVASTMediaFile(jsonArray1.optJSONObject(i)));
-//        }
-
-//        trackingEvents = new ArrayList<>();
-//        JSONArray jsonArray2 = SAJsonParser.getJsonArray(json, "trackingEvents", new JSONArray());
-//        for (int i = 0; i < jsonArray2.length(); i++) {
-//            trackingEvents.add(new SAVASTTracking(jsonArray2.optJSONObject(i)));
-//        }
-
-//        clickTracking = new ArrayList<>();
-//        JSONArray jsonArray3 = SAJsonParser.getJsonArray(json, "clickTracking", new JSONArray());
-//        for (int i = 0; i < jsonArray3.length(); i++) {
-//            try {
-//                clickTracking.add(jsonArray3.getString(i));
-//            } catch (JSONException ignored) {}
-//        }
-
-//        customClicks = new ArrayList<>();
-//        JSONArray jsonArray4 = SAJsonParser.getJsonArray(json, "customClicks", new JSONArray());
-//        for (int i = 0; i < jsonArray4.length(); i++) {
-//            try {
-//                customClicks.add(jsonArray4.getString(i));
-//            } catch (JSONException ignored) {}
-//        }
-
         String typeStr = SAJsonParser.getString(json, "type", SAVASTCreativeType.Linear.toString());
         if (typeStr.equals(SAVASTCreativeType.Linear.toString())) {
             type = SAVASTCreativeType.Linear;
@@ -205,22 +176,6 @@ public class SAVASTCreative implements Parcelable, JSONSerializable {
 
     @Override
     public JSONObject writeToJson() {
-//        JSONArray mediaFilesArray = new JSONArray();
-//        for (SAVASTMediaFile mediaFile : mediaFiles) {
-//            mediaFilesArray.put(mediaFile.writeToJson());
-//        }
-//        JSONArray trackingEventsArray = new JSONArray();
-//        for (SAVASTTracking tracking : trackingEvents) {
-//            trackingEventsArray.put(tracking.writeToJson());
-//        }
-//        JSONArray clickTrackingJsonArray = new JSONArray();
-//        for (String click : clickTracking) {
-//            clickTrackingJsonArray.put(click);
-//        }
-//        JSONArray customClicksJsonArray = new JSONArray();
-//        for (String click : customClicks) {
-//            customClicksJsonArray.put(click);
-//        }
 
         return SAJsonParser.newObject(new Object[]{
                 "id", id,

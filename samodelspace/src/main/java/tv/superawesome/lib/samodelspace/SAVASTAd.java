@@ -123,35 +123,10 @@ public class SAVASTAd implements Parcelable, JSONSerializable {
             }
         });
 
-//        errors = new ArrayList<>();
-//        JSONArray jsonArray1 = SAJsonParser.getJsonArray(json, "errors", new JSONArray());
-//        for (int i = 0; i < jsonArray1.length(); i++){
-//            try {
-//                errors.add(jsonArray1.getString(i));
-//            } catch (JSONException ignored) {}
-//        }
-
-//        impressions = new ArrayList<>();
-//        JSONArray jsonArray2 = SAJsonParser.getJsonArray(json, "impressions", new JSONArray());
-//        for (int i = 0; i < jsonArray2.length(); i++) {
-//            try {
-//                impressions.add(jsonArray2.getString(i));
-//            } catch (JSONException ignored) {}
-//        }
     }
 
     @Override
     public JSONObject writeToJson() {
-
-//        JSONArray errorsJsonArray = new JSONArray();
-//        for (String error : errors) {
-//            errorsJsonArray.put(error);
-//        }
-//
-//        JSONArray impressionsJsonArray = new JSONArray();
-//        for (String impression : impressions) {
-//            impressionsJsonArray.put(impression);
-//        }
 
         return SAJsonParser.newObject(new Object[] {
                 "type", type.toString(),
