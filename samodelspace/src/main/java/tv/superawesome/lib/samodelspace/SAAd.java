@@ -140,7 +140,7 @@ public class SAAd implements Parcelable, JSONSerializable {
                 "is_house", isHouse,
                 "safe_ad_approved", safeAdApproved,
                 "show_padlock", showPadlock,
-                "creative", creative.writeToJson()
+                "creative", creative != null ? creative.writeToJson() : null
         });
     }
 }

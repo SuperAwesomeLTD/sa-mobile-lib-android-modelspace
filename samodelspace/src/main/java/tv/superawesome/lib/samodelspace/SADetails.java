@@ -146,7 +146,7 @@ public class SADetails implements Parcelable, JSONSerializable{
                 "zipFile", zipFile,
                 "placement_format", placementFormat,
                 "cdnUrl", cdnUrl,
-                "data", data.writeToJson()
+                "data", data != null ? data.writeToJson() : null
         });
     }
 }

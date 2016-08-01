@@ -168,7 +168,7 @@ public class SACreative implements Parcelable, JSONSerializable {
                 "click_url", clickUrl,
                 "live", live,
                 "approved", approved,
-                "details", details.writeToJson(),
+                "details", details != null ? details.writeToJson() : null,
                 "creativeFormat", creativeFormat.toString(),
                 "viewableImpressionUrl", viewableImpressionUrl,
                 "parentalGateCloseUrl", parentalGateCloseUrl,

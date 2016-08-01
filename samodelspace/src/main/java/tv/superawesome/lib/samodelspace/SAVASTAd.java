@@ -143,7 +143,7 @@ public class SAVASTAd implements Parcelable, JSONSerializable {
                 "redirectUri", redirectUri,
                 "sequence", sequence,
                 "isImpressionSent", isImpressionSent,
-                "creative", creative.writeToJson(),
+                "creative", creative != null ? creative.writeToJson() : null,
                 "errors", errorsJsonArray,
                 "impressions", impressionsJsonArray
         });

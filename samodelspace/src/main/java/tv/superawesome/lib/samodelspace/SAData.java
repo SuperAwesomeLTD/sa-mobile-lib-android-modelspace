@@ -67,7 +67,7 @@ public class SAData implements Parcelable, JSONSerializable {
         return SAJsonParser.newObject(new Object[]{
                 "adHtml", adHtml,
                 "imagePath", imagePath,
-                "vastAd", vastAd.writeToJson()
+                "vastAd", vastAd != null ? vastAd.writeToJson() : null
         });
     }
 }
