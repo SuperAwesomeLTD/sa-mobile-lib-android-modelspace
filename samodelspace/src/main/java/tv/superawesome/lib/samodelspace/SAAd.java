@@ -35,6 +35,8 @@ public class SAAd implements Parcelable, JSONSerializable {
     public int placementId;
     public int lineItemId;
     public int campaignId;
+    public int campaignType;
+    public SACampaignType saCampaignType;
     public boolean test;
     public boolean isFallback;
     public boolean isFill;
@@ -62,12 +64,14 @@ public class SAAd implements Parcelable, JSONSerializable {
         placementId = in.readInt();
         lineItemId = in.readInt();
         campaignId = in.readInt();
+        campaignType = in.readInt();
         test = in.readByte() != 0;
         isFallback = in.readByte() != 0;
         isFill = in.readByte() != 0;
         isHouse = in.readByte() != 0;
         safeAdApproved = in.readByte() != 0;
         showPadlock = in.readByte() != 0;
+        saCampaignType = in.readParcelable(SACampaignType.class.getClassLoader());
         creative = in.readParcelable(SACreative.class.getClassLoader());
     }
 
@@ -97,6 +101,8 @@ public class SAAd implements Parcelable, JSONSerializable {
         dest.writeInt(placementId);
         dest.writeInt(lineItemId);
         dest.writeInt(campaignId);
+        dest.writeInt(campaignType);
+        dest.writeParcelable(saCampaignType, flags);
         dest.writeByte((byte) (test ? 1 : 0));
         dest.writeByte((byte) (isFallback ? 1 : 0));
         dest.writeByte((byte) (isFill ? 1 : 0));
@@ -115,6 +121,7 @@ public class SAAd implements Parcelable, JSONSerializable {
         placementId = SAJsonParser.getInt(json, "placementId");
         lineItemId = SAJsonParser.getInt(json, "line_item_id");
         campaignId = SAJsonParser.getInt(json, "campaign_id");
+        campaignType = SAJsonParser.getInt(json, "campaign_type");
         test = SAJsonParser.getBoolean(json, "test");
         isFallback = SAJsonParser.getBoolean(json, "is_fallback");
         isFill = SAJsonParser.getBoolean(json, "is_fill");
@@ -122,6 +129,15 @@ public class SAAd implements Parcelable, JSONSerializable {
         safeAdApproved = SAJsonParser.getBoolean(json, "safe_ad_approved");
         showPadlock = SAJsonParser.getBoolean(json, "show_padlock");
         creative = new SACreative(SAJsonParser.getJsonObject(json, "creative"));
+
+        String obj = SAJsonParser.getString(json, "saCreativeType");
+        if (obj != null) {
+            if (obj.equals("CPI")) {
+                saCampaignType = SACampaignType.CPI;
+            } else if (obj.equals("CMP")) {
+                saCampaignType = SACampaignType.CPM;
+            }
+        }
     }
 
     @Override
@@ -134,6 +150,8 @@ public class SAAd implements Parcelable, JSONSerializable {
                 "placementId", placementId,
                 "line_item_id", lineItemId,
                 "campaign_id", campaignId,
+                "campaign_type", campaignType,
+                "saCampaignType", saCampaignType.toString(),
                 "test", test,
                 "is_fallback", isFallback,
                 "is_fill", isFill,
