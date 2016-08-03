@@ -16,13 +16,13 @@ public class SACPIData implements Parcelable, JSONSerializable {
 
     /**
      * Notes on fields:
-     * advertiserId     = utm_source
+     * configuration    = utm_source (0, 1, 2)
      * campaignId       = utm_campaign
      * lineItemId       = utm_term
      * creativeId       = utm_content
      * placementId      = utm_medium
      */
-    public int advertiserId;
+    public int configuration;
     public int campaignId;
     public int lineItemId;
     public int creativeId;
@@ -38,7 +38,7 @@ public class SACPIData implements Parcelable, JSONSerializable {
     }
 
     protected SACPIData(Parcel in) {
-        advertiserId = in.readInt();
+        configuration = in.readInt();
         campaignId = in.readInt();
         lineItemId = in.readInt();
         creativeId = in.readInt();
@@ -64,7 +64,7 @@ public class SACPIData implements Parcelable, JSONSerializable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(advertiserId);
+        dest.writeInt(configuration);
         dest.writeInt(campaignId);
         dest.writeInt(lineItemId);
         dest.writeInt(creativeId);
@@ -73,7 +73,7 @@ public class SACPIData implements Parcelable, JSONSerializable {
 
     @Override
     public void readFromJson(JSONObject json) {
-        advertiserId = SAJsonParser.getInt(json, "utm_source");
+        configuration = SAJsonParser.getInt(json, "utm_source");
         campaignId = SAJsonParser.getInt(json, "utm_campaign");
         lineItemId = SAJsonParser.getInt(json, "utm_term");
         creativeId = SAJsonParser.getInt(json, "utm_content");
@@ -83,7 +83,7 @@ public class SACPIData implements Parcelable, JSONSerializable {
     @Override
     public JSONObject writeToJson() {
         return SAJsonParser.newObject(new Object[]{
-                "advertiserId", advertiserId,
+                "configuration", configuration,
                 "campaignId", campaignId,
                 "lineItemId", lineItemId,
                 "creativeId", creativeId,
