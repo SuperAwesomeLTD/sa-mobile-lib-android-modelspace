@@ -169,4 +169,20 @@ public class SAAd implements Parcelable, JSONSerializable {
 
         return true;
     }
+
+    /**
+     * Artificial "sum Ad" method
+     * @param dest the destination ad to be summed
+     */
+    public void sumAd (SAAd dest) {
+        if (dest.creative.clickUrl != null) {
+            this.creative.clickUrl = dest.creative.clickUrl;
+        }
+
+        this.creative.events.addAll(dest.creative.events);
+
+        if (dest.creative.details.media != null) {
+            this.creative.details.media = dest.creative.details.media;
+        }
+    }
 }
