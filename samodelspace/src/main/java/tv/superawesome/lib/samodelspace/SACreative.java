@@ -1,30 +1,19 @@
-/**
- * @class: SACreative.java
- * @copyright: (c) 2015 SuperAwesome Ltd. All rights reserved.
- * @author: Gabriel Coman
- * @date: 28/09/2015
- *
- */
 package tv.superawesome.lib.samodelspace;
 
-/**
- * imports for this class
- */
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.jar.JarEntry;
+import java.util.List;
 
 import tv.superawesome.lib.sajsonparser.JSONSerializable;
 import tv.superawesome.lib.sajsonparser.SAJsonParser;
-
+import tv.superawesome.lib.sajsonparser.SAJsonToList;
+import tv.superawesome.lib.sajsonparser.SAListToJson;
 
 /**
- * The creative contains essential ad information like format, click url
- * and such
+ * Created by gabriel.coman on 25/08/16.
  */
 public class SACreative implements Parcelable, JSONSerializable {
 
@@ -32,51 +21,33 @@ public class SACreative implements Parcelable, JSONSerializable {
     public String name;
     public int cpm;
     public String format;
-    public String impressionUrl;
-    public String customPayload;
-    public String clickUrl;
+    public SACreativeFormat creativeFormat;
     public boolean live;
     public boolean approved;
+    public String customPayload;
+    public String clickUrl;
+    public String impressionUrl;
+    public List<SATracking> events;
+
     public SADetails details;
-
-    public SACreativeFormat creativeFormat;
-    public String viewableImpressionUrl;
-    public String trackingUrl;
-    public String parentalGateOpenUrl;
-    public String parentalGateCloseUrl;
-    public String parentalGateFailUrl;
-    public String parentalGateSuccessUrl;
-
-    /**
-     * public constructor
-     */
-    public SACreative() {
-        /** do nothing */
-    }
-
-    public SACreative(JSONObject json) {
-        readFromJson(json);
-    }
 
     protected SACreative(Parcel in) {
         id = in.readInt();
         name = in.readString();
         cpm = in.readInt();
         format = in.readString();
-        impressionUrl = in.readString();
-        customPayload = in.readString();
-        clickUrl = in.readString();
+        creativeFormat = in.readParcelable(SACreativeFormat.class.getClassLoader());
         live = in.readByte() != 0;
         approved = in.readByte() != 0;
-        details = in.readParcelable(SADetails.class.getClassLoader());viewableImpressionUrl = in.readString();
+        customPayload = in.readString();
+        clickUrl = in.readString();
+        impressionUrl = in.readString();
+        events = in.createTypedArrayList(SATracking.CREATOR);
+        details = in.readParcelable(SADetails.class.getClassLoader());
+    }
 
-        creativeFormat = in.readParcelable(SACreativeFormat.class.getClassLoader());
-        viewableImpressionUrl = in.readString();
-        trackingUrl = in.readString();
-        parentalGateCloseUrl = in.readString();
-        parentalGateFailUrl = in.readString();
-        parentalGateOpenUrl = in.readString();
-        parentalGateSuccessUrl = in.readString();
+    public SACreative(JSONObject jsonObject) {
+        readFromJson(jsonObject);
     }
 
     public static final Creator<SACreative> CREATOR = new Creator<SACreative>() {
@@ -102,43 +73,36 @@ public class SACreative implements Parcelable, JSONSerializable {
         dest.writeString(name);
         dest.writeInt(cpm);
         dest.writeString(format);
-        dest.writeString(impressionUrl);
+        dest.writeParcelable(creativeFormat, flags);
+        dest.writeByte((byte) (live ? 1 : 0));
+        dest.writeByte((byte) (approved ? 1 : 0));
         dest.writeString(customPayload);
         dest.writeString(clickUrl);
-        dest.writeByte((byte) (approved ? 1 : 0));
-        dest.writeByte((byte) (live ? 1 : 0));
+        dest.writeString(impressionUrl);
+        dest.writeTypedList(events);
         dest.writeParcelable(details, flags);
-
-        dest.writeString(viewableImpressionUrl);
-        dest.writeString(trackingUrl);
-        dest.writeParcelable(creativeFormat, flags);
-        dest.writeString(parentalGateCloseUrl);
-        dest.writeString(parentalGateFailUrl);
-        dest.writeString(parentalGateOpenUrl);
-        dest.writeString(parentalGateSuccessUrl);
-
     }
 
     @Override
-    public void readFromJson(JSONObject json) {
-        id = SAJsonParser.getInt(json, "id");
-        name = SAJsonParser.getString(json, "name");
-        cpm = SAJsonParser.getInt(json, "cpm");
-        format = SAJsonParser.getString(json, "format");
-        impressionUrl = SAJsonParser.getString(json, "impression_url");
-        clickUrl = SAJsonParser.getString(json, "click_url");
-        customPayload = SAJsonParser.getString(json, "customPayload");
-        approved = SAJsonParser.getBoolean(json, "approved");
-        live = SAJsonParser.getBoolean(json, "live");
-        details = new SADetails(SAJsonParser.getJsonObject(json, "details"));
-        viewableImpressionUrl = SAJsonParser.getString(json, "viewableImpressionUrl");
-        trackingUrl = SAJsonParser.getString(json, "trackingUrl");
-        parentalGateSuccessUrl = SAJsonParser.getString(json, "parentalGateSuccessUrl");
-        parentalGateFailUrl = SAJsonParser.getString(json, "parentalGateFailUrl");
-        parentalGateCloseUrl = SAJsonParser.getString(json, "parentalGateCloseUrl");
-        parentalGateOpenUrl = SAJsonParser.getString(json, "parentalGateOpenUrl");
+    public void readFromJson(JSONObject jsonObject) {
+        id = SAJsonParser.getInt(jsonObject, "id");
+        name = SAJsonParser.getString(jsonObject, "name");
+        cpm = SAJsonParser.getInt(jsonObject, "cpm");
+        format = SAJsonParser.getString(jsonObject, "format");
+        live = SAJsonParser.getBoolean(jsonObject, "live");
+        approved = SAJsonParser.getBoolean(jsonObject, "approved");
+        customPayload = SAJsonParser.getString(jsonObject, "customPayload");
+        clickUrl = SAJsonParser.getString(jsonObject, "clickUrl");
+        impressionUrl = SAJsonParser.getString(jsonObject, "impressionUrl");
+        events = SAJsonParser.getListFromJsonArray(jsonObject, "events", new SAJsonToList<SATracking, JSONObject>() {
+            @Override
+            public SATracking traverseItem(JSONObject jsonObject) {
+                return new SATracking(jsonObject);
+            }
+        });
+        details = new SADetails(SAJsonParser.getJsonObject(jsonObject, "details"));
 
-        String obj = SAJsonParser.getString(json, "creativeFormat", SACreativeFormat.invalid.toString());
+        String obj = SAJsonParser.getString(jsonObject, "creativeFormat", SACreativeFormat.invalid.toString());
         if (obj.equals(SACreativeFormat.invalid.toString())){
             creativeFormat = SACreativeFormat.invalid;
         }
@@ -158,26 +122,25 @@ public class SACreative implements Parcelable, JSONSerializable {
 
     @Override
     public JSONObject writeToJson() {
-        return SAJsonParser.newObject(new Object[]{
+        return SAJsonParser.newObject(new Object[] {
                 "id", id,
                 "name", name,
                 "cpm", cpm,
                 "format", format,
-                "impression_url", impressionUrl,
-                "customPayload", customPayload,
-                "click_url", clickUrl,
+                "creativeFormat", creativeFormat.toString(),
                 "live", live,
                 "approved", approved,
-                "details", details != null ? details.writeToJson() : null,
-                "creativeFormat", creativeFormat.toString(),
-                "viewableImpressionUrl", viewableImpressionUrl,
-                "parentalGateCloseUrl", parentalGateCloseUrl,
-                "parentalGateFailUrl", parentalGateFailUrl,
-                "parentalGateSuccessUrl", parentalGateSuccessUrl,
-                "parentalGateOpenUrl", parentalGateOpenUrl,
-                "trackingUrl", trackingUrl
+                "customPayload", customPayload,
+                "clickUrl", clickUrl,
+                "impressionUrl", impressionUrl,
+                "events", SAJsonParser.getJsonArrayFromList(events, new SAListToJson<JSONObject, SATracking>() {
+                    @Override
+                    public JSONObject traverseItem(SATracking saTracking) {
+                        return saTracking.writeToJson();
+                    }
+                }),
+                "details", details.writeToJson()
         });
-
     }
 
     @Override

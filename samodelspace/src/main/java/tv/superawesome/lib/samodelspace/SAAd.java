@@ -1,78 +1,60 @@
-/**
- * @class: SAAd.java
- * @copyright: (c) 2015 SuperAwesome Ltd. All rights reserved.
- * @author: Gabriel Coman
- * @date: 28/09/2015
- *
- */
 package tv.superawesome.lib.samodelspace;
 
-/**
- * Imports needed for this class
- */
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.ArrayDeque;
 
 import tv.superawesome.lib.sajsonparser.JSONSerializable;
 import tv.superawesome.lib.sajsonparser.SAJsonParser;
 
 /**
- * This model class contains all information that is received from the server
- * when an Ad is requested, as well as some aux fields that will be generated
- * by the SDK
+ * Created by gabriel.coman on 25/08/16.
  */
 public class SAAd implements Parcelable, JSONSerializable {
-
     public int error;
     public int advertiserId;
     public int publisherId;
     public int app;
-    public int placementId;
     public int lineItemId;
     public int campaignId;
-    public int campaignType;
-    public SACampaignType saCampaignType;
+    public int placementId;
     public boolean test;
     public boolean isFallback;
     public boolean isFill;
     public boolean isHouse;
     public boolean safeAdApproved;
     public boolean showPadlock;
+
+    public boolean isVAST;
+    public SAVASTAdType vastType;
+    public String vastRedirect;
+
     public SACreative creative;
 
-    /**
-     * public constructor
-     */
-    public SAAd() {
-        /** do nothing */
-    }
-
-    public SAAd(JSONObject json) {
-        readFromJson(json);
-    }
 
     protected SAAd(Parcel in) {
         error = in.readInt();
         advertiserId = in.readInt();
         publisherId = in.readInt();
         app = in.readInt();
-        placementId = in.readInt();
         lineItemId = in.readInt();
         campaignId = in.readInt();
-        campaignType = in.readInt();
+        placementId = in.readInt();
         test = in.readByte() != 0;
         isFallback = in.readByte() != 0;
         isFill = in.readByte() != 0;
         isHouse = in.readByte() != 0;
         safeAdApproved = in.readByte() != 0;
         showPadlock = in.readByte() != 0;
-        saCampaignType = in.readParcelable(SACampaignType.class.getClassLoader());
+        isVAST = in.readByte() != 0;
+        vastType = in.readParcelable(SAVASTAdType.class.getClassLoader());
+        vastRedirect = in.readString();
         creative = in.readParcelable(SACreative.class.getClassLoader());
+    }
+
+    public SAAd(JSONObject jsonObject) {
+        readFromJson(jsonObject);
     }
 
     public static final Creator<SAAd> CREATOR = new Creator<SAAd>() {
@@ -98,67 +80,72 @@ public class SAAd implements Parcelable, JSONSerializable {
         dest.writeInt(advertiserId);
         dest.writeInt(publisherId);
         dest.writeInt(app);
-        dest.writeInt(placementId);
         dest.writeInt(lineItemId);
         dest.writeInt(campaignId);
-        dest.writeInt(campaignType);
-        dest.writeParcelable(saCampaignType, flags);
+        dest.writeInt(placementId);
         dest.writeByte((byte) (test ? 1 : 0));
         dest.writeByte((byte) (isFallback ? 1 : 0));
         dest.writeByte((byte) (isFill ? 1 : 0));
         dest.writeByte((byte) (isHouse ? 1 : 0));
         dest.writeByte((byte) (safeAdApproved ? 1 : 0));
         dest.writeByte((byte) (showPadlock ? 1 : 0));
+        dest.writeByte((byte) (isVAST ? 1 : 0));
+        dest.writeParcelable(vastType, flags);
+        dest.writeString(vastRedirect);
         dest.writeParcelable(creative, flags);
     }
 
     @Override
-    public void readFromJson(JSONObject json) {
-        error = SAJsonParser.getInt(json, "error");
-        advertiserId = SAJsonParser.getInt(json, "advertiserId");
-        publisherId = SAJsonParser.getInt(json, "publisherId");
-        app = SAJsonParser.getInt(json, "app");
-        placementId = SAJsonParser.getInt(json, "placementId");
-        lineItemId = SAJsonParser.getInt(json, "line_item_id");
-        campaignId = SAJsonParser.getInt(json, "campaign_id");
-        campaignType = SAJsonParser.getInt(json, "campaign_type");
-        test = SAJsonParser.getBoolean(json, "test");
-        isFallback = SAJsonParser.getBoolean(json, "is_fallback");
-        isFill = SAJsonParser.getBoolean(json, "is_fill");
-        isHouse = SAJsonParser.getBoolean(json, "is_house");
-        safeAdApproved = SAJsonParser.getBoolean(json, "safe_ad_approved");
-        showPadlock = SAJsonParser.getBoolean(json, "show_padlock");
-        creative = new SACreative(SAJsonParser.getJsonObject(json, "creative"));
+    public void readFromJson(JSONObject jsonObject) {
+        error = SAJsonParser.getInt(jsonObject, "error");
+        advertiserId = SAJsonParser.getInt(jsonObject, "advertiserId");
+        publisherId = SAJsonParser.getInt(jsonObject, "publisherId");
+        app = SAJsonParser.getInt(jsonObject, "app");
+        lineItemId = SAJsonParser.getInt(jsonObject, "lineItemId");
+        campaignId = SAJsonParser.getInt(jsonObject, "campaignId");
+        placementId = SAJsonParser.getInt(jsonObject, "placementId");
+        test = SAJsonParser.getBoolean(jsonObject, "test");
+        isFallback = SAJsonParser.getBoolean(jsonObject, "isFallback");
+        isFill = SAJsonParser.getBoolean(jsonObject, "isFill");
+        isHouse = SAJsonParser.getBoolean(jsonObject, "isHouse");
+        safeAdApproved = SAJsonParser.getBoolean(jsonObject, "safeAdApproved");
+        showPadlock = SAJsonParser.getBoolean(jsonObject, "showPadlock");
+        isVAST = SAJsonParser.getBoolean(jsonObject, "isVAST");
+        vastRedirect = SAJsonParser.getString(jsonObject, "vastRedirect");
+        creative = new SACreative(SAJsonParser.getJsonObject(jsonObject, "creative"));
 
-        String obj = SAJsonParser.getString(json, "saCreativeType");
-        if (obj != null) {
-            if (obj.equals("CPI")) {
-                saCampaignType = SACampaignType.CPI;
-            } else if (obj.equals("CMP")) {
-                saCampaignType = SACampaignType.CPM;
-            }
+        String obj = SAJsonParser.getString(jsonObject, "vastType", SAVASTAdType.Invalid.toString());
+        if (obj.equals(SAVASTAdType.Invalid.toString())){
+            vastType = SAVASTAdType.Invalid;
+        }
+        if (obj.equals(SAVASTAdType.InLine.toString())){
+            vastType = SAVASTAdType.InLine;
+        }
+        if (obj.equals(SAVASTAdType.Wrapper.toString())){
+            vastType = SAVASTAdType.Wrapper;
         }
     }
 
     @Override
     public JSONObject writeToJson() {
-        return SAJsonParser.newObject(new Object[]{
+        return SAJsonParser.newObject(new Object[] {
                 "error", error,
-                "publisherId", publisherId,
                 "advertiserId", advertiserId,
+                "publisherId", publisherId,
                 "app", app,
+                "lineItemId", lineItemId,
+                "campaignId", campaignId,
                 "placementId", placementId,
-                "line_item_id", lineItemId,
-                "campaign_id", campaignId,
-                "campaign_type", campaignType,
-                "saCampaignType", saCampaignType.toString(),
                 "test", test,
-                "is_fallback", isFallback,
-                "is_fill", isFill,
-                "is_house", isHouse,
-                "safe_ad_approved", safeAdApproved,
-                "show_padlock", showPadlock,
-                "creative", creative != null ? creative.writeToJson() : null
+                "isFallback", isFallback,
+                "isFill", isFill,
+                "isHouse", isHouse,
+                "safeAdApproved", safeAdApproved,
+                "showPadlock", showPadlock,
+                "isVAST", isVAST,
+                "vastRedirect", vastRedirect,
+                "vastType", vastType.toString(),
+                "creative", creative.writeToJson()
         });
     }
 

@@ -1,78 +1,54 @@
-/**
- * @class: SACreative.java
- * @copyright: (c) 2015 SuperAwesome Ltd. All rights reserved.
- * @author: Gabriel Coman
- * @date: 28/09/2015
- *
- */
 package tv.superawesome.lib.samodelspace;
 
-/**
- * Useful imports for this class
- **/
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.view.View;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import tv.superawesome.lib.sajsonparser.JSONSerializable;
 import tv.superawesome.lib.sajsonparser.SAJsonParser;
 
 /**
- * The SADetails class contains fine grained information about the creative
- * of an ad (such as width, iamge, vast, tag, etc)
- * Depending on the format of the creative, some fields are essential,
- * and some are optional
- *
- * This dependency is regulated by SAValidator.h
+ * Created by gabriel.coman on 25/08/16.
  */
-public class SADetails implements Parcelable, JSONSerializable{
-
+public class SADetails implements Parcelable, JSONSerializable {
     public int width;
     public int height;
-    public String image;
-    public int value;
     public String name;
-    public String video;
+    public String placementFormat;
     public int bitrate;
     public int duration;
-    public String vast;
+    public int value;
+    public String image;
+    public String video;
     public String tag;
     public String zipFile;
     public String url;
-    public String placementFormat;
     public String cdnUrl;
-    public SAData data;
+    public String vast;
 
-    /**
-     * public constructor
-     */
-    public SADetails() {
-        /** do nothing */
-    }
-
-    public SADetails(JSONObject json) {
-        readFromJson(json);
-    }
+    public SAMedia media;
 
     protected SADetails(Parcel in) {
         width = in.readInt();
         height = in.readInt();
-        image = in.readString();
         name = in.readString();
-        video = in.readString();
+        placementFormat = in.readString();
         bitrate = in.readInt();
         duration = in.readInt();
-        vast = in.readString();
+        value = in.readInt();
+        image = in.readString();
+        video = in.readString();
         tag = in.readString();
         zipFile = in.readString();
         url = in.readString();
-        placementFormat = in.readString();
         cdnUrl = in.readString();
-        value = in.readInt();
-        data = in.readParcelable(SAData.class.getClassLoader());
+        vast = in.readString();
+        media = in.readParcelable(SAMedia.class.getClassLoader());
+    }
+
+    public SADetails(JSONObject jsonObject) {
+        readFromJson(jsonObject);
     }
 
     public static final Creator<SADetails> CREATOR = new Creator<SADetails>() {
@@ -96,57 +72,58 @@ public class SADetails implements Parcelable, JSONSerializable{
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(width);
         dest.writeInt(height);
-        dest.writeString(image);
         dest.writeString(name);
-        dest.writeString(video);
+        dest.writeString(placementFormat);
         dest.writeInt(bitrate);
         dest.writeInt(duration);
-        dest.writeString(vast);
+        dest.writeInt(value);
+        dest.writeString(image);
+        dest.writeString(video);
         dest.writeString(tag);
         dest.writeString(zipFile);
         dest.writeString(url);
-        dest.writeString(placementFormat);
         dest.writeString(cdnUrl);
-        dest.writeInt(value);
-        dest.writeParcelable(data, flags);
+        dest.writeString(vast);
+        dest.writeParcelable(media, flags);
     }
 
     @Override
-    public void readFromJson(JSONObject json) {
-        width = SAJsonParser.getInt(json, "width");
-        height = SAJsonParser.getInt(json, "height");
-        image = SAJsonParser.getString(json, "image");
-        value = SAJsonParser.getInt(json, "value");
-        name = SAJsonParser.getString(json, "name");
-        video = SAJsonParser.getString(json, "video");
-        bitrate = SAJsonParser.getInt(json, "bitrate");
-        duration = SAJsonParser.getInt(json, "duration");
-        vast = SAJsonParser.getString(json, "vast");
-        tag = SAJsonParser.getString(json, "tag");
-        zipFile = SAJsonParser.getString(json, "zipFile");
-        url = SAJsonParser.getString(json, "url");
-        placementFormat = SAJsonParser.getString(json, "placement_format");
-        cdnUrl = SAJsonParser.getString(json, "cdnUrl");
-        data = new SAData(SAJsonParser.getJsonObject(json, "data"));
+    public void readFromJson(JSONObject jsonObject) {
+        width = SAJsonParser.getInt(jsonObject, "width");
+        height = SAJsonParser.getInt(jsonObject, "height");
+        name = SAJsonParser.getString(jsonObject, "name");
+        placementFormat = SAJsonParser.getString(jsonObject, "placementFormat");
+        bitrate = SAJsonParser.getInt(jsonObject, "bitrate");
+        duration = SAJsonParser.getInt(jsonObject, "duration");
+        value = SAJsonParser.getInt(jsonObject, "value");
+        image = SAJsonParser.getString(jsonObject, "image");
+        video = SAJsonParser.getString(jsonObject, "video");
+        tag = SAJsonParser.getString(jsonObject, "tag");
+        zipFile = SAJsonParser.getString(jsonObject, "zipFile");
+        url = SAJsonParser.getString(jsonObject, "url");
+        cdnUrl = SAJsonParser.getString(jsonObject, "cdnUrl");
+        vast = SAJsonParser.getString(jsonObject, "vast");
+        media = new SAMedia(SAJsonParser.getJsonObject(jsonObject, "media"));
     }
 
     @Override
     public JSONObject writeToJson() {
-        return SAJsonParser.newObject(new Object[]{
+        return SAJsonParser.newObject(new Object[] {
                 "width", width,
                 "height", height,
-                "image", image,
-                "value", value,
                 "name", name,
-                "video", video,
+                "placementFormat", placementFormat,
                 "bitrate", bitrate,
                 "duration", duration,
-                "vast", vast,
+                "value", value,
+                "image", image,
+                "video", video,
                 "tag", tag,
                 "zipFile", zipFile,
-                "placement_format", placementFormat,
+                "url", url,
                 "cdnUrl", cdnUrl,
-                "data", data != null ? data.writeToJson() : null
+                "vast", vast,
+                "media", media.writeToJson()
         });
     }
 
