@@ -29,6 +29,10 @@ public class SADetails implements Parcelable, JSONSerializable {
 
     public SAMedia media;
 
+    public SADetails () {
+        media = new SAMedia();
+    }
+
     protected SADetails(Parcel in) {
         width = in.readInt();
         height = in.readInt();

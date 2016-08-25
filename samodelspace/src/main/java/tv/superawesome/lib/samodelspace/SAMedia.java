@@ -26,6 +26,10 @@ public class SAMedia implements Parcelable, JSONSerializable {
         isOnDisk = in.readByte() != 0;
     }
 
+    public SAMedia () {
+        // do nothing
+    }
+
     public SAMedia (JSONObject jsonObject) {
         readFromJson(jsonObject);
     }

@@ -32,6 +32,9 @@ public class SAAd implements Parcelable, JSONSerializable {
 
     public SACreative creative;
 
+    public SAAd () {
+        creative = new SACreative();
+    }
 
     protected SAAd(Parcel in) {
         error = in.readInt();

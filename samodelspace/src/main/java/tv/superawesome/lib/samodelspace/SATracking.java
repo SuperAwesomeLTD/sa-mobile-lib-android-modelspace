@@ -20,6 +20,10 @@ public class SATracking implements Parcelable, JSONSerializable {
         URL = in.readString();
     }
 
+    public SATracking () {
+        // do nothing
+    }
+
     public SATracking (JSONObject jsonObject) {
         readFromJson(jsonObject);
     }

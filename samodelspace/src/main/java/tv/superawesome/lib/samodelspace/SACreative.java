@@ -5,6 +5,7 @@ import android.os.Parcelable;
 
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import tv.superawesome.lib.sajsonparser.JSONSerializable;
@@ -30,6 +31,11 @@ public class SACreative implements Parcelable, JSONSerializable {
     public List<SATracking> events;
 
     public SADetails details;
+
+    public SACreative () {
+        details = new SADetails() ;
+        events = new ArrayList<>();
+    }
 
     protected SACreative(Parcel in) {
         id = in.readInt();
