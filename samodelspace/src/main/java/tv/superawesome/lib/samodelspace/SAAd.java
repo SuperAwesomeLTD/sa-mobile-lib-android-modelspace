@@ -11,7 +11,7 @@ import tv.superawesome.lib.sajsonparser.SAJsonParser;
 /**
  * Created by gabriel.coman on 25/08/16.
  */
-public class SAAd implements Parcelable, JSONSerializable {
+public class SAAd implements JSONSerializable, Parcelable {
     public int error;
     public int advertiserId;
     public int publisherId;
@@ -19,6 +19,8 @@ public class SAAd implements Parcelable, JSONSerializable {
     public int lineItemId;
     public int campaignId;
     public int placementId;
+    public int campaignType;
+    public SACampaignType saCampaignType;
     public boolean test;
     public boolean isFallback;
     public boolean isFill;
@@ -36,6 +38,11 @@ public class SAAd implements Parcelable, JSONSerializable {
         creative = new SACreative();
     }
 
+    public SAAd(JSONObject jsonObject) {
+        readFromJson(jsonObject);
+    }
+
+
     protected SAAd(Parcel in) {
         error = in.readInt();
         advertiserId = in.readInt();
@@ -44,6 +51,8 @@ public class SAAd implements Parcelable, JSONSerializable {
         lineItemId = in.readInt();
         campaignId = in.readInt();
         placementId = in.readInt();
+        campaignType = in.readInt();
+        saCampaignType = in.readParcelable(SACampaignType.class.getClassLoader());
         test = in.readByte() != 0;
         isFallback = in.readByte() != 0;
         isFill = in.readByte() != 0;
@@ -54,10 +63,6 @@ public class SAAd implements Parcelable, JSONSerializable {
         vastType = in.readParcelable(SAVASTAdType.class.getClassLoader());
         vastRedirect = in.readString();
         creative = in.readParcelable(SACreative.class.getClassLoader());
-    }
-
-    public SAAd(JSONObject jsonObject) {
-        readFromJson(jsonObject);
     }
 
     public static final Creator<SAAd> CREATOR = new Creator<SAAd>() {
@@ -73,32 +78,6 @@ public class SAAd implements Parcelable, JSONSerializable {
     };
 
     @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(error);
-        dest.writeInt(advertiserId);
-        dest.writeInt(publisherId);
-        dest.writeInt(app);
-        dest.writeInt(lineItemId);
-        dest.writeInt(campaignId);
-        dest.writeInt(placementId);
-        dest.writeByte((byte) (test ? 1 : 0));
-        dest.writeByte((byte) (isFallback ? 1 : 0));
-        dest.writeByte((byte) (isFill ? 1 : 0));
-        dest.writeByte((byte) (isHouse ? 1 : 0));
-        dest.writeByte((byte) (safeAdApproved ? 1 : 0));
-        dest.writeByte((byte) (showPadlock ? 1 : 0));
-        dest.writeByte((byte) (isVAST ? 1 : 0));
-        dest.writeParcelable(vastType, flags);
-        dest.writeString(vastRedirect);
-        dest.writeParcelable(creative, flags);
-    }
-
-    @Override
     public void readFromJson(JSONObject jsonObject) {
         error = SAJsonParser.getInt(jsonObject, "error");
         advertiserId = SAJsonParser.getInt(jsonObject, "advertiserId");
@@ -107,6 +86,7 @@ public class SAAd implements Parcelable, JSONSerializable {
         lineItemId = SAJsonParser.getInt(jsonObject, "lineItemId");
         campaignId = SAJsonParser.getInt(jsonObject, "campaignId");
         placementId = SAJsonParser.getInt(jsonObject, "placementId");
+        campaignType = SAJsonParser.getInt(jsonObject, "campaignType");
         test = SAJsonParser.getBoolean(jsonObject, "test");
         isFallback = SAJsonParser.getBoolean(jsonObject, "isFallback");
         isFill = SAJsonParser.getBoolean(jsonObject, "isFill");
@@ -116,6 +96,14 @@ public class SAAd implements Parcelable, JSONSerializable {
         isVAST = SAJsonParser.getBoolean(jsonObject, "isVAST");
         vastRedirect = SAJsonParser.getString(jsonObject, "vastRedirect");
         creative = new SACreative(SAJsonParser.getJsonObject(jsonObject, "creative"));
+
+        String tp = SAJsonParser.getString(jsonObject, "saCampaignType", SACampaignType.CPM.toString());
+        if (tp.equals(SACampaignType.CPM.toString())) {
+            saCampaignType = SACampaignType.CPM;
+        }
+        if (tp.equals(SACampaignType.CPI.toString())) {
+            saCampaignType = SACampaignType.CPI;
+        }
 
         String obj = SAJsonParser.getString(jsonObject, "vastType", SAVASTAdType.Invalid.toString());
         if (obj.equals(SAVASTAdType.Invalid.toString())){
@@ -139,6 +127,8 @@ public class SAAd implements Parcelable, JSONSerializable {
                 "lineItemId", lineItemId,
                 "campaignId", campaignId,
                 "placementId", placementId,
+                "campaignType", campaignType,
+                "saCampaignType", saCampaignType.toString(),
                 "test", test,
                 "isFallback", isFallback,
                 "isFill", isFill,
@@ -184,5 +174,33 @@ public class SAAd implements Parcelable, JSONSerializable {
         if (dest.creative.details.media != null) {
             this.creative.details.media = dest.creative.details.media;
         }
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(error);
+        dest.writeInt(advertiserId);
+        dest.writeInt(publisherId);
+        dest.writeInt(app);
+        dest.writeInt(lineItemId);
+        dest.writeInt(campaignId);
+        dest.writeInt(placementId);
+        dest.writeInt(campaignType);
+        dest.writeParcelable(saCampaignType, flags);
+        dest.writeByte((byte) (test ? 1 : 0));
+        dest.writeByte((byte) (isFallback ? 1 : 0));
+        dest.writeByte((byte) (isFill ? 1 : 0));
+        dest.writeByte((byte) (isHouse ? 1 : 0));
+        dest.writeByte((byte) (safeAdApproved ? 1 : 0));
+        dest.writeByte((byte) (showPadlock ? 1 : 0));
+        dest.writeByte((byte) (isVAST ? 1 : 0));
+        dest.writeParcelable(vastType, flags);
+        dest.writeString(vastRedirect);
+        dest.writeParcelable(creative, flags);
     }
 }
