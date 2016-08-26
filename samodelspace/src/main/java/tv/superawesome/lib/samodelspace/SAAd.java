@@ -83,16 +83,16 @@ public class SAAd implements JSONSerializable, Parcelable {
         advertiserId = SAJsonParser.getInt(jsonObject, "advertiserId");
         publisherId = SAJsonParser.getInt(jsonObject, "publisherId");
         app = SAJsonParser.getInt(jsonObject, "app");
-        lineItemId = SAJsonParser.getInt(jsonObject, "lineItemId");
-        campaignId = SAJsonParser.getInt(jsonObject, "campaignId");
+        lineItemId = SAJsonParser.getInt(jsonObject, "line_item_id");
+        campaignId = SAJsonParser.getInt(jsonObject, "campaign_id");
         placementId = SAJsonParser.getInt(jsonObject, "placementId");
         campaignType = SAJsonParser.getInt(jsonObject, "campaignType");
         test = SAJsonParser.getBoolean(jsonObject, "test");
-        isFallback = SAJsonParser.getBoolean(jsonObject, "isFallback");
-        isFill = SAJsonParser.getBoolean(jsonObject, "isFill");
-        isHouse = SAJsonParser.getBoolean(jsonObject, "isHouse");
-        safeAdApproved = SAJsonParser.getBoolean(jsonObject, "safeAdApproved");
-        showPadlock = SAJsonParser.getBoolean(jsonObject, "showPadlock");
+        isFallback = SAJsonParser.getBoolean(jsonObject, "is_fallback");
+        isFill = SAJsonParser.getBoolean(jsonObject, "is_fill");
+        isHouse = SAJsonParser.getBoolean(jsonObject, "is_house");
+        safeAdApproved = SAJsonParser.getBoolean(jsonObject, "safe_ad_approved");
+        showPadlock = SAJsonParser.getBoolean(jsonObject, "show_padlock");
         isVAST = SAJsonParser.getBoolean(jsonObject, "isVAST");
         vastRedirect = SAJsonParser.getString(jsonObject, "vastRedirect");
         creative = new SACreative(SAJsonParser.getJsonObject(jsonObject, "creative"));
@@ -124,17 +124,17 @@ public class SAAd implements JSONSerializable, Parcelable {
                 "advertiserId", advertiserId,
                 "publisherId", publisherId,
                 "app", app,
-                "lineItemId", lineItemId,
-                "campaignId", campaignId,
+                "line_item_id", lineItemId,
+                "campaign_id", campaignId,
                 "placementId", placementId,
                 "campaignType", campaignType,
                 "saCampaignType", saCampaignType.toString(),
                 "test", test,
-                "isFallback", isFallback,
-                "isFill", isFill,
-                "isHouse", isHouse,
-                "safeAdApproved", safeAdApproved,
-                "showPadlock", showPadlock,
+                "is_fallback", isFallback,
+                "is_fill", isFill,
+                "is_house", isHouse,
+                "safe_ad_approved", safeAdApproved,
+                "show_padlock", showPadlock,
                 "isVAST", isVAST,
                 "vastRedirect", vastRedirect,
                 "vastType", vastType.toString(),

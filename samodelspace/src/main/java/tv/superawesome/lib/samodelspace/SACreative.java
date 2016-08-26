@@ -98,8 +98,8 @@ public class SACreative implements Parcelable, JSONSerializable {
         live = SAJsonParser.getBoolean(jsonObject, "live");
         approved = SAJsonParser.getBoolean(jsonObject, "approved");
         customPayload = SAJsonParser.getString(jsonObject, "customPayload");
-        clickUrl = SAJsonParser.getString(jsonObject, "clickUrl");
-        impressionUrl = SAJsonParser.getString(jsonObject, "impressionUrl");
+        clickUrl = SAJsonParser.getString(jsonObject, "click_url");
+        impressionUrl = SAJsonParser.getString(jsonObject, "impression_url");
         events = SAJsonParser.getListFromJsonArray(jsonObject, "events", new SAJsonToList<SATracking, JSONObject>() {
             @Override
             public SATracking traverseItem(JSONObject jsonObject) {
@@ -137,8 +137,8 @@ public class SACreative implements Parcelable, JSONSerializable {
                 "live", live,
                 "approved", approved,
                 "customPayload", customPayload,
-                "clickUrl", clickUrl,
-                "impressionUrl", impressionUrl,
+                "click_url", clickUrl,
+                "impression_url", impressionUrl,
                 "events", SAJsonParser.getJsonArrayFromList(events, new SAListToJson<JSONObject, SATracking>() {
                     @Override
                     public JSONObject traverseItem(SATracking saTracking) {

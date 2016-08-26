@@ -96,7 +96,7 @@ public class SADetails implements Parcelable, JSONSerializable {
         width = SAJsonParser.getInt(jsonObject, "width");
         height = SAJsonParser.getInt(jsonObject, "height");
         name = SAJsonParser.getString(jsonObject, "name");
-        placementFormat = SAJsonParser.getString(jsonObject, "placementFormat");
+        placementFormat = SAJsonParser.getString(jsonObject, "placement_format");
         bitrate = SAJsonParser.getInt(jsonObject, "bitrate");
         duration = SAJsonParser.getInt(jsonObject, "duration");
         value = SAJsonParser.getInt(jsonObject, "value");
@@ -116,7 +116,7 @@ public class SADetails implements Parcelable, JSONSerializable {
                 "width", width,
                 "height", height,
                 "name", name,
-                "placementFormat", placementFormat,
+                "placement_format", placementFormat,
                 "bitrate", bitrate,
                 "duration", duration,
                 "value", value,
