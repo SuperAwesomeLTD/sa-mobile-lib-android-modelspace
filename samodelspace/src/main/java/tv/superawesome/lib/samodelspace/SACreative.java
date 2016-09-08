@@ -27,7 +27,6 @@ public class SACreative implements Parcelable, JSONSerializable {
     public boolean approved;
     public String customPayload;
     public String clickUrl;
-    public String clickUrlCPI;
     public String impressionUrl;
     public List<SATracking> events;
 
@@ -48,7 +47,6 @@ public class SACreative implements Parcelable, JSONSerializable {
         approved = in.readByte() != 0;
         customPayload = in.readString();
         clickUrl = in.readString();
-        clickUrlCPI = in.readString();
         impressionUrl = in.readString();
         events = in.createTypedArrayList(SATracking.CREATOR);
         details = in.readParcelable(SADetails.class.getClassLoader());
@@ -86,7 +84,6 @@ public class SACreative implements Parcelable, JSONSerializable {
         dest.writeByte((byte) (approved ? 1 : 0));
         dest.writeString(customPayload);
         dest.writeString(clickUrl);
-        dest.writeString(clickUrlCPI);
         dest.writeString(impressionUrl);
         dest.writeTypedList(events);
         dest.writeParcelable(details, flags);
@@ -102,7 +99,6 @@ public class SACreative implements Parcelable, JSONSerializable {
         approved = SAJsonParser.getBoolean(jsonObject, "approved");
         customPayload = SAJsonParser.getString(jsonObject, "customPayload");
         clickUrl = SAJsonParser.getString(jsonObject, "click_url");
-        clickUrlCPI = SAJsonParser.getString(jsonObject, "click_url_cpi");
         impressionUrl = SAJsonParser.getString(jsonObject, "impression_url");
         events = SAJsonParser.getListFromJsonArray(jsonObject, "events", new SAJsonToList<SATracking, JSONObject>() {
             @Override
@@ -142,7 +138,6 @@ public class SACreative implements Parcelable, JSONSerializable {
                 "approved", approved,
                 "customPayload", customPayload,
                 "click_url", clickUrl,
-                "click_url_cpi", clickUrlCPI,
                 "impression_url", impressionUrl,
                 "events", SAJsonParser.getJsonArrayFromList(events, new SAListToJson<JSONObject, SATracking>() {
                     @Override
