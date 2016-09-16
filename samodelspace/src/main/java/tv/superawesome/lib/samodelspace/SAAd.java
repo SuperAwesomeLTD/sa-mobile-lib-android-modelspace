@@ -86,7 +86,7 @@ public class SAAd implements JSONSerializable, Parcelable {
         lineItemId = SAJsonParser.getInt(jsonObject, "line_item_id");
         campaignId = SAJsonParser.getInt(jsonObject, "campaign_id");
         placementId = SAJsonParser.getInt(jsonObject, "placementId");
-        campaignType = SAJsonParser.getInt(jsonObject, "campaignType");
+        campaignType = SAJsonParser.getInt(jsonObject, "campaign_type");
         test = SAJsonParser.getBoolean(jsonObject, "test");
         isFallback = SAJsonParser.getBoolean(jsonObject, "is_fallback");
         isFill = SAJsonParser.getBoolean(jsonObject, "is_fill");
@@ -127,7 +127,7 @@ public class SAAd implements JSONSerializable, Parcelable {
                 "line_item_id", lineItemId,
                 "campaign_id", campaignId,
                 "placementId", placementId,
-                "campaignType", campaignType,
+                "campaign_type", campaignType,
                 "saCampaignType", saCampaignType.toString(),
                 "test", test,
                 "is_fallback", isFallback,
