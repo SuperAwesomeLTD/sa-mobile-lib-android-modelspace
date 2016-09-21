@@ -28,6 +28,8 @@ public class SACreative implements Parcelable, JSONSerializable {
     public String customPayload;
     public String clickUrl;
     public String impressionUrl;
+    public String installUrl;
+    public String bundleId;
     public List<SATracking> events;
 
     public SADetails details;
@@ -48,6 +50,8 @@ public class SACreative implements Parcelable, JSONSerializable {
         customPayload = in.readString();
         clickUrl = in.readString();
         impressionUrl = in.readString();
+        installUrl = in.readString();
+        bundleId = in.readString();
         events = in.createTypedArrayList(SATracking.CREATOR);
         details = in.readParcelable(SADetails.class.getClassLoader());
     }
@@ -85,6 +89,8 @@ public class SACreative implements Parcelable, JSONSerializable {
         dest.writeString(customPayload);
         dest.writeString(clickUrl);
         dest.writeString(impressionUrl);
+        dest.writeString(installUrl);
+        dest.writeString(bundleId);
         dest.writeTypedList(events);
         dest.writeParcelable(details, flags);
     }
@@ -100,6 +106,8 @@ public class SACreative implements Parcelable, JSONSerializable {
         customPayload = SAJsonParser.getString(jsonObject, "customPayload");
         clickUrl = SAJsonParser.getString(jsonObject, "click_url");
         impressionUrl = SAJsonParser.getString(jsonObject, "impression_url");
+        installUrl = SAJsonParser.getString(jsonObject, "installUrl");
+        bundleId = SAJsonParser.getString(jsonObject, "bundleId");
         events = SAJsonParser.getListFromJsonArray(jsonObject, "events", new SAJsonToList<SATracking, JSONObject>() {
             @Override
             public SATracking traverseItem(JSONObject jsonObject) {
@@ -139,6 +147,8 @@ public class SACreative implements Parcelable, JSONSerializable {
                 "customPayload", customPayload,
                 "click_url", clickUrl,
                 "impression_url", impressionUrl,
+                "installUrl", installUrl,
+                "bundleId", bundleId,
                 "events", SAJsonParser.getJsonArrayFromList(events, new SAListToJson<JSONObject, SATracking>() {
                     @Override
                     public JSONObject traverseItem(SATracking saTracking) {
