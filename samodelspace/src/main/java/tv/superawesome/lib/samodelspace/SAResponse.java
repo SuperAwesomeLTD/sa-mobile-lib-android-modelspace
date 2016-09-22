@@ -66,6 +66,8 @@ public class SAResponse implements Parcelable, JSONSerializable {
     @Override
     public void readFromJson(JSONObject jsonObject) {
         status = SAJsonParser.getInt(jsonObject, "status");
+        placementId = SAJsonParser.getInt(jsonObject, "placementId");
+
         ads = SAJsonParser.getListFromJsonArray(jsonObject, "ads", new SAJsonToList<SAAd, JSONObject>() {
             @Override
             public SAAd traverseItem(JSONObject jsonObject) {
