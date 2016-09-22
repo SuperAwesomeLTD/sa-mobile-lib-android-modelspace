@@ -35,6 +35,7 @@ public class SAResponse implements Parcelable, JSONSerializable {
         status = in.readInt();
         ads = in.createTypedArrayList(SAAd.CREATOR);
         placementId = in.readInt();
+        format = in.readParcelable(SACreativeFormat.class.getClassLoader());
     }
 
     public static final Creator<SAResponse> CREATOR = new Creator<SAResponse>() {
@@ -59,6 +60,7 @@ public class SAResponse implements Parcelable, JSONSerializable {
         dest.writeInt(status);
         dest.writeInt(placementId);
         dest.writeTypedList(ads);
+        dest.writeParcelable(format, flags);
     }
 
     @Override
