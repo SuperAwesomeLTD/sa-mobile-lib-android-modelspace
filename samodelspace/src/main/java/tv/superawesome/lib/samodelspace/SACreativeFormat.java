@@ -50,6 +50,12 @@ public enum SACreativeFormat implements Parcelable {
         public String toString() {
             return "tag";
         }
+    },
+    gamewall {
+        @Override
+        public String toString() {
+            return "gamewall";
+        }
     };
 
     @Override

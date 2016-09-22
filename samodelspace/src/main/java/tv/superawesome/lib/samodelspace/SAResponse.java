@@ -18,6 +18,8 @@ import tv.superawesome.lib.sajsonparser.SAListToJson;
  */
 public class SAResponse implements Parcelable, JSONSerializable {
 
+    public int placementId = 0;
+    public SACreativeFormat format = SACreativeFormat.invalid;
     public int status = 0;
     public List<SAAd> ads = new ArrayList<>();
 
@@ -32,6 +34,7 @@ public class SAResponse implements Parcelable, JSONSerializable {
     protected SAResponse(Parcel in) {
         status = in.readInt();
         ads = in.createTypedArrayList(SAAd.CREATOR);
+        placementId = in.readInt();
     }
 
     public static final Creator<SAResponse> CREATOR = new Creator<SAResponse>() {
@@ -54,6 +57,7 @@ public class SAResponse implements Parcelable, JSONSerializable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(status);
+        dest.writeInt(placementId);
         dest.writeTypedList(ads);
     }
 
@@ -66,6 +70,17 @@ public class SAResponse implements Parcelable, JSONSerializable {
                 return new SAAd(jsonObject);
             }
         });
+
+        String formatString = SAJsonParser.getString(jsonObject, "format");
+        switch (formatString) {
+            case "invalid": format = SACreativeFormat.invalid; break;
+            case "image": format = SACreativeFormat.image; break;
+            case "video": format = SACreativeFormat.video; break;
+            case "rich": format = SACreativeFormat.rich; break;
+            case "tag": format = SACreativeFormat.tag; break;
+            case "gamewall": format = SACreativeFormat.gamewall; break;
+            default: format = SACreativeFormat.invalid; break;
+        }
     }
 
     @Override
@@ -77,7 +92,9 @@ public class SAResponse implements Parcelable, JSONSerializable {
                     public JSONObject traverseItem(SAAd saAd) {
                         return saAd.writeToJson();
                     }
-                })
+                }),
+                "placementId", placementId,
+                "format", format.toString()
         });
     }
 
