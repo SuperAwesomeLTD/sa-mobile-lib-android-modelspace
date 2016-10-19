@@ -81,6 +81,5 @@ repositories {
 }
 
 dependencies {
-    testCompile 'junit:junit:4.12'
-    compile 'tv.superawesome.lib.sajsonparser:sajsonparser:0.2.1'
+    compile 'tv.superawesome.lib.sajsonparser:sajsonparser:0.2.3'
 }

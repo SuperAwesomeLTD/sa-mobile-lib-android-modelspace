@@ -12,21 +12,67 @@ import tv.superawesome.lib.sajsonparser.SAJsonParser;
  * Created by gabriel.coman on 25/08/16.
  */
 public class SATracking implements Parcelable, JSONSerializable {
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    // Public members
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+
     public String event;
     public String URL;
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    // Constructors
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+
+    public SATracking () {
+        initDefaults();
+    }
 
     protected SATracking(Parcel in) {
         event = in.readString();
         URL = in.readString();
     }
 
-    public SATracking () {
-        // do nothing
-    }
-
     public SATracking (JSONObject jsonObject) {
+        initDefaults();
         readFromJson(jsonObject);
     }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    // Helpers
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+
+    private void initDefaults () {
+        event = null;
+        URL = null;
+    }
+
+    @Override
+    public boolean isValid() {
+        return true;
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    // JSONSerializable implementation
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+
+    @Override
+    public void readFromJson(JSONObject jsonObject) {
+        event = SAJsonParser.getString(jsonObject, "event", event);
+        URL = SAJsonParser.getString(jsonObject, "URL", URL);
+    }
+
+    @Override
+    public JSONObject writeToJson() {
+        return SAJsonParser.newObject(new Object[] {
+                "event", event,
+                "URL", URL
+        });
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    // Parceable implementation
+    ////////////////////////////////////////////////////////////////////////////////////////////////
 
     public static final Creator<SATracking> CREATOR = new Creator<SATracking>() {
         @Override
@@ -49,24 +95,5 @@ public class SATracking implements Parcelable, JSONSerializable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(event);
         dest.writeString(URL);
-    }
-
-    @Override
-    public void readFromJson(JSONObject jsonObject) {
-        event = SAJsonParser.getString(jsonObject, "event");
-        URL = SAJsonParser.getString(jsonObject, "URL");
-    }
-
-    @Override
-    public JSONObject writeToJson() {
-        return SAJsonParser.newObject(new Object[] {
-                "event", event,
-                "URL", URL
-        });
-    }
-
-    @Override
-    public boolean isValid() {
-        return true;
     }
 }

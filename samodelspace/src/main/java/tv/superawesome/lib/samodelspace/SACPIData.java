@@ -14,26 +14,26 @@ import tv.superawesome.lib.sajsonparser.SAJsonParser;
  */
 public class SACPIData implements Parcelable, JSONSerializable {
 
-    /**
-     * Notes on fields:
-     * configuration    = utm_source (0, 1, 2)
-     * campaignId       = utm_campaign
-     * lineItemId       = utm_term
-     * creativeId       = utm_content
-     * placementId      = utm_medium
-     */
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    // Public members
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+
     public int configuration;
     public int campaignId;
     public int lineItemId;
     public int creativeId;
     public int placementId;
 
-    /**
-     * Public json contructor
-     * @param json json object
-     * @throws JSONException
-     */
-    public SACPIData(JSONObject json) throws JSONException {
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    // Constructors
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+
+    public SACPIData () {
+        initDefaults();
+    }
+
+    public SACPIData(JSONObject json) {
+        initDefaults();
         readFromJson(json);
     }
 
@@ -44,6 +44,52 @@ public class SACPIData implements Parcelable, JSONSerializable {
         creativeId = in.readInt();
         placementId = in.readInt();
     }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    // Helpers
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+
+    private void initDefaults () {
+        configuration = 0;
+        campaignId = 0;
+        lineItemId = 0;
+        creativeId = 0;
+        placementId = 0;
+    }
+
+    @Override
+    public boolean isValid() {
+        return true;
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    // JSONSerializable implementation
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+
+    @Override
+    public void readFromJson(JSONObject json) {
+        configuration = SAJsonParser.getInt(json, "utm_source", configuration);
+        campaignId = SAJsonParser.getInt(json, "utm_campaign", campaignId);
+        lineItemId = SAJsonParser.getInt(json, "utm_term", lineItemId);
+        creativeId = SAJsonParser.getInt(json, "utm_content", creativeId);
+        placementId = SAJsonParser.getInt(json, "utm_medium", placementId);
+    }
+
+    @Override
+    public JSONObject writeToJson() {
+        return SAJsonParser.newObject(new Object[]{
+                "configuration", configuration,
+                "campaignId", campaignId,
+                "lineItemId", lineItemId,
+                "creativeId", creativeId,
+                "placementId", placementId
+        });
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    // Parceable implementation
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+
 
     public static final Creator<SACPIData> CREATOR = new Creator<SACPIData>() {
         @Override
@@ -71,28 +117,4 @@ public class SACPIData implements Parcelable, JSONSerializable {
         dest.writeInt(placementId);
     }
 
-    @Override
-    public void readFromJson(JSONObject json) {
-        configuration = SAJsonParser.getInt(json, "utm_source");
-        campaignId = SAJsonParser.getInt(json, "utm_campaign");
-        lineItemId = SAJsonParser.getInt(json, "utm_term");
-        creativeId = SAJsonParser.getInt(json, "utm_content");
-        placementId = SAJsonParser.getInt(json, "utm_medium");
-    }
-
-    @Override
-    public JSONObject writeToJson() {
-        return SAJsonParser.newObject(new Object[]{
-                "configuration", configuration,
-                "campaignId", campaignId,
-                "lineItemId", lineItemId,
-                "creativeId", creativeId,
-                "placementId", placementId
-        });
-    }
-
-    @Override
-    public boolean isValid() {
-        return true;
-    }
 }

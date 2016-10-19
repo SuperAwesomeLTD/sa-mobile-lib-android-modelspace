@@ -3,6 +3,7 @@ package tv.superawesome.lib.samodelspace;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -18,6 +19,10 @@ import tv.superawesome.lib.sajsonparser.SAListToJson;
  */
 public class SACreative implements Parcelable, JSONSerializable {
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    // Public members
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+
     public int id;
     public String name;
     public int cpm;
@@ -31,12 +36,14 @@ public class SACreative implements Parcelable, JSONSerializable {
     public String installUrl;
     public String bundleId;
     public List<SATracking> events;
-
     public SADetails details;
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    // Constructors
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+
     public SACreative () {
-        details = new SADetails() ;
-        events = new ArrayList<>();
+        initDefaults();
     }
 
     protected SACreative(Parcel in) {
@@ -57,8 +64,105 @@ public class SACreative implements Parcelable, JSONSerializable {
     }
 
     public SACreative(JSONObject jsonObject) {
+        initDefaults();
         readFromJson(jsonObject);
     }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    // Helpers
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+
+    private void initDefaults () {
+        id = 0;
+        name = null;
+        cpm = 0;
+        format = null;
+        creativeFormat = SACreativeFormat.invalid;
+        live = true;
+        approved = true;
+        customPayload = null;
+        clickUrl = null;
+        installUrl = null;
+        impressionUrl = null;
+        bundleId = null;
+
+        events = new ArrayList<>();
+        details = new SADetails();
+    }
+
+    @Override
+    public boolean isValid() {
+        return true;
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    // JSONSerializable implementation
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+
+    @Override
+    public void readFromJson(JSONObject json) {
+        id = SAJsonParser.getInt(json, "id", id);
+        name = SAJsonParser.getString(json, "name", name);
+        cpm = SAJsonParser.getInt(json, "cpm", cpm);
+        format = SAJsonParser.getString(json, "format", format);
+        live = SAJsonParser.getBoolean(json, "live", live);
+        approved = SAJsonParser.getBoolean(json, "approved", approved);
+        customPayload = SAJsonParser.getString(json, "customPayload", customPayload);
+        clickUrl = SAJsonParser.getString(json, "click_url", clickUrl);
+        impressionUrl = SAJsonParser.getString(json, "impression_url", impressionUrl);
+        installUrl = SAJsonParser.getString(json, "installUrl", installUrl);
+        bundleId = SAJsonParser.getString(json, "bundleId", bundleId);
+
+        int icreativeFormat = SAJsonParser.getInt(json, "creativeFormat", 0);
+        switch (icreativeFormat) {
+            case 1: creativeFormat = SACreativeFormat.image; break;
+            case 2: creativeFormat = SACreativeFormat.video; break;
+            case 3: creativeFormat = SACreativeFormat.rich; break;
+            case 4: creativeFormat = SACreativeFormat.tag; break;
+            case 5: creativeFormat = SACreativeFormat.gamewall; break;
+            default: creativeFormat = SACreativeFormat.invalid; break;
+        }
+
+        JSONArray eventsArray = SAJsonParser.getJsonArray(json, "events", new JSONArray());
+        SAJsonParser.getListFromJsonArray(eventsArray, new SAJsonToList<SATracking, JSONObject>() {
+            @Override
+            public SATracking traverseItem(JSONObject jsonObject) {
+                return new SATracking(jsonObject);
+            }
+        });
+
+        JSONObject detailsJson = SAJsonParser.getJsonObject(json, "details", new JSONObject());
+        details = new SADetails(detailsJson);
+    }
+
+    @Override
+    public JSONObject writeToJson() {
+        return SAJsonParser.newObject(new Object[] {
+                "id", id,
+                "name", name,
+                "cpm", cpm,
+                "format", format,
+                "creativeFormat", creativeFormat.ordinal(),
+                "live", live,
+                "approved", approved,
+                "customPayload", customPayload,
+                "click_url", clickUrl,
+                "impression_url", impressionUrl,
+                "installUrl", installUrl,
+                "bundleId", bundleId,
+                "events", SAJsonParser.getJsonArrayFromList(events, new SAListToJson<JSONObject, SATracking>() {
+            @Override
+            public JSONObject traverseItem(SATracking saTracking) {
+                return saTracking.writeToJson();
+            }
+        }),
+                "details", details.writeToJson()
+        });
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    // Parceable implementation
+    ////////////////////////////////////////////////////////////////////////////////////////////////
 
     public static final Creator<SACreative> CREATOR = new Creator<SACreative>() {
         @Override
@@ -93,74 +197,5 @@ public class SACreative implements Parcelable, JSONSerializable {
         dest.writeString(bundleId);
         dest.writeTypedList(events);
         dest.writeParcelable(details, flags);
-    }
-
-    @Override
-    public void readFromJson(JSONObject jsonObject) {
-        id = SAJsonParser.getInt(jsonObject, "id");
-        name = SAJsonParser.getString(jsonObject, "name");
-        cpm = SAJsonParser.getInt(jsonObject, "cpm");
-        format = SAJsonParser.getString(jsonObject, "format");
-        live = SAJsonParser.getBoolean(jsonObject, "live");
-        approved = SAJsonParser.getBoolean(jsonObject, "approved");
-        customPayload = SAJsonParser.getString(jsonObject, "customPayload");
-        clickUrl = SAJsonParser.getString(jsonObject, "click_url");
-        impressionUrl = SAJsonParser.getString(jsonObject, "impression_url");
-        installUrl = SAJsonParser.getString(jsonObject, "installUrl");
-        bundleId = SAJsonParser.getString(jsonObject, "bundleId");
-        events = SAJsonParser.getListFromJsonArray(jsonObject, "events", new SAJsonToList<SATracking, JSONObject>() {
-            @Override
-            public SATracking traverseItem(JSONObject jsonObject) {
-                return new SATracking(jsonObject);
-            }
-        });
-        details = new SADetails(SAJsonParser.getJsonObject(jsonObject, "details"));
-
-        String obj = SAJsonParser.getString(jsonObject, "creativeFormat", SACreativeFormat.invalid.toString());
-        if (obj.equals(SACreativeFormat.invalid.toString())){
-            creativeFormat = SACreativeFormat.invalid;
-        }
-        if (obj.equals(SACreativeFormat.image.toString())){
-            creativeFormat = SACreativeFormat.image;
-        }
-        if (obj.equals(SACreativeFormat.video.toString())){
-            creativeFormat = SACreativeFormat.video;
-        }
-        if (obj.equals(SACreativeFormat.rich.toString())){
-            creativeFormat = SACreativeFormat.rich;
-        }
-        if (obj.equals(SACreativeFormat.tag.toString())){
-            creativeFormat = SACreativeFormat.tag;
-        }
-    }
-
-    @Override
-    public JSONObject writeToJson() {
-        return SAJsonParser.newObject(new Object[] {
-                "id", id,
-                "name", name,
-                "cpm", cpm,
-                "format", format,
-                "creativeFormat", creativeFormat.toString(),
-                "live", live,
-                "approved", approved,
-                "customPayload", customPayload,
-                "click_url", clickUrl,
-                "impression_url", impressionUrl,
-                "installUrl", installUrl,
-                "bundleId", bundleId,
-                "events", SAJsonParser.getJsonArrayFromList(events, new SAListToJson<JSONObject, SATracking>() {
-                    @Override
-                    public JSONObject traverseItem(SATracking saTracking) {
-                        return saTracking.writeToJson();
-                    }
-                }),
-                "details", details.writeToJson()
-        });
-    }
-
-    @Override
-    public boolean isValid() {
-        return true;
     }
 }

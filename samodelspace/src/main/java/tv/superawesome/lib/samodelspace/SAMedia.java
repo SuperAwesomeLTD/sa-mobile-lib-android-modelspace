@@ -12,11 +12,20 @@ import tv.superawesome.lib.sajsonparser.SAJsonParser;
  * Created by gabriel.coman on 25/08/16.
  */
 public class SAMedia implements Parcelable, JSONSerializable {
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    // Public members
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+
     public String html;
     public String playableDiskUrl;
     public String playableMediaUrl;
     public String type;
     public boolean isOnDisk;
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    // Constructors
+    ////////////////////////////////////////////////////////////////////////////////////////////////
 
     protected SAMedia(Parcel in) {
         html = in.readString();
@@ -27,12 +36,58 @@ public class SAMedia implements Parcelable, JSONSerializable {
     }
 
     public SAMedia () {
-        // do nothing
+        initDefaults();
     }
 
     public SAMedia (JSONObject jsonObject) {
+        initDefaults();
         readFromJson(jsonObject);
     }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    // Helpers
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+
+    private void initDefaults () {
+        html = null;
+        playableDiskUrl = null;
+        playableMediaUrl = null;
+        type = null;
+        isOnDisk = false;
+    }
+
+    @Override
+    public boolean isValid() {
+        return true;
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    // JSONSerializable implementation
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+
+    @Override
+    public void readFromJson(JSONObject json) {
+        html = SAJsonParser.getString(json, "html", html);
+        playableDiskUrl = SAJsonParser.getString(json, "playableDiskUrl", playableDiskUrl);
+        playableMediaUrl = SAJsonParser.getString(json, "playableMediaUrl", playableMediaUrl);
+        type = SAJsonParser.getString(json, "type", type);
+        isOnDisk = SAJsonParser.getBoolean(json, "isOnDisk", isOnDisk);
+    }
+
+    @Override
+    public JSONObject writeToJson() {
+        return SAJsonParser.newObject(new Object[] {
+                "html", html,
+                "playableDiskUrl", playableDiskUrl,
+                "playableMediaUrl", playableMediaUrl,
+                "type", type,
+                "isOnDisk", isOnDisk
+        });
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    // Parceable implementation
+    ////////////////////////////////////////////////////////////////////////////////////////////////
 
     public static final Creator<SAMedia> CREATOR = new Creator<SAMedia>() {
         @Override
@@ -58,30 +113,5 @@ public class SAMedia implements Parcelable, JSONSerializable {
         dest.writeString(playableMediaUrl);
         dest.writeString(type);
         dest.writeByte((byte) (isOnDisk ? 1 : 0));
-    }
-
-    @Override
-    public void readFromJson(JSONObject jsonObject) {
-        html = SAJsonParser.getString(jsonObject, "html");
-        playableDiskUrl = SAJsonParser.getString(jsonObject, "playableDiskUrl");
-        playableMediaUrl = SAJsonParser.getString(jsonObject, "playableMediaUrl");
-        type = SAJsonParser.getString(jsonObject, "type");
-        isOnDisk = SAJsonParser.getBoolean(jsonObject, "isOnDisk");
-    }
-
-    @Override
-    public JSONObject writeToJson() {
-        return SAJsonParser.newObject(new Object[] {
-                "html", html,
-                "playableDiskUrl", playableDiskUrl,
-                "playableMediaUrl", playableMediaUrl,
-                "type", type,
-                "isOnDisk", isOnDisk
-        });
-    }
-
-    @Override
-    public boolean isValid() {
-        return true;
     }
 }

@@ -3,6 +3,7 @@ package tv.superawesome.lib.samodelspace;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -18,16 +19,25 @@ import tv.superawesome.lib.sajsonparser.SAListToJson;
  */
 public class SAResponse implements Parcelable, JSONSerializable {
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    // Public members
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+
     public int placementId = 0;
     public SACreativeFormat format = SACreativeFormat.invalid;
     public int status = 0;
     public List<SAAd> ads = new ArrayList<>();
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    // Constructors
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+
     public SAResponse () {
-        // normal constructor
+        initDefaults();
     }
 
     public SAResponse (JSONObject jsonObject) {
+        initDefaults();
         readFromJson(jsonObject);
     }
 
@@ -37,6 +47,69 @@ public class SAResponse implements Parcelable, JSONSerializable {
         placementId = in.readInt();
         format = in.readParcelable(SACreativeFormat.class.getClassLoader());
     }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    // Helpers
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+
+    private void initDefaults () {
+        placementId = 0;
+        status = 0;
+        format = SACreativeFormat.invalid;
+        ads = new ArrayList<>();
+    }
+
+    @Override
+    public boolean isValid() {
+        return ads.size() >= 1;
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    // JSONSerializable implementation
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+
+    @Override
+    public void readFromJson(JSONObject json) {
+        status = SAJsonParser.getInt(json, "status", status);
+        placementId = SAJsonParser.getInt(json, "placementId", placementId);
+
+        JSONArray adsArray = SAJsonParser.getJsonArray(json, "ads", new JSONArray());
+        ads = SAJsonParser.getListFromJsonArray(adsArray, new SAJsonToList<SAAd, JSONObject>() {
+            @Override
+            public SAAd traverseItem(JSONObject jsonObject) {
+                return new SAAd(jsonObject);
+            }
+        });
+
+        int icreativeFormat = SAJsonParser.getInt(json, "format", 0);
+        switch (icreativeFormat) {
+            case 1: format = SACreativeFormat.image; break;
+            case 2: format = SACreativeFormat.video; break;
+            case 3: format = SACreativeFormat.rich; break;
+            case 4: format = SACreativeFormat.tag; break;
+            case 5: format = SACreativeFormat.gamewall; break;
+            default: format = SACreativeFormat.invalid; break;
+        }
+    }
+
+    @Override
+    public JSONObject writeToJson() {
+        return SAJsonParser.newObject(new Object[]{
+                "status", status,
+                "placementId", placementId,
+                "format", format.ordinal(),
+                "ads", SAJsonParser.getJsonArrayFromList(ads, new SAListToJson<JSONObject, SAAd>() {
+                            @Override
+                            public JSONObject traverseItem(SAAd saAd) {
+                                return saAd.writeToJson();
+                            }
+                        })
+        });
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    // Parceable implementation
+    ////////////////////////////////////////////////////////////////////////////////////////////////
 
     public static final Creator<SAResponse> CREATOR = new Creator<SAResponse>() {
         @Override
@@ -61,49 +134,5 @@ public class SAResponse implements Parcelable, JSONSerializable {
         dest.writeInt(placementId);
         dest.writeTypedList(ads);
         dest.writeParcelable(format, flags);
-    }
-
-    @Override
-    public void readFromJson(JSONObject jsonObject) {
-        status = SAJsonParser.getInt(jsonObject, "status");
-        placementId = SAJsonParser.getInt(jsonObject, "placementId");
-
-        ads = SAJsonParser.getListFromJsonArray(jsonObject, "ads", new SAJsonToList<SAAd, JSONObject>() {
-            @Override
-            public SAAd traverseItem(JSONObject jsonObject) {
-                return new SAAd(jsonObject);
-            }
-        });
-
-        String formatString = SAJsonParser.getString(jsonObject, "format");
-        switch (formatString) {
-            case "invalid": format = SACreativeFormat.invalid; break;
-            case "image": format = SACreativeFormat.image; break;
-            case "video": format = SACreativeFormat.video; break;
-            case "rich": format = SACreativeFormat.rich; break;
-            case "tag": format = SACreativeFormat.tag; break;
-            case "gamewall": format = SACreativeFormat.gamewall; break;
-            default: format = SACreativeFormat.invalid; break;
-        }
-    }
-
-    @Override
-    public JSONObject writeToJson() {
-        return SAJsonParser.newObject(new Object[]{
-                "status", status,
-                "ads", SAJsonParser.getJsonArrayFromList(ads, new SAListToJson<JSONObject, SAAd>() {
-                    @Override
-                    public JSONObject traverseItem(SAAd saAd) {
-                        return saAd.writeToJson();
-                    }
-                }),
-                "placementId", placementId,
-                "format", format.toString()
-        });
-    }
-
-    @Override
-    public boolean isValid() {
-        return ads.size() >= 1;
     }
 }
