@@ -115,16 +115,16 @@ public class SACreative implements Parcelable, JSONSerializable {
 
         int icreativeFormat = SAJsonParser.getInt(json, "creativeFormat", 0);
         switch (icreativeFormat) {
-            case 1: creativeFormat = SACreativeFormat.image; break;
-            case 2: creativeFormat = SACreativeFormat.video; break;
-            case 3: creativeFormat = SACreativeFormat.rich; break;
-            case 4: creativeFormat = SACreativeFormat.tag; break;
-            case 5: creativeFormat = SACreativeFormat.gamewall; break;
+            case 0: creativeFormat = SACreativeFormat.image; break;
+            case 1: creativeFormat = SACreativeFormat.video; break;
+            case 2: creativeFormat = SACreativeFormat.rich; break;
+            case 3: creativeFormat = SACreativeFormat.tag; break;
+            case 4: creativeFormat = SACreativeFormat.gamewall; break;
             default: creativeFormat = SACreativeFormat.invalid; break;
         }
 
         JSONArray eventsArray = SAJsonParser.getJsonArray(json, "events", new JSONArray());
-        SAJsonParser.getListFromJsonArray(eventsArray, new SAJsonToList<SATracking, JSONObject>() {
+        events = SAJsonParser.getListFromJsonArray(eventsArray, new SAJsonToList<SATracking, JSONObject>() {
             @Override
             public SATracking traverseItem(JSONObject jsonObject) {
                 return new SATracking(jsonObject);

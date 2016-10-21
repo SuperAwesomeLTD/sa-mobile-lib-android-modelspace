@@ -116,7 +116,7 @@ public class SADetails implements Parcelable, JSONSerializable {
         vast = SAJsonParser.getString(json, "vast", vast);
         transcodedVideos = SAJsonParser.getString(json, "transcodedVideos", transcodedVideos);
 
-        JSONObject mediaJson = SAJsonParser.getJsonObject(json, "mediaJson", new JSONObject());
+        JSONObject mediaJson = SAJsonParser.getJsonObject(json, "media", new JSONObject());
         media = new SAMedia(mediaJson);
     }
 
