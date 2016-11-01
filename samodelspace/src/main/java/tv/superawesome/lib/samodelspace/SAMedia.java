@@ -21,6 +21,7 @@ public class SAMedia implements Parcelable, JSONSerializable {
     public String playableDiskUrl;
     public String playableMediaUrl;
     public String type;
+    public int bitrate;
     public boolean isOnDisk;
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -32,6 +33,7 @@ public class SAMedia implements Parcelable, JSONSerializable {
         playableDiskUrl = in.readString();
         playableMediaUrl = in.readString();
         type = in.readString();
+        bitrate = in.readInt();
         isOnDisk = in.readByte() != 0;
     }
 
@@ -53,6 +55,7 @@ public class SAMedia implements Parcelable, JSONSerializable {
         playableDiskUrl = null;
         playableMediaUrl = null;
         type = null;
+        bitrate = 0;
         isOnDisk = false;
     }
 
@@ -71,6 +74,7 @@ public class SAMedia implements Parcelable, JSONSerializable {
         playableDiskUrl = SAJsonParser.getString(json, "playableDiskUrl", playableDiskUrl);
         playableMediaUrl = SAJsonParser.getString(json, "playableMediaUrl", playableMediaUrl);
         type = SAJsonParser.getString(json, "type", type);
+        bitrate = SAJsonParser.getInt(json, "bitrate", bitrate);
         isOnDisk = SAJsonParser.getBoolean(json, "isOnDisk", isOnDisk);
     }
 
@@ -81,6 +85,7 @@ public class SAMedia implements Parcelable, JSONSerializable {
                 "playableDiskUrl", playableDiskUrl,
                 "playableMediaUrl", playableMediaUrl,
                 "type", type,
+                "bitrate", bitrate,
                 "isOnDisk", isOnDisk
         });
     }
@@ -112,6 +117,7 @@ public class SAMedia implements Parcelable, JSONSerializable {
         dest.writeString(playableDiskUrl);
         dest.writeString(playableMediaUrl);
         dest.writeString(type);
+        dest.writeInt(bitrate);
         dest.writeByte((byte) (isOnDisk ? 1 : 0));
     }
 }

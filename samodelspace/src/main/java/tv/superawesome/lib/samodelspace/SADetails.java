@@ -31,7 +31,6 @@ public class SADetails implements Parcelable, JSONSerializable {
     public String url;
     public String cdnUrl;
     public String vast;
-    public String transcodedVideos;
     public SAMedia media;
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -57,7 +56,6 @@ public class SADetails implements Parcelable, JSONSerializable {
         url = in.readString();
         cdnUrl = in.readString();
         vast = in.readString();
-        transcodedVideos = in.readString();
         media = in.readParcelable(SAMedia.class.getClassLoader());
     }
 
@@ -84,7 +82,6 @@ public class SADetails implements Parcelable, JSONSerializable {
         zipFile = null;
         cdnUrl = null;
         vast = null;
-        transcodedVideos = null;
 
         media = new SAMedia();
     }
@@ -114,7 +111,6 @@ public class SADetails implements Parcelable, JSONSerializable {
         url = SAJsonParser.getString(json, "url", url);
         cdnUrl = SAJsonParser.getString(json, "cdnUrl", cdnUrl);
         vast = SAJsonParser.getString(json, "vast", vast);
-        transcodedVideos = SAJsonParser.getString(json, "transcodedVideos", transcodedVideos);
 
         JSONObject mediaJson = SAJsonParser.getJsonObject(json, "media", new JSONObject());
         media = new SAMedia(mediaJson);
@@ -137,7 +133,6 @@ public class SADetails implements Parcelable, JSONSerializable {
                 "url", url,
                 "cdnUrl", cdnUrl,
                 "vast", vast,
-                "transcodedVideos", transcodedVideos,
                 "media", media.writeToJson()
         });
     }
@@ -179,7 +174,6 @@ public class SADetails implements Parcelable, JSONSerializable {
         dest.writeString(url);
         dest.writeString(cdnUrl);
         dest.writeString(vast);
-        dest.writeString(transcodedVideos);
         dest.writeParcelable(media, flags);
     }
 }
