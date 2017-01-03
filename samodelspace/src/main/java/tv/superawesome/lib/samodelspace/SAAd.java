@@ -2,6 +2,7 @@ package tv.superawesome.lib.samodelspace;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Log;
 
 import org.json.JSONObject;
 
@@ -26,6 +27,7 @@ public class SAAd implements JSONSerializable, Parcelable {
     public int campaignId;
     public int placementId;
     public int campaignType;
+    public double moat;
     public SACampaignType saCampaignType;
     public boolean test;
     public boolean isFallback;
@@ -61,6 +63,7 @@ public class SAAd implements JSONSerializable, Parcelable {
         campaignId = in.readInt();
         placementId = in.readInt();
         campaignType = in.readInt();
+        moat = in.readDouble();
         saCampaignType = in.readParcelable(SACampaignType.class.getClassLoader());
         test = in.readByte() != 0;
         isFallback = in.readByte() != 0;
@@ -88,6 +91,7 @@ public class SAAd implements JSONSerializable, Parcelable {
         lineItemId = 0;
         campaignId = 0;
         placementId = 0;
+        moat = 0.2;
         campaignType = SACampaignType.CPM.ordinal();
         saCampaignType = SACampaignType.CPM;
         test = false;
@@ -146,6 +150,12 @@ public class SAAd implements JSONSerializable, Parcelable {
         advertiserId = SAJsonParser.getInt(json, "advertiserId", advertiserId);
         publisherId = SAJsonParser.getInt(json, "publisherId", publisherId);
         app = SAJsonParser.getInt(json, "app", app);
+
+        int val1 = SAJsonParser.getInt(json, "moat", (int) moat * 100);
+        double val2 = SAJsonParser.getDouble(json, "moat", moat);
+        moat = Math.max(val2, (double) val1);
+        moat = moat > 1 ? 1 : moat;
+
         lineItemId = SAJsonParser.getInt(json, "line_item_id", lineItemId);
         campaignId = SAJsonParser.getInt(json, "campaign_id", campaignId);
         placementId = SAJsonParser.getInt(json, "placementId", placementId);
@@ -175,6 +185,7 @@ public class SAAd implements JSONSerializable, Parcelable {
                 "advertiserId", advertiserId,
                 "publisherId", publisherId,
                 "app", app,
+                "moat", moat,
                 "line_item_id", lineItemId,
                 "campaign_id", campaignId,
                 "placementId", placementId,
@@ -224,6 +235,7 @@ public class SAAd implements JSONSerializable, Parcelable {
         dest.writeInt(campaignId);
         dest.writeInt(placementId);
         dest.writeInt(campaignType);
+        dest.writeDouble(moat);
         dest.writeParcelable(saCampaignType, flags);
         dest.writeByte((byte) (test ? 1 : 0));
         dest.writeByte((byte) (isFallback ? 1 : 0));
