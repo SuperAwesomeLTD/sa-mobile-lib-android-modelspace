@@ -9,32 +9,27 @@ import org.json.JSONObject;
 import tv.superawesome.lib.sajsonparser.JSONSerializable;
 import tv.superawesome.lib.sajsonparser.SAJsonParser;
 
-/**
- * Created by gabriel.coman on 15/07/16.
- */
 public class SACPIData implements Parcelable, JSONSerializable {
 
-    ////////////////////////////////////////////////////////////////////////////////////////////////
-    // Public members
-    ////////////////////////////////////////////////////////////////////////////////////////////////
+    private static final int CPI_DEF_VAL = -1;
 
-    public int configuration;
-    public int campaignId;
-    public int lineItemId;
-    public int creativeId;
-    public int placementId;
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////
-    // Constructors
-    ////////////////////////////////////////////////////////////////////////////////////////////////
+    public int configuration = CPI_DEF_VAL;
+    public int campaignId = CPI_DEF_VAL;
+    public int lineItemId = CPI_DEF_VAL;
+    public int creativeId = CPI_DEF_VAL;
+    public int placementId = CPI_DEF_VAL;
 
     public SACPIData () {
-        initDefaults();
+        // do nothing
     }
 
-    public SACPIData(JSONObject json) {
-        initDefaults();
-        readFromJson(json);
+    public SACPIData(JSONObject jsonObject) {
+        readFromJson(jsonObject);
+    }
+
+    public SACPIData (String json) {
+        JSONObject jsonObject = SAJsonParser.newObject(json);
+        readFromJson(jsonObject);
     }
 
     protected SACPIData(Parcel in) {
@@ -45,26 +40,13 @@ public class SACPIData implements Parcelable, JSONSerializable {
         placementId = in.readInt();
     }
 
-    ////////////////////////////////////////////////////////////////////////////////////////////////
-    // Helpers
-    ////////////////////////////////////////////////////////////////////////////////////////////////
-
-    private void initDefaults () {
-        configuration = 0;
-        campaignId = 0;
-        lineItemId = 0;
-        creativeId = 0;
-        placementId = 0;
-    }
-
     @Override
     public boolean isValid() {
-        return true;
+        return placementId > CPI_DEF_VAL &&
+                campaignId > CPI_DEF_VAL &&
+                lineItemId > CPI_DEF_VAL &&
+                creativeId > CPI_DEF_VAL ;
     }
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////
-    // JSONSerializable implementation
-    ////////////////////////////////////////////////////////////////////////////////////////////////
 
     @Override
     public void readFromJson(JSONObject json) {
@@ -78,18 +60,13 @@ public class SACPIData implements Parcelable, JSONSerializable {
     @Override
     public JSONObject writeToJson() {
         return SAJsonParser.newObject(new Object[]{
-                "configuration", configuration,
-                "campaignId", campaignId,
-                "lineItemId", lineItemId,
-                "creativeId", creativeId,
-                "placementId", placementId
+                "utm_source", configuration,
+                "utm_term", campaignId,
+                "utm_term", lineItemId,
+                "utm_content", creativeId,
+                "utm_medium", placementId
         });
     }
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////
-    // Parceable implementation
-    ////////////////////////////////////////////////////////////////////////////////////////////////
-
 
     public static final Creator<SACPIData> CREATOR = new Creator<SACPIData>() {
         @Override
