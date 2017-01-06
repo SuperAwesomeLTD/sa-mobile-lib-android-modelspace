@@ -21,42 +21,56 @@ import android.os.Parcelable;
  */
 public enum SACreativeFormat implements Parcelable {
 
-    invalid {
+    invalid(0) {
         @Override
         public String toString() {
             return "invalid";
         }
     },
-    image {
+    image(1) {
         @Override
         public String toString() {
             return "image";
         }
     },
-    video {
+    video(2) {
         @Override
         public String toString() {
             return "video";
         }
     },
-    rich{
+    rich(3){
         @Override
         public String toString() {
             return "rich";
         }
     },
-    tag {
+    tag(4) {
         @Override
         public String toString() {
             return "tag";
         }
     },
-    gamewall {
+    appwall(5) {
         @Override
         public String toString() {
-            return "gamewall";
+            return "appwall";
         }
     };
+
+    private final int value;
+    SACreativeFormat(int i) {
+        this.value = i;
+    }
+
+    public static SACreativeFormat fromValue (int value) {
+        if (value == 5) return appwall;
+        if (value == 4) return tag;
+        if (value == 3) return rich;
+        if (value == 2) return video;
+        if (value == 1) return image;
+        return invalid;
+    }
 
     @Override
     public int describeContents() {

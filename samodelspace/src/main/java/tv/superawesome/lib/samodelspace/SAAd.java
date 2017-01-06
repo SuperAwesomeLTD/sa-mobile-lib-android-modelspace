@@ -93,7 +93,7 @@ public class SAAd implements JSONSerializable, Parcelable {
         placementId = 0;
         moat = 0.2;
         campaignType = SACampaignType.CPM.ordinal();
-        saCampaignType = SACampaignType.CPM;
+        saCampaignType = SACampaignType.fromValue(campaignType);
         test = false;
         isFallback = false;
         isFill = false;
@@ -160,7 +160,7 @@ public class SAAd implements JSONSerializable, Parcelable {
         campaignId = SAJsonParser.getInt(json, "campaign_id", campaignId);
         placementId = SAJsonParser.getInt(json, "placementId", placementId);
         campaignType = SAJsonParser.getInt(json, "campaign_type", campaignType);
-        saCampaignType = campaignType == 0 ? SACampaignType.CPM : SACampaignType.CPI;
+        saCampaignType = SACampaignType.fromValue(campaignType);
         test = SAJsonParser.getBoolean(json, "test", test);
         isFallback = SAJsonParser.getBoolean(json, "is_fallback", isFallback);
         isFill = SAJsonParser.getBoolean(json, "is_fill", isFill);

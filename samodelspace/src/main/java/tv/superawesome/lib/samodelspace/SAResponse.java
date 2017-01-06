@@ -72,6 +72,7 @@ public class SAResponse implements Parcelable, JSONSerializable {
     public void readFromJson(JSONObject json) {
         status = SAJsonParser.getInt(json, "status", status);
         placementId = SAJsonParser.getInt(json, "placementId", placementId);
+        format = SACreativeFormat.fromValue(SAJsonParser.getInt(json, "format", format.ordinal()));
 
         JSONArray adsArray = SAJsonParser.getJsonArray(json, "ads", new JSONArray());
         ads = SAJsonParser.getListFromJsonArray(adsArray, new SAJsonToList<SAAd, JSONObject>() {
@@ -80,16 +81,6 @@ public class SAResponse implements Parcelable, JSONSerializable {
                 return new SAAd(jsonObject);
             }
         });
-
-        int icreativeFormat = SAJsonParser.getInt(json, "format", 0);
-        switch (icreativeFormat) {
-            case 1: format = SACreativeFormat.image; break;
-            case 2: format = SACreativeFormat.video; break;
-            case 3: format = SACreativeFormat.rich; break;
-            case 4: format = SACreativeFormat.tag; break;
-            case 5: format = SACreativeFormat.gamewall; break;
-            default: format = SACreativeFormat.invalid; break;
-        }
     }
 
     @Override

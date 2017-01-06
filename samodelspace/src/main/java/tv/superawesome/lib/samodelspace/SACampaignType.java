@@ -3,22 +3,29 @@ package tv.superawesome.lib.samodelspace;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-/**
- * Created by gabriel.coman on 01/08/16.
- */
 public enum SACampaignType implements Parcelable {
-    CPM {
+    CPM(0) {
         @Override
         public String toString() {
             return "CPM";
         }
     },
-    CPI {
+    CPI(1) {
         @Override
         public String toString() {
             return "CPI";
         }
     };
+
+    private final int value;
+    SACampaignType(int i) {
+        this.value = i;
+    }
+
+    public static SACampaignType fromValue (int value) {
+        if (value == 1) return CPI;
+        return CPM;
+    }
 
     @Override
     public int describeContents() {
