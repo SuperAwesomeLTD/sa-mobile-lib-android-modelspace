@@ -14,14 +14,7 @@ import tv.superawesome.lib.sajsonparser.SAJsonParser;
 import tv.superawesome.lib.sajsonparser.SAJsonToList;
 import tv.superawesome.lib.sajsonparser.SAListToJson;
 
-/**
- * Created by gabriel.coman on 25/08/16.
- */
 public class SACreative implements Parcelable, JSONSerializable {
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////
-    // Public members
-    ////////////////////////////////////////////////////////////////////////////////////////////////
 
     public int id;
     public String name;
@@ -38,12 +31,19 @@ public class SACreative implements Parcelable, JSONSerializable {
     public List<SATracking> events;
     public SADetails details;
 
-    ////////////////////////////////////////////////////////////////////////////////////////////////
-    // Constructors
-    ////////////////////////////////////////////////////////////////////////////////////////////////
-
     public SACreative () {
         initDefaults();
+    }
+
+    public SACreative (String json) {
+        initDefaults();
+        JSONObject jsonObject = SAJsonParser.newObject(json);
+        readFromJson(jsonObject);
+    }
+
+    public SACreative(JSONObject jsonObject) {
+        initDefaults();
+        readFromJson(jsonObject);
     }
 
     protected SACreative(Parcel in) {
@@ -62,15 +62,6 @@ public class SACreative implements Parcelable, JSONSerializable {
         events = in.createTypedArrayList(SATracking.CREATOR);
         details = in.readParcelable(SADetails.class.getClassLoader());
     }
-
-    public SACreative(JSONObject jsonObject) {
-        initDefaults();
-        readFromJson(jsonObject);
-    }
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////
-    // Helpers
-    ////////////////////////////////////////////////////////////////////////////////////////////////
 
     private void initDefaults () {
         id = 0;
@@ -95,10 +86,6 @@ public class SACreative implements Parcelable, JSONSerializable {
         return true;
     }
 
-    ////////////////////////////////////////////////////////////////////////////////////////////////
-    // JSONSerializable implementation
-    ////////////////////////////////////////////////////////////////////////////////////////////////
-
     @Override
     public void readFromJson(JSONObject json) {
         id = SAJsonParser.getInt(json, "id", id);
@@ -112,7 +99,8 @@ public class SACreative implements Parcelable, JSONSerializable {
         impressionUrl = SAJsonParser.getString(json, "impression_url", impressionUrl);
         installUrl = SAJsonParser.getString(json, "installUrl", installUrl);
         bundleId = SAJsonParser.getString(json, "bundleId", bundleId);
-        creativeFormat = SACreativeFormat.fromValue(SAJsonParser.getInt(json, "creativeFormat", creativeFormat.ordinal()));
+        creativeFormat = SACreativeFormat.fromString(format);
+//        creativeFormat = SACreativeFormat.fromValue(SAJsonParser.getInt(json, "creativeFormat", creativeFormat.ordinal()));
 
         JSONArray eventsArray = SAJsonParser.getJsonArray(json, "events", new JSONArray());
         events = SAJsonParser.getListFromJsonArray(eventsArray, new SAJsonToList<SATracking, JSONObject>() {
@@ -133,7 +121,6 @@ public class SACreative implements Parcelable, JSONSerializable {
                 "name", name,
                 "cpm", cpm,
                 "format", format,
-                "creativeFormat", creativeFormat.ordinal(),
                 "live", live,
                 "approved", approved,
                 "customPayload", customPayload,
@@ -142,18 +129,14 @@ public class SACreative implements Parcelable, JSONSerializable {
                 "installUrl", installUrl,
                 "bundleId", bundleId,
                 "events", SAJsonParser.getJsonArrayFromList(events, new SAListToJson<JSONObject, SATracking>() {
-            @Override
-            public JSONObject traverseItem(SATracking saTracking) {
-                return saTracking.writeToJson();
-            }
-        }),
+                    @Override
+                    public JSONObject traverseItem(SATracking saTracking) {
+                        return saTracking.writeToJson();
+                    }
+                }),
                 "details", details.writeToJson()
         });
     }
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////
-    // Parceable implementation
-    ////////////////////////////////////////////////////////////////////////////////////////////////
 
     public static final Creator<SACreative> CREATOR = new Creator<SACreative>() {
         @Override

@@ -72,6 +72,17 @@ public enum SACreativeFormat implements Parcelable {
         return invalid;
     }
 
+    public static SACreativeFormat fromString (String value) {
+        if (value == null) return invalid;
+        if (value.equals("image_with_link")) return image;
+        if (value.equals("video")) return video;
+        if (value.contains("rich_media")) return rich;
+        if (value.contains("tag")) return tag;
+        if (value.contains("gamewall")) return appwall;
+        if (value.contains("appwall")) return appwall;
+        return invalid;
+    }
+
     @Override
     public int describeContents() {
         return 0;
