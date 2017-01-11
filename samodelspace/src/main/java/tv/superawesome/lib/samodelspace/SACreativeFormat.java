@@ -1,11 +1,7 @@
 /**
- * @class: SAAd.java
- * @copyright: (c) 2015 SuperAwesome Ltd. All rights reserved.
- * @author: Gabriel Coman
- * @date: 28/09/2015
- *
+ * @Copyright:   SuperAwesome Trading Limited 2017
+ * @Author:      Gabriel Coman (gabriel.coman@superawesome.tv)
  */
-
 package tv.superawesome.lib.samodelspace;
 
 import android.os.Parcel;
@@ -13,11 +9,12 @@ import android.os.Parcelable;
 
 /**
  * An enum that defines the number of formats an ad can be in
- *  - invalid: defined by the SDK in case of some error
- *  - image: the creative is a simple banner image
- *  - video: the creative is a video that must be streamed
- *  - rich: a mini-HTML page with user interaction
- *  - tag: a rich-media (usually) served as a JS file via a 3rd party service
+ *  - invalid:  defined by the SDK in case of some error
+ *  - image:    the creative is a simple banner image
+ *  - video:    the creative is a video that must be streamed
+ *  - rich:     a mini-HTML page with user interaction
+ *  - tag:      a rich-media (usually) served as a JS file via a 3rd party service
+ *  - appwall:  a pop-up with links to games
  */
 public enum SACreativeFormat implements Parcelable {
 
@@ -59,10 +56,22 @@ public enum SACreativeFormat implements Parcelable {
     };
 
     private final int value;
+
+    /**
+     * Constructor that makes it possible for the enum to be initiated from an integer value
+     *
+     * @param i the integer value representing an enum
+     */
     SACreativeFormat(int i) {
         this.value = i;
     }
 
+    /**
+     * Factory method that creates this enum from an integer value
+     *
+     * @param value the integer value in question
+     * @return      an enum instance
+     */
     public static SACreativeFormat fromValue (int value) {
         if (value == 5) return appwall;
         if (value == 4) return tag;
@@ -72,6 +81,12 @@ public enum SACreativeFormat implements Parcelable {
         return invalid;
     }
 
+    /**
+     * Factory method that creates this enum from a string value
+     *
+     * @param value the string value in question
+     * @return      an enum instance
+     */
     public static SACreativeFormat fromString (String value) {
         if (value == null) return invalid;
         if (value.equals("image_with_link")) return image;
@@ -83,16 +98,30 @@ public enum SACreativeFormat implements Parcelable {
         return invalid;
     }
 
+    /**
+     * Method needed for Parcelable implementation
+     *
+     * @return always 0
+     */
     @Override
     public int describeContents() {
         return 0;
     }
 
+    /**
+     * Method needed for Parcelable implementation
+     *
+     * @param dest  destination parcel
+     * @param flags special flags
+     */
     @Override
     public void writeToParcel(final Parcel dest, final int flags) {
         dest.writeInt(ordinal());
     }
 
+    /**
+     * Method needed for Parcelable implementation
+     */
     public static final Creator<SACreativeFormat> CREATOR = new Creator<SACreativeFormat>() {
         @Override
         public SACreativeFormat createFromParcel(final Parcel source) {

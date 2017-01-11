@@ -1,8 +1,17 @@
+/**
+ * @Copyright:   SuperAwesome Trading Limited 2017
+ * @Author:      Gabriel Coman (gabriel.coman@superawesome.tv)
+ */
 package tv.superawesome.lib.samodelspace;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
+/**
+ * Enum that defines the overall types of acceptable  campaigns in AwesomeAds
+ *  - CPM campaigns, where cost is done "per thousand impressions"
+ *  - CMI campaigns, where cost is done "per thousand installs"
+ */
 public enum SACampaignType implements Parcelable {
     CPM(0) {
         @Override
@@ -18,25 +27,51 @@ public enum SACampaignType implements Parcelable {
     };
 
     private final int value;
+
+    /**
+     * Constructor that makes it possible for the enum to be initiated from an integer value
+     *
+     * @param i the integer value representing an enum
+     */
     SACampaignType(int i) {
         this.value = i;
     }
 
+    /**
+     * Factory method that creates this enum from an integer value
+     *
+     * @param value the integer value in question
+     * @return      an enum instance
+     */
     public static SACampaignType fromValue (int value) {
         if (value == 1) return CPI;
         return CPM;
     }
 
+    /**
+     * Method needed for Parcelable implementation
+     *
+     * @return always 0
+     */
     @Override
     public int describeContents() {
         return 0;
     }
 
+    /**
+     * Method needed for Parcelable implementation
+     *
+     * @param dest  destination parcel
+     * @param flags special flags
+     */
     @Override
     public void writeToParcel(final Parcel dest, final int flags) {
         dest.writeInt(ordinal());
     }
 
+    /**
+     * Method needed for Parcelable implementation
+     */
     public static final Creator<SACampaignType> CREATOR = new Creator<SACampaignType>() {
         @Override
         public SACampaignType createFromParcel(final Parcel source) {

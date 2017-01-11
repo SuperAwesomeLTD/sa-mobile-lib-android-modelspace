@@ -1,3 +1,7 @@
+/**
+ * @Copyright:   SuperAwesome Trading Limited 2017
+ * @Author:      Gabriel Coman (gabriel.coman@superawesome.tv)
+ */
 package tv.superawesome.lib.samodelspace;
 
 import android.os.Parcel;
@@ -5,29 +9,56 @@ import android.os.Parcelable;
 
 import org.json.JSONObject;
 
-import tv.superawesome.lib.sajsonparser.JSONSerializable;
+import tv.superawesome.lib.sajsonparser.SABaseObject;
 import tv.superawesome.lib.sajsonparser.SAJsonParser;
 
 /**
- * Created by gabriel.coman on 25/08/16.
+ * Class that defines a media element to be played
+ * Most important elements contained are:
+ *  - a html string to be rendered into a web view
+ *  - a disk & media url for a video
  */
-public class SAMedia implements Parcelable, JSONSerializable {
+public class SAMedia extends SABaseObject implements Parcelable {
 
-    ////////////////////////////////////////////////////////////////////////////////////////////////
-    // Public members
-    ////////////////////////////////////////////////////////////////////////////////////////////////
+    // member variables
+    public String html = null;
+    public String playableDiskUrl = null;
+    public String playableMediaUrl = null;
+    public String type = null;
+    public int bitrate = 0;
+    public boolean isOnDisk = false;
 
-    public String html;
-    public String playableDiskUrl;
-    public String playableMediaUrl;
-    public String type;
-    public int bitrate;
-    public boolean isOnDisk;
+    /**
+     * Basic constructor
+     */
+    public SAMedia () {
+        // do nothing
+    }
 
-    ////////////////////////////////////////////////////////////////////////////////////////////////
-    // Constructors
-    ////////////////////////////////////////////////////////////////////////////////////////////////
+    /**
+     * Constructor with a JSON string
+     *
+     * @param json a valid JSON string
+     */
+    public SAMedia (String json) {
+        JSONObject jsonObject = SAJsonParser.newObject(json);
+        readFromJson(jsonObject);
+    }
 
+    /**
+     * Constructor with a JSON object
+     *
+     * @param jsonObject a valid JSON object
+     */
+    public SAMedia (JSONObject jsonObject) {
+        readFromJson(jsonObject);
+    }
+
+    /**
+     * Constructor with a Parcel object
+     *
+     * @param in the parcel object to read data from
+     */
     protected SAMedia(Parcel in) {
         html = in.readString();
         playableDiskUrl = in.readString();
@@ -37,47 +68,36 @@ public class SAMedia implements Parcelable, JSONSerializable {
         isOnDisk = in.readByte() != 0;
     }
 
-    public SAMedia () {
-        initDefaults();
-    }
-
-    public SAMedia (JSONObject jsonObject) {
-        initDefaults();
-        readFromJson(jsonObject);
-    }
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////
-    // Helpers
-    ////////////////////////////////////////////////////////////////////////////////////////////////
-
-    private void initDefaults () {
-        html = null;
-        playableDiskUrl = null;
-        playableMediaUrl = null;
-        type = null;
-        bitrate = 0;
-        isOnDisk = false;
-    }
-
+    /**
+     * Overridden SAJsonSerializable method that describes the conditions for model validity
+     *
+     * @return true or false
+     */
     @Override
     public boolean isValid() {
         return true;
     }
 
-    ////////////////////////////////////////////////////////////////////////////////////////////////
-    // JSONSerializable implementation
-    ////////////////////////////////////////////////////////////////////////////////////////////////
-
+    /**
+     * Overridden SAJsonSerializable method that describes how a JSON object maps to a Java model
+     *
+     * @param jsonObject a valid JSONObject
+     */
     @Override
-    public void readFromJson(JSONObject json) {
-        html = SAJsonParser.getString(json, "html", html);
-        playableDiskUrl = SAJsonParser.getString(json, "playableDiskUrl", playableDiskUrl);
-        playableMediaUrl = SAJsonParser.getString(json, "playableMediaUrl", playableMediaUrl);
-        type = SAJsonParser.getString(json, "type", type);
-        bitrate = SAJsonParser.getInt(json, "bitrate", bitrate);
-        isOnDisk = SAJsonParser.getBoolean(json, "isOnDisk", isOnDisk);
+    public void readFromJson(JSONObject jsonObject) {
+        html = SAJsonParser.getString(jsonObject, "html", html);
+        playableDiskUrl = SAJsonParser.getString(jsonObject, "playableDiskUrl", playableDiskUrl);
+        playableMediaUrl = SAJsonParser.getString(jsonObject, "playableMediaUrl", playableMediaUrl);
+        type = SAJsonParser.getString(jsonObject, "type", type);
+        bitrate = SAJsonParser.getInt(jsonObject, "bitrate", bitrate);
+        isOnDisk = SAJsonParser.getBoolean(jsonObject, "isOnDisk", isOnDisk);
     }
 
+    /**
+     * Overridden SAJsonSerializable method that describes how a Java model maps to a JSON object
+     *
+     * @return a valid JSONObject
+     */
     @Override
     public JSONObject writeToJson() {
         return SAJsonParser.newObject(new Object[] {
@@ -90,10 +110,9 @@ public class SAMedia implements Parcelable, JSONSerializable {
         });
     }
 
-    ////////////////////////////////////////////////////////////////////////////////////////////////
-    // Parceable implementation
-    ////////////////////////////////////////////////////////////////////////////////////////////////
-
+    /**
+     * Method needed for Parcelable implementation
+     */
     public static final Creator<SAMedia> CREATOR = new Creator<SAMedia>() {
         @Override
         public SAMedia createFromParcel(Parcel in) {
@@ -106,11 +125,22 @@ public class SAMedia implements Parcelable, JSONSerializable {
         }
     };
 
+    /**
+     * Method needed for Parcelable implementation
+     *
+     * @return always 0
+     */
     @Override
     public int describeContents() {
         return 0;
     }
 
+    /**
+     * Method needed for Parcelable implementation
+     *
+     * @param dest  destination parcel
+     * @param flags special flags
+     */
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(html);

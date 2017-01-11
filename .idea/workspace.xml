@@ -12,10 +12,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2253f575-e4c4-4224-b97f-4c8095e887fd" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/samodelspace/src/main/java/tv/superawesome/lib/samodelspace/SAReferralData.java" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/samodelspace/src/main/java/tv/superawesome/lib/samodelspace/SACPIData.java" afterPath="" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/.idea/libraries/sajsonparser_0_2_4.xml" afterPath="$PROJECT_DIR$/.idea/libraries/sajsonparser_0_2_5.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/samodelspace/build.gradle" afterPath="$PROJECT_DIR$/samodelspace/build.gradle" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/samodelspace/samodelspace.iml" afterPath="$PROJECT_DIR$/samodelspace/samodelspace.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/samodelspace/src/main/java/tv/superawesome/lib/samodelspace/SAAd.java" afterPath="$PROJECT_DIR$/samodelspace/src/main/java/tv/superawesome/lib/samodelspace/SAAd.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/samodelspace/src/main/java/tv/superawesome/lib/samodelspace/SACampaignType.java" afterPath="$PROJECT_DIR$/samodelspace/src/main/java/tv/superawesome/lib/samodelspace/SACampaignType.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/samodelspace/src/main/java/tv/superawesome/lib/samodelspace/SACreative.java" afterPath="$PROJECT_DIR$/samodelspace/src/main/java/tv/superawesome/lib/samodelspace/SACreative.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/samodelspace/src/main/java/tv/superawesome/lib/samodelspace/SACreativeFormat.java" afterPath="$PROJECT_DIR$/samodelspace/src/main/java/tv/superawesome/lib/samodelspace/SACreativeFormat.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/samodelspace/src/main/java/tv/superawesome/lib/samodelspace/SADetails.java" afterPath="$PROJECT_DIR$/samodelspace/src/main/java/tv/superawesome/lib/samodelspace/SADetails.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/samodelspace/src/main/java/tv/superawesome/lib/samodelspace/SAMedia.java" afterPath="$PROJECT_DIR$/samodelspace/src/main/java/tv/superawesome/lib/samodelspace/SAMedia.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/samodelspace/src/main/java/tv/superawesome/lib/samodelspace/SAResponse.java" afterPath="$PROJECT_DIR$/samodelspace/src/main/java/tv/superawesome/lib/samodelspace/SAResponse.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/samodelspace/src/main/java/tv/superawesome/lib/samodelspace/SATracking.java" afterPath="$PROJECT_DIR$/samodelspace/src/main/java/tv/superawesome/lib/samodelspace/SATracking.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/samodelspace/src/main/java/tv/superawesome/lib/samodelspace/SAVASTAdType.java" afterPath="$PROJECT_DIR$/samodelspace/src/main/java/tv/superawesome/lib/samodelspace/SAVASTAdType.java" />
     </list>
     <ignored path="sa-mobile-lib-android-modelspace.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -143,29 +154,23 @@
       <file leaf-file-name="SAModelSpace_Tests.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/androidTest/java/superawesome/tv/samodelspacedemo/SAModelSpace_Tests.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="285">
-              <caret line="952" column="82" selection-start-line="952" selection-start-column="82" selection-end-line="952" selection-end-column="82" />
+            <state relative-caret-position="240">
+              <caret line="48" column="37" selection-start-line="48" selection-start-column="37" selection-end-line="48" selection-end-column="37" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SACampaignType.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/samodelspace/src/main/java/tv/superawesome/lib/samodelspace/SACampaignType.java">
+      <file leaf-file-name="SACreative.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/samodelspace/src/main/java/tv/superawesome/lib/samodelspace/SACreative.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
-              <caret line="19" column="28" selection-start-line="19" selection-start-column="4" selection-end-line="19" selection-end-column="28" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SACreativeFormat.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/samodelspace/src/main/java/tv/superawesome/lib/samodelspace/SACreativeFormat.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="508">
-              <caret line="75" column="42" selection-start-line="75" selection-start-column="42" selection-end-line="75" selection-end-column="42" />
-              <folding />
+            <state relative-caret-position="315">
+              <caret line="33" column="3" selection-start-line="20" selection-start-column="0" selection-end-line="33" selection-end-column="3" />
+              <folding>
+                <element signature="e#0#121#0" expanded="true" />
+                <element signature="e#2068#2069#0" expanded="true" />
+                <element signature="e#2108#2109#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -173,9 +178,13 @@
       <file leaf-file-name="SAAd.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/samodelspace/src/main/java/tv/superawesome/lib/samodelspace/SAAd.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="510">
-              <caret line="178" column="5" selection-start-line="178" selection-start-column="5" selection-end-line="178" selection-end-column="5" />
-              <folding />
+            <state relative-caret-position="103">
+              <caret line="28" column="25" selection-start-line="28" selection-start-column="25" selection-end-line="28" selection-end-column="25" />
+              <folding>
+                <element signature="e#0#121#0" expanded="true" />
+                <element signature="e#2582#2583#0" expanded="true" />
+                <element signature="e#2622#2623#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -190,14 +199,15 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SACreative.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/samodelspace/src/main/java/tv/superawesome/lib/samodelspace/SACreative.java">
+      <file leaf-file-name="SADetails.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/samodelspace/src/main/java/tv/superawesome/lib/samodelspace/SADetails.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1543">
-              <caret line="140" column="4" selection-start-line="140" selection-start-column="4" selection-end-line="140" selection-end-column="4" />
+            <state relative-caret-position="285">
+              <caret line="25" column="3" selection-start-line="14" selection-start-column="0" selection-end-line="25" selection-end-column="3" />
               <folding>
-                <element signature="e#927#928#0" expanded="true" />
-                <element signature="e#957#958#0" expanded="true" />
+                <element signature="e#0#121#0" expanded="true" />
+                <element signature="e#1790#1791#0" expanded="true" />
+                <element signature="e#1830#1831#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -216,29 +226,55 @@
       <file leaf-file-name="SAMedia.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/samodelspace/src/main/java/tv/superawesome/lib/samodelspace/SAMedia.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="24" column="28" selection-start-line="24" selection-start-column="28" selection-end-line="24" selection-end-column="28" />
-              <folding />
+            <state relative-caret-position="195">
+              <caret line="19" column="3" selection-start-line="14" selection-start-column="0" selection-end-line="19" selection-end-column="3" />
+              <folding>
+                <element signature="e#0#121#0" expanded="true" />
+                <element signature="e#1334#1335#0" expanded="true" />
+                <element signature="e#1374#1375#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SACPIData.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/samodelspace/src/main/java/tv/superawesome/lib/samodelspace/SACPIData.java">
+      <file leaf-file-name="SAReferralData.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/samodelspace/src/main/java/tv/superawesome/lib/samodelspace/SAReferralData.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="60">
-              <caret line="11" column="0" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
-              <folding />
+            <state relative-caret-position="165">
+              <caret line="17" column="31" selection-start-line="17" selection-start-column="31" selection-end-line="17" selection-end-column="31" />
+              <folding>
+                <element signature="e#0#121#0" expanded="true" />
+                <element signature="e#1645#1646#0" expanded="true" />
+                <element signature="e#1685#1686#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SADetails.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/samodelspace/src/main/java/tv/superawesome/lib/samodelspace/SADetails.java">
+      <file leaf-file-name="SAResponse.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/samodelspace/src/main/java/tv/superawesome/lib/samodelspace/SAResponse.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2385">
-              <caret line="175" column="31" selection-start-line="175" selection-start-column="31" selection-end-line="175" selection-end-column="31" />
-              <folding />
+            <state relative-caret-position="135">
+              <caret line="21" column="24" selection-start-line="21" selection-start-column="24" selection-end-line="21" selection-end-column="24" />
+              <folding>
+                <element signature="e#0#121#0" expanded="true" />
+                <element signature="e#1711#1712#0" expanded="true" />
+                <element signature="e#1751#1752#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SATracking.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/samodelspace/src/main/java/tv/superawesome/lib/samodelspace/SATracking.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="195">
+              <caret line="19" column="3" selection-start-line="14" selection-start-column="0" selection-end-line="19" selection-end-column="3" />
+              <folding>
+                <element signature="e#0#121#0" expanded="true" />
+                <element signature="e#1160#1161#0" expanded="true" />
+                <element signature="e#1200#1201#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -316,11 +352,6 @@
                 <option name="name" value="prepareDebugDependencies" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
-                <option name="description" value="Prepare tv.superawesome.lib.sajsonparser:sajsonparser:0.2.4" />
-                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
-                <option name="name" value="prepareTvSuperawesomeLibSajsonparserSajsonparser024Library" />
-              </ExternalTaskPojo>
-              <ExternalTaskPojo>
                 <option name="description" value="Assembles a bundle containing the library in debug." />
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
                 <option name="name" value="bundleDebug" />
@@ -370,6 +401,11 @@
                 <option name="description" value="Displays the tasks runnable from root project 'sa-mobile-lib-android-modelspace' (some of the displayed tasks may belong to subprojects)." />
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
                 <option name="name" value="tasks" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Prepare tv.superawesome.lib.sajsonparser:sajsonparser:0.2.5" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="prepareTvSuperawesomeLibSajsonparserSajsonparser025Library" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
@@ -593,6 +629,11 @@
                 <option name="name" value="mergeDebugAndroidTestAssets" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
+                <option name="description" value="Prepare tv.superawesome.lib.samodelspace:samodelspace:0.4.7" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="prepareTvSuperawesomeLibSamodelspaceSamodelspace047Library" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
                 <option name="name" value="processReleaseManifest" />
               </ExternalTaskPojo>
@@ -803,11 +844,6 @@
               <ExternalTaskPojo>
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
                 <option name="name" value="compileDebugNdk" />
-              </ExternalTaskPojo>
-              <ExternalTaskPojo>
-                <option name="description" value="Prepare tv.superawesome.lib.samodelspace:samodelspace:0.4.6" />
-                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
-                <option name="name" value="prepareTvSuperawesomeLibSamodelspaceSamodelspace046Library" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
@@ -1054,11 +1090,6 @@
                 <option name="name" value="prepareDebugDependencies" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
-                <option name="description" value="Prepare tv.superawesome.lib.sajsonparser:sajsonparser:0.2.4" />
-                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/app" />
-                <option name="name" value="prepareTvSuperawesomeLibSajsonparserSajsonparser024Library" />
-              </ExternalTaskPojo>
-              <ExternalTaskPojo>
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/app" />
                 <option name="name" value="processReleaseJavaRes" />
               </ExternalTaskPojo>
@@ -1089,6 +1120,11 @@
                 <option name="description" value="Displays the configuration model of project ':app'. [incubating]" />
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/app" />
                 <option name="name" value="model" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Prepare tv.superawesome.lib.sajsonparser:sajsonparser:0.2.5" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/app" />
+                <option name="name" value="prepareTvSuperawesomeLibSajsonparserSajsonparser025Library" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
                 <option name="description" value="Displays the tasks runnable from project ':app'." />
@@ -1277,6 +1313,11 @@
               <ExternalTaskPojo>
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/app" />
                 <option name="name" value="mergeDebugAndroidTestAssets" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Prepare tv.superawesome.lib.samodelspace:samodelspace:0.4.7" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/app" />
+                <option name="name" value="prepareTvSuperawesomeLibSamodelspaceSamodelspace047Library" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/app" />
@@ -1475,11 +1516,6 @@
               <ExternalTaskPojo>
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/app" />
                 <option name="name" value="compileDebugNdk" />
-              </ExternalTaskPojo>
-              <ExternalTaskPojo>
-                <option name="description" value="Prepare tv.superawesome.lib.samodelspace:samodelspace:0.4.6" />
-                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/app" />
-                <option name="name" value="prepareTvSuperawesomeLibSamodelspaceSamodelspace046Library" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/app" />
@@ -1727,11 +1763,6 @@
                 <option name="name" value="prepareDebugDependencies" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
-                <option name="description" value="Prepare tv.superawesome.lib.sajsonparser:sajsonparser:0.2.4" />
-                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/samodelspace" />
-                <option name="name" value="prepareTvSuperawesomeLibSajsonparserSajsonparser024Library" />
-              </ExternalTaskPojo>
-              <ExternalTaskPojo>
                 <option name="description" value="Assembles a bundle containing the library in debug." />
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/samodelspace" />
                 <option name="name" value="bundleDebug" />
@@ -1771,6 +1802,11 @@
                 <option name="description" value="Displays the configuration model of project ':samodelspace'. [incubating]" />
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/samodelspace" />
                 <option name="name" value="model" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Prepare tv.superawesome.lib.sajsonparser:sajsonparser:0.2.5" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/samodelspace" />
+                <option name="name" value="prepareTvSuperawesomeLibSajsonparserSajsonparser025Library" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
                 <option name="description" value="Displays the tasks runnable from project ':samodelspace'." />
@@ -2333,7 +2369,7 @@
     </option>
     <option name="modificationStamps">
       <map>
-        <entry key="$PROJECT_DIR$" value="5906829171000" />
+        <entry key="$PROJECT_DIR$" value="5911437772000" />
       </map>
     </option>
     <option name="projectBuildClasspath">
@@ -2812,19 +2848,20 @@
         <option value="$PROJECT_DIR$/app/build.gradle" />
         <option value="$PROJECT_DIR$/app/src/androidTest/java/superawesome/tv/samodelspacedemo/ApplicationTest.java" />
         <option value="$PROJECT_DIR$/app/src/androidTest/java/superawesome/tv/samodelspacedemo/TestSuite.java" />
-        <option value="$PROJECT_DIR$/samodelspace/src/main/java/tv/superawesome/lib/samodelspace/SATracking.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/superawesome/tv/samodelspacedemo/MainActivity.java" />
+        <option value="$PROJECT_DIR$/build.gradle" />
+        <option value="$PROJECT_DIR$/samodelspace/build.gradle" />
+        <option value="$PROJECT_DIR$/samodelspace/src/main/java/tv/superawesome/lib/samodelspace/SAVASTAdType.java" />
+        <option value="$PROJECT_DIR$/samodelspace/src/main/java/tv/superawesome/lib/samodelspace/SACreativeFormat.java" />
+        <option value="$PROJECT_DIR$/samodelspace/src/main/java/tv/superawesome/lib/samodelspace/SACampaignType.java" />
+        <option value="$PROJECT_DIR$/samodelspace/src/main/java/tv/superawesome/lib/samodelspace/SATracking.java" />
+        <option value="$PROJECT_DIR$/samodelspace/src/main/java/tv/superawesome/lib/samodelspace/SAResponse.java" />
         <option value="$PROJECT_DIR$/samodelspace/src/main/java/tv/superawesome/lib/samodelspace/SAMedia.java" />
         <option value="$PROJECT_DIR$/samodelspace/src/main/java/tv/superawesome/lib/samodelspace/SADetails.java" />
-        <option value="$PROJECT_DIR$/samodelspace/build.gradle" />
-        <option value="$PROJECT_DIR$/build.gradle" />
-        <option value="$PROJECT_DIR$/samodelspace/src/main/java/tv/superawesome/lib/samodelspace/SACPIData.java" />
-        <option value="$PROJECT_DIR$/samodelspace/src/main/java/tv/superawesome/lib/samodelspace/SACampaignType.java" />
-        <option value="$PROJECT_DIR$/samodelspace/src/main/java/tv/superawesome/lib/samodelspace/SAAd.java" />
-        <option value="$PROJECT_DIR$/samodelspace/src/main/java/tv/superawesome/lib/samodelspace/SAVASTAdType.java" />
-        <option value="$PROJECT_DIR$/samodelspace/src/main/java/tv/superawesome/lib/samodelspace/SAResponse.java" />
-        <option value="$PROJECT_DIR$/samodelspace/src/main/java/tv/superawesome/lib/samodelspace/SACreativeFormat.java" />
         <option value="$PROJECT_DIR$/samodelspace/src/main/java/tv/superawesome/lib/samodelspace/SACreative.java" />
+        <option value="$PROJECT_DIR$/samodelspace/src/main/java/tv/superawesome/lib/samodelspace/SACPIData.java" />
+        <option value="$PROJECT_DIR$/samodelspace/src/main/java/tv/superawesome/lib/samodelspace/SAReferralData.java" />
+        <option value="$PROJECT_DIR$/samodelspace/src/main/java/tv/superawesome/lib/samodelspace/SAAd.java" />
         <option value="$PROJECT_DIR$/app/src/androidTest/java/superawesome/tv/samodelspacedemo/SAModelSpace_Tests.java" />
         <option value="$PROJECT_DIR$/local.properties" />
       </list>
@@ -2860,28 +2897,6 @@
     </navigator>
     <panes>
       <pane id="PackagesPane" />
-      <pane id="ProjectPane">
-        <subPane>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="sa-mobile-lib-android-modelspace" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="sa-mobile-lib-android-modelspace" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="sa-mobile-lib-android-modelspace" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
-      <pane id="Scope" />
-      <pane id="Scratches" />
       <pane id="AndroidView">
         <subPane>
           <PATH>
@@ -2966,6 +2981,28 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
+      <pane id="Scratches" />
+      <pane id="ProjectPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="sa-mobile-lib-android-modelspace" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="sa-mobile-lib-android-modelspace" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="sa-mobile-lib-android-modelspace" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -3022,24 +3059,6 @@
         <option name="SUPPORT_LIB_ENABLED" value="true" />
         <option name="INSTRUMENTATION_ENABLED" value="true" />
       </Profilers>
-      <method />
-    </configuration>
-    <configuration default="false" name="sa-mobile-lib-android-modelspace [install]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value="install" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
       <method />
     </configuration>
     <configuration default="false" name="sa-mobile-lib-android-modelspace [bintrayUpload]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
@@ -3119,6 +3138,50 @@
       <option name="SKIP_NOOP_APK_INSTALLATIONS" value="true" />
       <option name="FORCE_STOP_RUNNING_APP" value="true" />
       <option name="DEBUGGER_TYPE" value="Java" />
+      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
+      <option name="PREFERRED_AVD" value="" />
+      <option name="SELECTED_CLOUD_MATRIX_CONFIGURATION_ID" value="-1" />
+      <option name="SELECTED_CLOUD_MATRIX_PROJECT_ID" value="" />
+      <Auto>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+      </Auto>
+      <Hybrid>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+      </Hybrid>
+      <Java />
+      <Native>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+      </Native>
+      <Profilers>
+        <option name="ENABLE_ADVANCED_PROFILING" value="true" />
+        <option name="GAPID_ENABLED" value="false" />
+        <option name="GAPID_DISABLE_PCS" value="false" />
+        <option name="SUPPORT_LIB_ENABLED" value="true" />
+        <option name="INSTRUMENTATION_ENABLED" value="true" />
+      </Profilers>
+      <method />
+    </configuration>
+    <configuration default="false" name="testModelSpace1()" type="AndroidTestRunConfigurationType" factoryName="Android Tests" temporary="true" nameIsGenerated="true">
+      <module name="app" />
+      <option name="TESTING_TYPE" value="3" />
+      <option name="INSTRUMENTATION_RUNNER_CLASS" value="android.support.test.runner.AndroidJUnitRunner" />
+      <option name="METHOD_NAME" value="testModelSpace1" />
+      <option name="CLASS_NAME" value="superawesome.tv.samodelspacedemo.SAModelSpace_Tests" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="EXTRA_OPTIONS" value="" />
+      <option name="TARGET_SELECTION_MODE" value="SHOW_DIALOG" />
+      <option name="PREFERRED_AVD" value="" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="true" />
+      <option name="SKIP_NOOP_APK_INSTALLATIONS" value="true" />
+      <option name="FORCE_STOP_RUNNING_APP" value="true" />
+      <option name="DEBUGGER_TYPE" value="Auto" />
       <option name="USE_LAST_SELECTED_DEVICE" value="false" />
       <option name="PREFERRED_AVD" value="" />
       <option name="SELECTED_CLOUD_MATRIX_CONFIGURATION_ID" value="-1" />
@@ -3459,18 +3522,18 @@
     <list size="6">
       <item index="0" class="java.lang.String" itemvalue="Android App.app" />
       <item index="1" class="java.lang.String" itemvalue="Android Tests.TestSuite" />
-      <item index="2" class="java.lang.String" itemvalue="Gradle.sa-mobile-lib-android-modelspace [install]" />
-      <item index="3" class="java.lang.String" itemvalue="Gradle.sa-mobile-lib-android-modelspace [bintrayUpload]" />
-      <item index="4" class="java.lang.String" itemvalue="Android Tests.testModelSpace6()" />
-      <item index="5" class="java.lang.String" itemvalue="Android Tests.SAModelSpace_Tests" />
+      <item index="2" class="java.lang.String" itemvalue="Gradle.sa-mobile-lib-android-modelspace [bintrayUpload]" />
+      <item index="3" class="java.lang.String" itemvalue="Android Tests.testModelSpace6()" />
+      <item index="4" class="java.lang.String" itemvalue="Android Tests.SAModelSpace_Tests" />
+      <item index="5" class="java.lang.String" itemvalue="Android Tests.testModelSpace1()" />
     </list>
     <recent_temporary>
       <list size="5">
         <item index="0" class="java.lang.String" itemvalue="Android Tests.TestSuite" />
-        <item index="1" class="java.lang.String" itemvalue="Android Tests.SAModelSpace_Tests" />
-        <item index="2" class="java.lang.String" itemvalue="Android Tests.testModelSpace6()" />
-        <item index="3" class="java.lang.String" itemvalue="Gradle.sa-mobile-lib-android-modelspace [bintrayUpload]" />
-        <item index="4" class="java.lang.String" itemvalue="Gradle.sa-mobile-lib-android-modelspace [install]" />
+        <item index="1" class="java.lang.String" itemvalue="Android Tests.testModelSpace1()" />
+        <item index="2" class="java.lang.String" itemvalue="Android Tests.SAModelSpace_Tests" />
+        <item index="3" class="java.lang.String" itemvalue="Android Tests.testModelSpace6()" />
+        <item index="4" class="java.lang.String" itemvalue="Gradle.sa-mobile-lib-android-modelspace [bintrayUpload]" />
       </list>
     </recent_temporary>
     <configuration default="true" type="AndroidRunConfigurationType" factoryName="Android Application">
@@ -3568,39 +3631,39 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="TestSuite - 2017.01.03 at 17h 36m 21s.xml">
+    <history-entry file="TestSuite - 2017.01.11 at 08h 13m 04s.xml">
       <configuration name="TestSuite" configurationId="AndroidTestRunConfigurationType" />
     </history-entry>
-    <history-entry file="TestSuite - 2017.01.03 at 17h 36m 40s.xml">
+    <history-entry file="TestSuite - 2017.01.11 at 08h 19m 12s.xml">
       <configuration name="TestSuite" configurationId="AndroidTestRunConfigurationType" />
     </history-entry>
-    <history-entry file="TestSuite - 2017.01.03 at 17h 38m 28s.xml">
+    <history-entry file="TestSuite - 2017.01.11 at 08h 21m 20s.xml">
       <configuration name="TestSuite" configurationId="AndroidTestRunConfigurationType" />
     </history-entry>
-    <history-entry file="TestSuite - 2017.01.03 at 17h 39m 08s.xml">
+    <history-entry file="TestSuite - 2017.01.11 at 08h 56m 41s.xml">
       <configuration name="TestSuite" configurationId="AndroidTestRunConfigurationType" />
     </history-entry>
-    <history-entry file="TestSuite - 2017.01.03 at 17h 46m 09s.xml">
+    <history-entry file="TestSuite - 2017.01.11 at 09h 00m 02s.xml">
       <configuration name="TestSuite" configurationId="AndroidTestRunConfigurationType" />
     </history-entry>
-    <history-entry file="TestSuite - 2017.01.03 at 17h 46m 21s.xml">
+    <history-entry file="TestSuite - 2017.01.11 at 09h 00m 18s.xml">
       <configuration name="TestSuite" configurationId="AndroidTestRunConfigurationType" />
     </history-entry>
-    <history-entry file="TestSuite - 2017.01.06 at 16h 22m 40s.xml">
-      <configuration name="TestSuite" configurationId="AndroidTestRunConfigurationType" />
+    <history-entry file="testModelSpace1() - 2017.01.11 at 08h 14m 53s.xml">
+      <configuration name="testModelSpace1()" configurationId="AndroidTestRunConfigurationType" />
     </history-entry>
-    <history-entry file="TestSuite - 2017.01.06 at 17h 43m 30s.xml">
-      <configuration name="TestSuite" configurationId="AndroidTestRunConfigurationType" />
+    <history-entry file="testModelSpace1() - 2017.01.11 at 08h 15m 26s.xml">
+      <configuration name="testModelSpace1()" configurationId="AndroidTestRunConfigurationType" />
     </history-entry>
-    <history-entry file="TestSuite - 2017.01.06 at 17h 44m 41s.xml">
-      <configuration name="TestSuite" configurationId="AndroidTestRunConfigurationType" />
+    <history-entry file="testModelSpace1() - 2017.01.11 at 08h 16m 58s.xml">
+      <configuration name="testModelSpace1()" configurationId="AndroidTestRunConfigurationType" />
     </history-entry>
-    <history-entry file="TestSuite - 2017.01.06 at 17h 45m 44s.xml">
-      <configuration name="TestSuite" configurationId="AndroidTestRunConfigurationType" />
+    <history-entry file="testModelSpace1() - 2017.01.11 at 08h 18m 28s.xml">
+      <configuration name="testModelSpace1()" configurationId="AndroidTestRunConfigurationType" />
     </history-entry>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="1440" height="900" extended-state="6" />
+    <frame x="0" y="0" width="1440" height="900" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -3610,9 +3673,9 @@
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.49379653" sideWeight="0.5028694" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.41315135" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.37841192" sideWeight="0.49713057" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.37841192" sideWeight="0.50572246" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.41315135" sideWeight="0.49427754" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.51736975" sideWeight="0.4914163" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -3641,32 +3704,20 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/samodelspace/src/main/java/tv/superawesome/lib/samodelspace/SAMedia.java</url>
-          <line>72</line>
-          <properties />
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-      <option name="time" value="4" />
+      <option name="time" value="8" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/samodelspace/src/main/java/tv/superawesome/lib/samodelspace/SAAd.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="24" column="0" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/samodelspace/src/main/java/tv/superawesome/lib/samodelspace/SAMedia.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="56" column="5" selection-start-line="56" selection-start-column="5" selection-end-line="56" selection-end-column="5" />
-          <folding />
+          <folding>
+            <element signature="e#0#121#0" expanded="true" />
+            <element signature="e#1334#1335#0" expanded="true" />
+            <element signature="e#1374#1375#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -3727,7 +3778,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/samodelspace/src/main/java/tv/superawesome/lib/samodelspace/SACPIData.java">
+    <entry file="file://$PROJECT_DIR$/samodelspace/src/main/java/tv/superawesome/lib/samodelspace/SAReferralData.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="81" column="0" selection-start-line="81" selection-start-column="0" selection-end-line="81" selection-end-column="0" />
@@ -3764,7 +3815,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/samodelspace/src/main/java/tv/superawesome/lib/samodelspace/SACPIData.java">
+    <entry file="file://$PROJECT_DIR$/samodelspace/src/main/java/tv/superawesome/lib/samodelspace/SAReferralData.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="81" column="0" selection-start-line="81" selection-start-column="0" selection-end-line="81" selection-end-column="0" />
@@ -3892,14 +3943,6 @@
       </provider>
     </entry>
     <entry file="jar://$PROJECT_DIR$/app/build/intermediates/exploded-aar/tv.superawesome.lib.sajsonparser/sajsonparser/0.2.3/jars/classes.jar!/tv/superawesome/lib/sajsonparser/SAJsonParser.class" />
-    <entry file="file://$PROJECT_DIR$/samodelspace/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1245">
-          <caret line="83" column="64" selection-start-line="83" selection-start-column="64" selection-end-line="83" selection-end-column="64" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$USER_HOME$/Library/Android/sdk/platforms/android-23/android.jar!/junit/framework/Assert.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="405">
@@ -3914,14 +3957,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="9" column="8" selection-start-line="7" selection-start-column="8" selection-end-line="9" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/superawesome/tv/samodelspacedemo/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="405">
@@ -3929,84 +3964,150 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/samodelspace/src/main/java/tv/superawesome/lib/samodelspace/SATracking.java">
+    <entry file="file://$PROJECT_DIR$/build.gradle">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="36" column="23" selection-start-line="36" selection-start-column="23" selection-end-line="36" selection-end-column="23" />
+        <state relative-caret-position="135">
+          <caret line="9" column="70" selection-start-line="7" selection-start-column="8" selection-end-line="9" selection-end-column="70" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/samodelspace/src/main/java/tv/superawesome/lib/samodelspace/SAVASTAdType.java">
+    <entry file="file://$PROJECT_DIR$/samodelspace/build.gradle">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="5" column="12" selection-start-line="5" selection-start-column="12" selection-end-line="5" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/samodelspace/src/main/java/tv/superawesome/lib/samodelspace/SAResponse.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="870">
-          <caret line="74" column="96" selection-start-line="74" selection-start-column="96" selection-end-line="74" selection-end-column="96" />
+        <state relative-caret-position="658">
+          <caret line="83" column="64" selection-start-line="83" selection-start-column="64" selection-end-line="83" selection-end-column="64" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/samodelspace/src/main/java/tv/superawesome/lib/samodelspace/SAMedia.java">
+    <entry file="jar://$PROJECT_DIR$/samodelspace/build/intermediates/exploded-aar/tv.superawesome.lib.sajsonparser/sajsonparser/0.2.5/jars/classes.jar!/tv/superawesome/lib/sajsonparser/SABaseObject.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="24" column="28" selection-start-line="24" selection-start-column="28" selection-end-line="24" selection-end-column="28" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/samodelspace/src/main/java/tv/superawesome/lib/samodelspace/SADetails.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2385">
-          <caret line="175" column="31" selection-start-line="175" selection-start-column="31" selection-end-line="175" selection-end-column="31" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/samodelspace/src/main/java/tv/superawesome/lib/samodelspace/SACPIData.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="11" column="0" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
-          <folding />
+        <state relative-caret-position="255">
+          <caret line="22" column="0" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
+          <folding>
+            <element signature="e#579#580#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/samodelspace/src/main/java/tv/superawesome/lib/samodelspace/SACampaignType.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="19" column="28" selection-start-line="19" selection-start-column="4" selection-end-line="19" selection-end-column="28" />
-          <folding />
+        <state relative-caret-position="930">
+          <caret line="73" column="7" selection-start-line="73" selection-start-column="7" selection-end-line="73" selection-end-column="7" />
+          <folding>
+            <element signature="e#0#121#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/samodelspace/src/main/java/tv/superawesome/lib/samodelspace/SAVASTAdType.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="523">
+          <caret line="81" column="7" selection-start-line="79" selection-start-column="4" selection-end-line="81" selection-end-column="7" />
+          <folding>
+            <element signature="e#0#121#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/samodelspace/src/main/java/tv/superawesome/lib/samodelspace/SACreativeFormat.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="508">
-          <caret line="75" column="42" selection-start-line="75" selection-start-column="42" selection-end-line="75" selection-end-column="42" />
-          <folding />
+        <state relative-caret-position="420">
+          <caret line="63" column="7" selection-start-line="59" selection-start-column="4" selection-end-line="63" selection-end-column="7" />
+          <folding>
+            <element signature="e#0#121#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/samodelspace/src/main/java/tv/superawesome/lib/samodelspace/SATracking.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="19" column="3" selection-start-line="14" selection-start-column="0" selection-end-line="19" selection-end-column="3" />
+          <folding>
+            <element signature="e#0#121#0" expanded="true" />
+            <element signature="e#1160#1161#0" expanded="true" />
+            <element signature="e#1200#1201#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/samodelspace/src/main/java/tv/superawesome/lib/samodelspace/SAResponse.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="21" column="24" selection-start-line="21" selection-start-column="24" selection-end-line="21" selection-end-column="24" />
+          <folding>
+            <element signature="e#0#121#0" expanded="true" />
+            <element signature="e#1711#1712#0" expanded="true" />
+            <element signature="e#1751#1752#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/samodelspace/src/main/java/tv/superawesome/lib/samodelspace/SAMedia.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="19" column="3" selection-start-line="14" selection-start-column="0" selection-end-line="19" selection-end-column="3" />
+          <folding>
+            <element signature="e#0#121#0" expanded="true" />
+            <element signature="e#1334#1335#0" expanded="true" />
+            <element signature="e#1374#1375#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/samodelspace/src/main/java/tv/superawesome/lib/samodelspace/SADetails.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="25" column="3" selection-start-line="14" selection-start-column="0" selection-end-line="25" selection-end-column="3" />
+          <folding>
+            <element signature="e#0#121#0" expanded="true" />
+            <element signature="e#1790#1791#0" expanded="true" />
+            <element signature="e#1830#1831#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/samodelspace/src/main/java/tv/superawesome/lib/samodelspace/SACreative.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1543">
-          <caret line="140" column="4" selection-start-line="140" selection-start-column="4" selection-end-line="140" selection-end-column="4" />
+        <state relative-caret-position="315">
+          <caret line="33" column="3" selection-start-line="20" selection-start-column="0" selection-end-line="33" selection-end-column="3" />
           <folding>
-            <element signature="e#927#928#0" expanded="true" />
-            <element signature="e#957#958#0" expanded="true" />
+            <element signature="e#0#121#0" expanded="true" />
+            <element signature="e#2068#2069#0" expanded="true" />
+            <element signature="e#2108#2109#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/samodelspace/src/main/java/tv/superawesome/lib/samodelspace/SAReferralData.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="17" column="31" selection-start-line="17" selection-start-column="31" selection-end-line="17" selection-end-column="31" />
+          <folding>
+            <element signature="e#0#121#0" expanded="true" />
+            <element signature="e#1645#1646#0" expanded="true" />
+            <element signature="e#1685#1686#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/samodelspace/src/main/java/tv/superawesome/lib/samodelspace/SAAd.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="103">
+          <caret line="28" column="25" selection-start-line="28" selection-start-column="25" selection-end-line="28" selection-end-column="25" />
+          <folding>
+            <element signature="e#0#121#0" expanded="true" />
+            <element signature="e#2582#2583#0" expanded="true" />
+            <element signature="e#2622#2623#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/androidTest/java/superawesome/tv/samodelspacedemo/SAModelSpace_Tests.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="952" column="82" selection-start-line="952" selection-start-column="82" selection-end-line="952" selection-end-column="82" />
+        <state relative-caret-position="240">
+          <caret line="48" column="37" selection-start-line="48" selection-start-column="37" selection-end-line="48" selection-end-column="37" />
           <folding />
         </state>
       </provider>
@@ -4015,14 +4116,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="165">
           <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/samodelspace/src/main/java/tv/superawesome/lib/samodelspace/SAAd.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="510">
-          <caret line="178" column="5" selection-start-line="178" selection-start-column="5" selection-end-line="178" selection-end-column="5" />
           <folding />
         </state>
       </provider>

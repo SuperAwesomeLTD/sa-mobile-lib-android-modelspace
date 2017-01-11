@@ -1,59 +1,89 @@
+/**
+ * @Copyright:   SuperAwesome Trading Limited 2017
+ * @Author:      Gabriel Coman (gabriel.coman@superawesome.tv)
+ */
 package tv.superawesome.lib.samodelspace;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.util.Log;
 
 import org.json.JSONObject;
 
-import tv.superawesome.lib.sajsonparser.JSONSerializable;
 import tv.superawesome.lib.sajsonparser.SABaseObject;
 import tv.superawesome.lib.sajsonparser.SAJsonParser;
 
 /**
- * Created by gabriel.coman on 25/08/16.
+ * Main class that contains all the information needed to play an ad and send all relevant
+ * events back to our ad server.
+ *  - error (not really used)
+ *  - advertiser, publisher, app, line item, campaign, placement IDs
+ *  - campaign type (CPM or CPI)
+ *  - moat - a float value that tells the SDK when to fire Moat tracking (if available); This value
+ *    is compared to a randomly generated int between 0 and 1; if the int is less than the moat
+ *    value, then the whole additional tracking happens
+ *  - test, is fallback, is fill, is house, safe ad approved, show padlock - flags that determine
+ *    whether the SDK should show the "Safe Ad Padlock" over an ad or not
+ *  - device
+ *  - isVast, vast type, vast redirect - indicate whether an ad is of vast type and  adds other
+ *    vast info
+ *  - a SACreative object
  */
-public class SAAd implements JSONSerializable, Parcelable {
+public class SAAd extends SABaseObject implements Parcelable {
 
-    ////////////////////////////////////////////////////////////////////////////////////////////////
-    // Public members
-    ////////////////////////////////////////////////////////////////////////////////////////////////
+    // member variables
+    public int error = 0;
+    public int advertiserId = 0;
+    public int publisherId = 0;
+    public int app = 0;
+    public int lineItemId = 0;
+    public int campaignId = 0;
+    public int placementId = 0;
+    public int campaignType = SACampaignType.CPM.ordinal();
+    public SACampaignType saCampaignType = SACampaignType.fromValue(campaignType);
+    public double moat = 0.2;
+    public boolean test = false;
+    public boolean isFallback = false;
+    public boolean isFill = false;
+    public boolean isHouse = false;
+    public boolean safeAdApproved = false;
+    public boolean showPadlock = false;
+    public String device = null;
+    public boolean isVAST = false;
+    public SAVASTAdType vastType = SAVASTAdType.InLine;
+    public String vastRedirect = null;
+    public SACreative creative = new SACreative();
 
-    public int error;
-    public int advertiserId;
-    public int publisherId;
-    public int app;
-    public int lineItemId;
-    public int campaignId;
-    public int placementId;
-    public int campaignType;
-    public double moat;
-    public SACampaignType saCampaignType;
-    public boolean test;
-    public boolean isFallback;
-    public boolean isFill;
-    public boolean isHouse;
-    public boolean safeAdApproved;
-    public boolean showPadlock;
-    public String device;
-    public boolean isVAST;
-    public SAVASTAdType vastType;
-    public String vastRedirect;
-    public SACreative creative;
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////
-    // Constructors
-    ////////////////////////////////////////////////////////////////////////////////////////////////
-
+    /**
+     * Basic constructor
+     */
     public SAAd () {
-        initDefaults();
+        // do nothing
     }
 
-    public SAAd(JSONObject jsonObject) {
-        initDefaults();
+    /**
+     * Constructor with a JSON string
+     *
+     * @param json a valid JSON string
+     */
+    public SAAd (String json) {
+        JSONObject jsonObject = SAJsonParser.newObject(json);
         readFromJson(jsonObject);
     }
 
+    /**
+     * Constructor with a JSON object
+     *
+     * @param jsonObject a valid JSON object
+     */
+    public SAAd (JSONObject jsonObject) {
+        readFromJson(jsonObject);
+    }
+
+    /**
+     * Constructor with a Parcel object
+     *
+     * @param in the parcel object to read data from
+     */
     protected SAAd(Parcel in) {
         error = in.readInt();
         advertiserId = in.readInt();
@@ -78,37 +108,11 @@ public class SAAd implements JSONSerializable, Parcelable {
         creative = in.readParcelable(SACreative.class.getClassLoader());
     }
 
-    ////////////////////////////////////////////////////////////////////////////////////////////////
-    // Helpers
-    ////////////////////////////////////////////////////////////////////////////////////////////////
-
-    private void initDefaults () {
-        // init w/ defaults
-        error = 0;
-        advertiserId = 0;
-        publisherId = 0;
-        app = 0;
-        lineItemId = 0;
-        campaignId = 0;
-        placementId = 0;
-        moat = 0.2;
-        campaignType = SACampaignType.CPM.ordinal();
-        saCampaignType = SACampaignType.fromValue(campaignType);
-        test = false;
-        isFallback = false;
-        isFill = false;
-        isHouse = false;
-        safeAdApproved = false;
-        showPadlock = false;
-        isVAST = false;
-        vastType = SAVASTAdType.InLine;
-        vastRedirect = null;
-        device = null;
-
-        // create the creative
-        creative = new SACreative();
-    }
-
+    /**
+     * Overridden SAJsonSerializable method that describes the conditions for model validity
+     *
+     * @return true or false
+     */
     @Override
     public boolean isValid() {
 
@@ -127,6 +131,11 @@ public class SAAd implements JSONSerializable, Parcelable {
         return true;
     }
 
+    /**
+     * Method that sums important things from two ads in place
+     *
+     * @param dest an ad that will need to be summed to the current one
+     */
     public void sumAd (SAAd dest) {
         if (dest.creative.clickUrl != null) {
             this.creative.clickUrl = dest.creative.clickUrl;
@@ -139,45 +148,51 @@ public class SAAd implements JSONSerializable, Parcelable {
         }
     }
 
-    ////////////////////////////////////////////////////////////////////////////////////////////////
-    // JSONSerializable implementation
-    ////////////////////////////////////////////////////////////////////////////////////////////////
-
+    /**
+     * Overridden SAJsonSerializable method that describes how a JSON object maps to a Java model
+     *
+     * @param jsonObject a valid JSONObject
+     */
     @Override
-    public void readFromJson(JSONObject json) {
+    public void readFromJson(JSONObject jsonObject) {
 
-        error = SAJsonParser.getInt(json, "error", error);
-        advertiserId = SAJsonParser.getInt(json, "advertiserId", advertiserId);
-        publisherId = SAJsonParser.getInt(json, "publisherId", publisherId);
-        app = SAJsonParser.getInt(json, "app", app);
+        error = SAJsonParser.getInt(jsonObject, "error", error);
+        advertiserId = SAJsonParser.getInt(jsonObject, "advertiserId", advertiserId);
+        publisherId = SAJsonParser.getInt(jsonObject, "publisherId", publisherId);
+        app = SAJsonParser.getInt(jsonObject, "app", app);
 
-        int val1 = SAJsonParser.getInt(json, "moat", (int) moat * 100);
-        double val2 = SAJsonParser.getDouble(json, "moat", moat);
+        int val1 = SAJsonParser.getInt(jsonObject, "moat", (int) moat * 100);
+        double val2 = SAJsonParser.getDouble(jsonObject, "moat", moat);
         moat = Math.max(val2, (double) val1);
         moat = moat > 1 ? 1 : moat;
 
-        lineItemId = SAJsonParser.getInt(json, "line_item_id", lineItemId);
-        campaignId = SAJsonParser.getInt(json, "campaign_id", campaignId);
-        placementId = SAJsonParser.getInt(json, "placementId", placementId);
-        campaignType = SAJsonParser.getInt(json, "campaign_type", campaignType);
+        lineItemId = SAJsonParser.getInt(jsonObject, "line_item_id", lineItemId);
+        campaignId = SAJsonParser.getInt(jsonObject, "campaign_id", campaignId);
+        placementId = SAJsonParser.getInt(jsonObject, "placementId", placementId);
+        campaignType = SAJsonParser.getInt(jsonObject, "campaign_type", campaignType);
         saCampaignType = SACampaignType.fromValue(campaignType);
-        test = SAJsonParser.getBoolean(json, "test", test);
-        isFallback = SAJsonParser.getBoolean(json, "is_fallback", isFallback);
-        isFill = SAJsonParser.getBoolean(json, "is_fill", isFill);
-        isHouse = SAJsonParser.getBoolean(json, "is_house", isHouse);
-        safeAdApproved = SAJsonParser.getBoolean(json, "safe_ad_approved", safeAdApproved);
-        showPadlock = SAJsonParser.getBoolean(json, "show_padlock", showPadlock);
-        isVAST = SAJsonParser.getBoolean(json, "isVAST", isVAST);
-        vastRedirect = SAJsonParser.getString(json, "vastRedirect", vastRedirect);
-        device = SAJsonParser.getString(json, "device", device);
+        test = SAJsonParser.getBoolean(jsonObject, "test", test);
+        isFallback = SAJsonParser.getBoolean(jsonObject, "is_fallback", isFallback);
+        isFill = SAJsonParser.getBoolean(jsonObject, "is_fill", isFill);
+        isHouse = SAJsonParser.getBoolean(jsonObject, "is_house", isHouse);
+        safeAdApproved = SAJsonParser.getBoolean(jsonObject, "safe_ad_approved", safeAdApproved);
+        showPadlock = SAJsonParser.getBoolean(jsonObject, "show_padlock", showPadlock);
+        isVAST = SAJsonParser.getBoolean(jsonObject, "isVAST", isVAST);
+        vastRedirect = SAJsonParser.getString(jsonObject, "vastRedirect", vastRedirect);
+        device = SAJsonParser.getString(jsonObject, "device", device);
 
-        int ivastType = SAJsonParser.getInt(json, "vastType", 0);
+        int ivastType = SAJsonParser.getInt(jsonObject, "vastType", 0);
         vastType = ivastType == 0 ? SAVASTAdType.Invalid : (ivastType == 1 ? SAVASTAdType.InLine : SAVASTAdType.Wrapper);
 
-        JSONObject creativeJson = SAJsonParser.getJsonObject(json, "creative", new JSONObject());
+        JSONObject creativeJson = SAJsonParser.getJsonObject(jsonObject, "creative", new JSONObject());
         creative = new SACreative(creativeJson);
     }
 
+    /**
+     * Overridden SAJsonSerializable method that describes how a Java model maps to a JSON object
+     *
+     * @return a valid JSONObject
+     */
     @Override
     public JSONObject writeToJson() {
         return SAJsonParser.newObject(new Object[] {
@@ -204,10 +219,9 @@ public class SAAd implements JSONSerializable, Parcelable {
         });
     }
 
-    ////////////////////////////////////////////////////////////////////////////////////////////////
-    // Parceable implementation
-    ////////////////////////////////////////////////////////////////////////////////////////////////
-
+    /**
+     * Method needed for Parcelable implementation
+     */
     public static final Creator<SAAd> CREATOR = new Creator<SAAd>() {
         @Override
         public SAAd createFromParcel(Parcel in) {
@@ -220,11 +234,22 @@ public class SAAd implements JSONSerializable, Parcelable {
         }
     };
 
+    /**
+     * Method needed for Parcelable implementation
+     *
+     * @return always 0
+     */
     @Override
     public int describeContents() {
         return 0;
     }
 
+    /**
+     * Method needed for Parcelable implementation
+     *
+     * @param dest  destination parcel
+     * @param flags special flags
+     */
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(error);
