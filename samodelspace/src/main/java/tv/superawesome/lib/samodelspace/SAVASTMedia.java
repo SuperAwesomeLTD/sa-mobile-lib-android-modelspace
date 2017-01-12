@@ -13,25 +13,26 @@ import tv.superawesome.lib.sajsonparser.SABaseObject;
 import tv.superawesome.lib.sajsonparser.SAJsonParser;
 
 /**
- * Class that defines a media element to be played
- * Most important elements contained are:
- *  - a html string to be rendered into a web view
- *  - a disk & media url for a video
+ * Class that represents a VAST media object, containing:
+ *  - a type (mp4, wav, etc)
+ *  - a media Url
+ *  - bitrate
+ *  - width and height
  */
-public class SAMedia extends SABaseObject implements Parcelable {
+public class SAVASTMedia extends SABaseObject implements Parcelable {
 
     // member variables
-    public String html = null;
-    public String playableDiskUrl = null;
-    public String playableMediaUrl = null;
     public String type = null;
-    public boolean isOnDisk = false;
+    public String mediaUrl = null;
+    public int bitrate = 0;
+    public int width = 0;
+    public int height = 0;
 
     /**
      * Basic constructor
      */
-    public SAMedia () {
-        // do nothing
+    public SAVASTMedia () {
+        //
     }
 
     /**
@@ -39,7 +40,7 @@ public class SAMedia extends SABaseObject implements Parcelable {
      *
      * @param json a valid JSON string
      */
-    public SAMedia (String json) {
+    public SAVASTMedia (String json) {
         JSONObject jsonObject = SAJsonParser.newObject(json);
         readFromJson(jsonObject);
     }
@@ -49,7 +50,7 @@ public class SAMedia extends SABaseObject implements Parcelable {
      *
      * @param jsonObject a valid JSON object
      */
-    public SAMedia (JSONObject jsonObject) {
+    public SAVASTMedia (JSONObject jsonObject) {
         readFromJson(jsonObject);
     }
 
@@ -58,12 +59,12 @@ public class SAMedia extends SABaseObject implements Parcelable {
      *
      * @param in the parcel object to read data from
      */
-    protected SAMedia(Parcel in) {
-        html = in.readString();
-        playableDiskUrl = in.readString();
-        playableMediaUrl = in.readString();
+    protected SAVASTMedia(Parcel in) {
         type = in.readString();
-        isOnDisk = in.readByte() != 0;
+        mediaUrl = in.readString();
+        bitrate = in.readInt();
+        width = in.readInt();
+        height = in.readInt();
     }
 
     /**
@@ -73,7 +74,7 @@ public class SAMedia extends SABaseObject implements Parcelable {
      */
     @Override
     public boolean isValid() {
-        return true;
+        return mediaUrl != null;
     }
 
     /**
@@ -83,11 +84,11 @@ public class SAMedia extends SABaseObject implements Parcelable {
      */
     @Override
     public void readFromJson(JSONObject jsonObject) {
-        html = SAJsonParser.getString(jsonObject, "html", html);
-        playableDiskUrl = SAJsonParser.getString(jsonObject, "playableDiskUrl", playableDiskUrl);
-        playableMediaUrl = SAJsonParser.getString(jsonObject, "playableMediaUrl", playableMediaUrl);
-        type = SAJsonParser.getString(jsonObject, "type", type);
-        isOnDisk = SAJsonParser.getBoolean(jsonObject, "isOnDisk", isOnDisk);
+        type = SAJsonParser.getString(jsonObject, "type", null);
+        mediaUrl = SAJsonParser.getString(jsonObject, "mediaUrl", null);
+        bitrate = SAJsonParser.getInt(jsonObject, "bitrate", 0);
+        width = SAJsonParser.getInt(jsonObject, "width", 0);
+        height = SAJsonParser.getInt(jsonObject, "height", 0);
     }
 
     /**
@@ -98,26 +99,26 @@ public class SAMedia extends SABaseObject implements Parcelable {
     @Override
     public JSONObject writeToJson() {
         return SAJsonParser.newObject(new Object[] {
-                "html", html,
-                "playableDiskUrl", playableDiskUrl,
-                "playableMediaUrl", playableMediaUrl,
                 "type", type,
-                "isOnDisk", isOnDisk
+                "mediaUrl", mediaUrl,
+                "bitrate", bitrate,
+                "width", width,
+                "height", height
         });
     }
 
     /**
      * Method needed for Parcelable implementation
      */
-    public static final Creator<SAMedia> CREATOR = new Creator<SAMedia>() {
+    public static final Creator<SAVASTMedia> CREATOR = new Creator<SAVASTMedia>() {
         @Override
-        public SAMedia createFromParcel(Parcel in) {
-            return new SAMedia(in);
+        public SAVASTMedia createFromParcel(Parcel in) {
+            return new SAVASTMedia(in);
         }
 
         @Override
-        public SAMedia[] newArray(int size) {
-            return new SAMedia[size];
+        public SAVASTMedia[] newArray(int size) {
+            return new SAVASTMedia[size];
         }
     };
 
@@ -139,10 +140,10 @@ public class SAMedia extends SABaseObject implements Parcelable {
      */
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(html);
-        dest.writeString(playableDiskUrl);
-        dest.writeString(playableMediaUrl);
         dest.writeString(type);
-        dest.writeByte((byte) (isOnDisk ? 1 : 0));
+        dest.writeString(mediaUrl);
+        dest.writeInt(bitrate);
+        dest.writeInt(width);
+        dest.writeInt(height);
     }
 }

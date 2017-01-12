@@ -48,9 +48,6 @@ public class SAAd extends SABaseObject implements Parcelable {
     public boolean safeAdApproved = false;
     public boolean showPadlock = false;
     public String device = null;
-    public boolean isVAST = false;
-    public SAVASTAdType vastType = SAVASTAdType.InLine;
-    public String vastRedirect = null;
     public SACreative creative = new SACreative();
 
     /**
@@ -101,9 +98,6 @@ public class SAAd extends SABaseObject implements Parcelable {
         isHouse = in.readByte() != 0;
         safeAdApproved = in.readByte() != 0;
         showPadlock = in.readByte() != 0;
-        isVAST = in.readByte() != 0;
-        vastType = in.readParcelable(SAVASTAdType.class.getClassLoader());
-        vastRedirect = in.readString();
         device = in.readString();
         creative = in.readParcelable(SACreative.class.getClassLoader());
     }
@@ -129,23 +123,6 @@ public class SAAd extends SABaseObject implements Parcelable {
         }
 
         return true;
-    }
-
-    /**
-     * Method that sums important things from two ads in place
-     *
-     * @param dest an ad that will need to be summed to the current one
-     */
-    public void sumAd (SAAd dest) {
-        if (dest.creative.clickUrl != null) {
-            this.creative.clickUrl = dest.creative.clickUrl;
-        }
-
-        this.creative.events.addAll(dest.creative.events);
-
-        if (dest.creative.details.media != null) {
-            this.creative.details.media = dest.creative.details.media;
-        }
     }
 
     /**
@@ -177,12 +154,7 @@ public class SAAd extends SABaseObject implements Parcelable {
         isHouse = SAJsonParser.getBoolean(jsonObject, "is_house", isHouse);
         safeAdApproved = SAJsonParser.getBoolean(jsonObject, "safe_ad_approved", safeAdApproved);
         showPadlock = SAJsonParser.getBoolean(jsonObject, "show_padlock", showPadlock);
-        isVAST = SAJsonParser.getBoolean(jsonObject, "isVAST", isVAST);
-        vastRedirect = SAJsonParser.getString(jsonObject, "vastRedirect", vastRedirect);
         device = SAJsonParser.getString(jsonObject, "device", device);
-
-        int ivastType = SAJsonParser.getInt(jsonObject, "vastType", 0);
-        vastType = ivastType == 0 ? SAVASTAdType.Invalid : (ivastType == 1 ? SAVASTAdType.InLine : SAVASTAdType.Wrapper);
 
         JSONObject creativeJson = SAJsonParser.getJsonObject(jsonObject, "creative", new JSONObject());
         creative = new SACreative(creativeJson);
@@ -211,9 +183,6 @@ public class SAAd extends SABaseObject implements Parcelable {
                 "is_house", isHouse,
                 "safe_ad_approved", safeAdApproved,
                 "show_padlock", showPadlock,
-                "isVAST", isVAST,
-                "vastRedirect", vastRedirect,
-                "vastType", vastType.ordinal(),
                 "creative", creative.writeToJson(),
                 "device", device
         });
@@ -268,9 +237,6 @@ public class SAAd extends SABaseObject implements Parcelable {
         dest.writeByte((byte) (isHouse ? 1 : 0));
         dest.writeByte((byte) (safeAdApproved ? 1 : 0));
         dest.writeByte((byte) (showPadlock ? 1 : 0));
-        dest.writeByte((byte) (isVAST ? 1 : 0));
-        dest.writeParcelable(vastType, flags);
-        dest.writeString(vastRedirect);
         dest.writeString(device);
         dest.writeParcelable(creative, flags);
     }
