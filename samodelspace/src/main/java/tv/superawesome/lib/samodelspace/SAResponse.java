@@ -80,7 +80,14 @@ public class SAResponse extends SABaseObject implements Parcelable {
      */
     @Override
     public boolean isValid() {
-        return ads.size() >= 1;
+        boolean allAdsValid = true;
+        for (SAAd ad : ads) {
+            if (!ad.isValid()) {
+                allAdsValid = false;
+                break;
+            }
+        }
+        return ads.size() >= 1 && allAdsValid;
     }
 
     /**

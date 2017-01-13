@@ -110,19 +110,31 @@ public class SAAd extends SABaseObject implements Parcelable {
     @Override
     public boolean isValid() {
 
-        if (creative == null)  return false;
-        if (creative.creativeFormat == SACreativeFormat.invalid) return false;
-        if (creative.details == null) return false;
-
         switch (creative.creativeFormat) {
-            case image:{ if (creative.details.image == null) return false; break; }
-            case video:{ if (creative.details.vast == null)  return false; break; }
-            case rich:{ if (creative.details.url == null)  return false; break; }
-            case tag:{ if (creative.details.tag == null)  return false; break; }
-            default:{ break; }
+            case invalid: {
+                return false;
+            }
+            case image: {
+                return creative.details.image != null && creative.details.media.html != null;
+            }
+            case rich: {
+                return creative.details.url != null && creative.details.media.html != null;
+            }
+            case video: {
+                return creative.details.vast != null &&
+                        creative.details.media.playableMediaUrl != null &&
+                        creative.details.media.playableDiskUrl != null &&
+                        creative.details.media.isOnDisk;
+            }
+            case tag: {
+                return creative.details.tag != null && creative.details.media.html != null;
+            }
+            case appwall: {
+                return true;
+            }
         }
 
-        return true;
+        return false;
     }
 
     /**
