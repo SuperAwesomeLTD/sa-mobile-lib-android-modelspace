@@ -127,7 +127,7 @@ public class SACreative extends SABaseObject implements Parcelable {
         installUrl = SAJsonParser.getString(jsonObject, "installUrl", installUrl);
         bundleId = SAJsonParser.getString(jsonObject, "bundleId", bundleId);
         creativeFormat = SACreativeFormat.fromString(format);
-        
+
         JSONArray eventsArray = SAJsonParser.getJsonArray(jsonObject, "events", new JSONArray());
         events = SAJsonParser.getListFromJsonArray(eventsArray, new SAJsonToList<SATracking, JSONObject>() {
             @Override

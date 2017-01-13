@@ -11,6 +11,7 @@ import org.json.JSONObject;
 
 import tv.superawesome.lib.sajsonparser.SABaseObject;
 import tv.superawesome.lib.sajsonparser.SAJsonParser;
+import tv.superawesome.lib.sautils.SAUtils;
 
 /**
  * Class that contains details about a creative, such as:
@@ -121,8 +122,12 @@ public class SADetails extends SABaseObject implements Parcelable {
         tag = SAJsonParser.getString(jsonObject, "tag", tag);
         zipFile = SAJsonParser.getString(jsonObject, "zipFile", zipFile);
         url = SAJsonParser.getString(jsonObject, "url", url);
-        cdnUrl = SAJsonParser.getString(jsonObject, "cdnUrl", cdnUrl);
         vast = SAJsonParser.getString(jsonObject, "vast", vast);
+
+        cdnUrl = SAJsonParser.getString(jsonObject, "cdnUrl", cdnUrl);
+        if (cdnUrl == null) cdnUrl = SAUtils.findBaseURLFromResourceURL(image);
+        if (cdnUrl == null) cdnUrl = SAUtils.findBaseURLFromResourceURL(video);
+        if (cdnUrl == null) cdnUrl = SAUtils.findBaseURLFromResourceURL(url);
 
         JSONObject mediaJson = SAJsonParser.getJsonObject(jsonObject, "media", new JSONObject());
         media = new SAMedia(mediaJson);

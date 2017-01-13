@@ -87,7 +87,7 @@ public class SAVASTAd extends SABaseObject implements Parcelable {
      */
     @Override
     public boolean isValid() {
-        return true;
+        return mediaUrl != null && vastType != SAVASTAdType.Invalid;
     }
 
     /**
