@@ -130,7 +130,10 @@ public class SAAd extends SABaseObject implements Parcelable {
                 return creative.details.tag != null && creative.details.media.html != null;
             }
             case appwall: {
-                return true;
+                return creative.details.image != null &&
+                        creative.details.media.playableMediaUrl != null &&
+                        creative.details.media.playableDiskUrl != null &&
+                        creative.details.media.isOnDisk;
             }
         }
 

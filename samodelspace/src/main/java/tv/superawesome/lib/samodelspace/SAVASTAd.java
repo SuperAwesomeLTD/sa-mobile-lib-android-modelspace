@@ -30,6 +30,7 @@ public class SAVASTAd extends SABaseObject implements Parcelable {
     public String vastRedirect;
     public SAVASTAdType vastType = SAVASTAdType.Invalid;
     public String mediaUrl;
+    public List<SAVASTMedia> mediaList = new ArrayList<>();
     public List<SATracking> vastEvents = new ArrayList<>();
 
     /**
@@ -66,6 +67,7 @@ public class SAVASTAd extends SABaseObject implements Parcelable {
     protected SAVASTAd(Parcel in) {
         vastRedirect = in.readString();
         mediaUrl = in.readString();
+        mediaList = in.createTypedArrayList(SAVASTMedia.CREATOR);
         vastEvents = in.createTypedArrayList(SATracking.CREATOR);
         vastType = in.readParcelable(SAVASTAdType.class.getClassLoader());
     }
@@ -78,6 +80,7 @@ public class SAVASTAd extends SABaseObject implements Parcelable {
     public void sumAd (SAVASTAd toBeAdded) {
         mediaUrl = toBeAdded.mediaUrl != null ? toBeAdded.mediaUrl : mediaUrl;
         vastEvents.addAll(toBeAdded.vastEvents);
+        mediaList.addAll(toBeAdded.mediaList);
     }
 
     /**
@@ -87,7 +90,7 @@ public class SAVASTAd extends SABaseObject implements Parcelable {
      */
     @Override
     public boolean isValid() {
-        return mediaUrl != null && vastType != SAVASTAdType.Invalid;
+        return mediaUrl != null && vastType != SAVASTAdType.Invalid && mediaList.size() >= 1;
     }
 
     /**
@@ -100,6 +103,14 @@ public class SAVASTAd extends SABaseObject implements Parcelable {
         vastRedirect = SAJsonParser.getString(jsonObject, "vastRedirect", null);
         mediaUrl = SAJsonParser.getString(jsonObject, "mediaUrl", null);
         vastType = SAVASTAdType.fromValue(SAJsonParser.getInt(jsonObject, "vastType", 0));
+
+        mediaList = SAJsonParser.getListFromJsonArray(jsonObject, "mediaList", new SAJsonToList<SAVASTMedia, JSONObject>() {
+            @Override
+            public SAVASTMedia traverseItem(JSONObject jsonObject) {
+                return new SAVASTMedia(jsonObject);
+            }
+        });
+
         vastEvents = SAJsonParser.getListFromJsonArray(jsonObject, "vastEvents", new SAJsonToList<SATracking, JSONObject>() {
             @Override
             public SATracking traverseItem(JSONObject jsonObject) {
@@ -119,6 +130,12 @@ public class SAVASTAd extends SABaseObject implements Parcelable {
                 "vastRedirect", vastRedirect,
                 "mediaUrl", mediaUrl,
                 "vastType", vastType.ordinal(),
+                "mediaList", SAJsonParser.getJsonArrayFromList(mediaList, new SAListToJson<JSONObject, SAVASTMedia>() {
+                    @Override
+                    public JSONObject traverseItem(SAVASTMedia savastMedia) {
+                        return savastMedia.writeToJson();
+                    }
+                }),
                 "vastEvents", SAJsonParser.getJsonArrayFromList(vastEvents, new SAListToJson<JSONObject, SATracking>() {
                     @Override
                     public JSONObject traverseItem(SATracking saTracking) {
@@ -164,6 +181,7 @@ public class SAVASTAd extends SABaseObject implements Parcelable {
         dest.writeString(vastRedirect);
         dest.writeString(mediaUrl);
         dest.writeTypedList(vastEvents);
+        dest.writeTypedList(mediaList);
         dest.writeParcelable(vastType, flags);
     }
 }
