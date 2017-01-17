@@ -22,7 +22,7 @@ public class SATracking extends SABaseObject implements Parcelable {
 
     // member variables
     public String event = null;
-    public String URL = null;
+    public String URL   = null;
 
     /**
      * Basic constructor

@@ -47,13 +47,11 @@ public enum SAVASTAdType implements Parcelable {
     /**
      * Factory method that creates this enum from an integer value
      *
-     * @param value the integer value in question
-     * @return      an enum instance
+     * @param type the integer value in question
+     * @return     an enum instance
      */
-    public static SAVASTAdType fromValue (int value) {
-        if (value == 2) return Wrapper;
-        if (value == 1) return InLine;
-        return Invalid;
+    public static SAVASTAdType fromValue (int type) {
+        return type == 2 ? Wrapper : type == 1 ? InLine : Invalid;
     }
 
     /**

@@ -28,21 +28,21 @@ import tv.superawesome.lib.sautils.SAUtils;
 public class SADetails extends SABaseObject implements Parcelable {
 
     // member variables
-    public int width = 0;
-    public int height = 0;
-    public String name = null;
-    public String placementFormat = null;
-    public int bitrate = 0;
-    public int duration = 0;
-    public int value = 0;
-    public String image = null;
-    public String video = null;
-    public String tag = null;
-    public String zipFile = null;
-    public String url = null;
-    public String cdnUrl = null;
-    public String vast = null;
-    public SAMedia media = new SAMedia();
+    public int     width           = 0;
+    public int     height          = 0;
+    public String  name            = null;
+    public String  placementFormat = null;
+    public int     bitrate         = 0;
+    public int     duration        = 0;
+    public int     value           = 0;
+    public String  image           = null;
+    public String  video           = null;
+    public String  tag             = null;
+    public String  zipFile         = null;
+    public String  url             = null;
+    public String  cdnUrl          = null;
+    public String  vast            = null;
+    public SAMedia media           = new SAMedia();
 
     /**
      * Basic constructor

@@ -35,20 +35,19 @@ import tv.superawesome.lib.sajsonparser.SAListToJson;
 public class SACreative extends SABaseObject implements Parcelable {
 
     // member variables
-    public int id = 0;
-    public String name = null;
-    public int cpm = 0;
-    public String format = null;
-    public SACreativeFormat creativeFormat = SACreativeFormat.invalid;
-    public boolean live = true;
-    public boolean approved = true;
-    public String customPayload = null;
-    public String clickUrl = null;
-    public String impressionUrl = null;
-    public String installUrl = null;
-    public String bundleId = null;
-    public List<SATracking> events = new ArrayList<>();
-    public SADetails details = new SADetails();
+    public int              id             = 0;
+    public String           name           = null;
+    public int              cpm            = 0;
+    public SACreativeFormat format         = SACreativeFormat.invalid;
+    public boolean          live           = true;
+    public boolean          approved       = true;
+    public String           customPayload  = null;
+    public String           clickUrl       = null;
+    public String           impressionUrl  = null;
+    public String           installUrl     = null;
+    public String           bundleId       = null;
+    public List<SATracking> events         = new ArrayList<>();
+    public SADetails        details        = new SADetails();
 
     /**
      * Basic constructor
@@ -85,8 +84,7 @@ public class SACreative extends SABaseObject implements Parcelable {
         id = in.readInt();
         name = in.readString();
         cpm = in.readInt();
-        format = in.readString();
-        creativeFormat = in.readParcelable(SACreativeFormat.class.getClassLoader());
+        format = in.readParcelable(SACreativeFormat.class.getClassLoader());
         live = in.readByte() != 0;
         approved = in.readByte() != 0;
         customPayload = in.readString();
@@ -118,7 +116,10 @@ public class SACreative extends SABaseObject implements Parcelable {
         id = SAJsonParser.getInt(jsonObject, "id", id);
         name = SAJsonParser.getString(jsonObject, "name", name);
         cpm = SAJsonParser.getInt(jsonObject, "cpm", cpm);
-        format = SAJsonParser.getString(jsonObject, "format", format);
+
+        String formatString = SAJsonParser.getString(jsonObject, "format", null);
+        format = SACreativeFormat.fromString(formatString);
+
         live = SAJsonParser.getBoolean(jsonObject, "live", live);
         approved = SAJsonParser.getBoolean(jsonObject, "approved", approved);
         customPayload = SAJsonParser.getString(jsonObject, "customPayload", customPayload);
@@ -126,7 +127,6 @@ public class SACreative extends SABaseObject implements Parcelable {
         impressionUrl = SAJsonParser.getString(jsonObject, "impression_url", impressionUrl);
         installUrl = SAJsonParser.getString(jsonObject, "installUrl", installUrl);
         bundleId = SAJsonParser.getString(jsonObject, "bundleId", bundleId);
-        creativeFormat = SACreativeFormat.fromString(format);
 
         JSONArray eventsArray = SAJsonParser.getJsonArray(jsonObject, "events", new JSONArray());
         events = SAJsonParser.getListFromJsonArray(eventsArray, new SAJsonToList<SATracking, JSONObject>() {
@@ -151,7 +151,7 @@ public class SACreative extends SABaseObject implements Parcelable {
                 "id", id,
                 "name", name,
                 "cpm", cpm,
-                "format", format,
+                "format", format.toString(),
                 "live", live,
                 "approved", approved,
                 "customPayload", customPayload,
@@ -205,8 +205,7 @@ public class SACreative extends SABaseObject implements Parcelable {
         dest.writeInt(id);
         dest.writeString(name);
         dest.writeInt(cpm);
-        dest.writeString(format);
-        dest.writeParcelable(creativeFormat, flags);
+        dest.writeParcelable(format, flags);
         dest.writeByte((byte) (live ? 1 : 0));
         dest.writeByte((byte) (approved ? 1 : 0));
         dest.writeString(customPayload);

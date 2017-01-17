@@ -27,7 +27,7 @@ public enum SACreativeFormat implements Parcelable {
     image(1) {
         @Override
         public String toString() {
-            return "image";
+            return "image_with_link";
         }
     },
     video(2) {
@@ -39,7 +39,7 @@ public enum SACreativeFormat implements Parcelable {
     rich(3){
         @Override
         public String toString() {
-            return "rich";
+            return "rich_media";
         }
     },
     tag(4) {
@@ -69,15 +69,15 @@ public enum SACreativeFormat implements Parcelable {
     /**
      * Factory method that creates this enum from an integer value
      *
-     * @param value the integer value in question
-     * @return      an enum instance
+     * @param format the integer value in question
+     * @return       an enum instance
      */
-    public static SACreativeFormat fromValue (int value) {
-        if (value == 5) return appwall;
-        if (value == 4) return tag;
-        if (value == 3) return rich;
-        if (value == 2) return video;
-        if (value == 1) return image;
+    public static SACreativeFormat fromValue (int format) {
+        if (format == 5) return appwall;
+        if (format == 4) return tag;
+        if (format == 3) return rich;
+        if (format == 2) return video;
+        if (format == 1) return image;
         return invalid;
     }
 

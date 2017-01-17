@@ -40,12 +40,11 @@ public enum SACampaignType implements Parcelable {
     /**
      * Factory method that creates this enum from an integer value
      *
-     * @param value the integer value in question
-     * @return      an enum instance
+     * @param campaign the integer value in question
+     * @return         an enum instance
      */
-    public static SACampaignType fromValue (int value) {
-        if (value == 1) return CPI;
-        return CPM;
+    public static SACampaignType fromValue (int campaign) {
+        return campaign == 1 ? CPI : CPM;
     }
 
     /**

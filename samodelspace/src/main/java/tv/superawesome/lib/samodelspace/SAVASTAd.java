@@ -27,11 +27,11 @@ import tv.superawesome.lib.sajsonparser.SAListToJson;
 public class SAVASTAd extends SABaseObject implements Parcelable {
 
     // member variables
-    public String vastRedirect;
-    public SAVASTAdType vastType = SAVASTAdType.Invalid;
-    public String mediaUrl;
-    public List<SAVASTMedia> mediaList = new ArrayList<>();
-    public List<SATracking> vastEvents = new ArrayList<>();
+    public String            vastRedirect = null;
+    public SAVASTAdType      vastType     = SAVASTAdType.Invalid;
+    public String            mediaUrl     = null;
+    public List<SAVASTMedia> mediaList    = new ArrayList<>();
+    public List<SATracking>  vastEvents   = new ArrayList<>();
 
     /**
      * Basic constructor

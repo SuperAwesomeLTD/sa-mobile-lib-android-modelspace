@@ -24,31 +24,28 @@ import tv.superawesome.lib.sajsonparser.SAJsonParser;
  *  - test, is fallback, is fill, is house, safe ad approved, show padlock - flags that determine
  *    whether the SDK should show the "Safe Ad Padlock" over an ad or not
  *  - device
- *  - isVast, vast type, vast redirect - indicate whether an ad is of vast type and  adds other
- *    vast info
  *  - a SACreative object
  */
 public class SAAd extends SABaseObject implements Parcelable {
 
     // member variables
-    public int error = 0;
-    public int advertiserId = 0;
-    public int publisherId = 0;
-    public int app = 0;
-    public int lineItemId = 0;
-    public int campaignId = 0;
-    public int placementId = 0;
-    public int campaignType = SACampaignType.CPM.ordinal();
-    public SACampaignType saCampaignType = SACampaignType.fromValue(campaignType);
-    public double moat = 0.2;
-    public boolean test = false;
-    public boolean isFallback = false;
-    public boolean isFill = false;
-    public boolean isHouse = false;
-    public boolean safeAdApproved = false;
-    public boolean showPadlock = false;
-    public String device = null;
-    public SACreative creative = new SACreative();
+    public int            error          = 0;
+    public int            advertiserId   = 0;
+    public int            publisherId    = 0;
+    public int            app            = 0;
+    public int            lineItemId     = 0;
+    public int            campaignId     = 0;
+    public int            placementId    = 0;
+    public SACampaignType campaignType = SACampaignType.CPM;
+    public double         moat           = 0.2;
+    public boolean        test           = false;
+    public boolean        isFallback     = false;
+    public boolean        isFill         = false;
+    public boolean        isHouse        = false;
+    public boolean        safeAdApproved = false;
+    public boolean        showPadlock    = false;
+    public String         device         = null;
+    public SACreative     creative       = new SACreative();
 
     /**
      * Basic constructor
@@ -89,9 +86,8 @@ public class SAAd extends SABaseObject implements Parcelable {
         lineItemId = in.readInt();
         campaignId = in.readInt();
         placementId = in.readInt();
-        campaignType = in.readInt();
         moat = in.readDouble();
-        saCampaignType = in.readParcelable(SACampaignType.class.getClassLoader());
+        campaignType = in.readParcelable(SACampaignType.class.getClassLoader());
         test = in.readByte() != 0;
         isFallback = in.readByte() != 0;
         isFill = in.readByte() != 0;
@@ -110,7 +106,7 @@ public class SAAd extends SABaseObject implements Parcelable {
     @Override
     public boolean isValid() {
 
-        switch (creative.creativeFormat) {
+        switch (creative.format) {
             case invalid: {
                 return false;
             }
@@ -161,8 +157,10 @@ public class SAAd extends SABaseObject implements Parcelable {
         lineItemId = SAJsonParser.getInt(jsonObject, "line_item_id", lineItemId);
         campaignId = SAJsonParser.getInt(jsonObject, "campaign_id", campaignId);
         placementId = SAJsonParser.getInt(jsonObject, "placementId", placementId);
-        campaignType = SAJsonParser.getInt(jsonObject, "campaign_type", campaignType);
-        saCampaignType = SACampaignType.fromValue(campaignType);
+
+        int campaign = SAJsonParser.getInt(jsonObject, "campaign_type", 0);
+        campaignType = SACampaignType.fromValue(campaign);
+
         test = SAJsonParser.getBoolean(jsonObject, "test", test);
         isFallback = SAJsonParser.getBoolean(jsonObject, "is_fallback", isFallback);
         isFill = SAJsonParser.getBoolean(jsonObject, "is_fill", isFill);
@@ -191,7 +189,7 @@ public class SAAd extends SABaseObject implements Parcelable {
                 "line_item_id", lineItemId,
                 "campaign_id", campaignId,
                 "placementId", placementId,
-                "campaign_type", campaignType,
+                "campaign_type", campaignType.ordinal(),
                 "test", test,
                 "is_fallback", isFallback,
                 "is_fill", isFill,
@@ -243,9 +241,8 @@ public class SAAd extends SABaseObject implements Parcelable {
         dest.writeInt(lineItemId);
         dest.writeInt(campaignId);
         dest.writeInt(placementId);
-        dest.writeInt(campaignType);
         dest.writeDouble(moat);
-        dest.writeParcelable(saCampaignType, flags);
+        dest.writeParcelable(campaignType, flags);
         dest.writeByte((byte) (test ? 1 : 0));
         dest.writeByte((byte) (isFallback ? 1 : 0));
         dest.writeByte((byte) (isFill ? 1 : 0));

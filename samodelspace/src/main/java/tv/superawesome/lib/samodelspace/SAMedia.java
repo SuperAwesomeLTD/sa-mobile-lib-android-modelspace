@@ -21,11 +21,11 @@ import tv.superawesome.lib.sajsonparser.SAJsonParser;
 public class SAMedia extends SABaseObject implements Parcelable {
 
     // member variables
-    public String html = null;
-    public String playableDiskUrl = null;
-    public String playableMediaUrl = null;
-    public String type = null;
-    public boolean isOnDisk = false;
+    public String  html             = null;
+    public String  playableDiskUrl  = null;
+    public String  playableMediaUrl = null;
+    public String  type             = null;
+    public boolean isOnDisk         = false;
 
     /**
      * Basic constructor

@@ -28,10 +28,10 @@ public class SAReferralData extends SABaseObject implements Parcelable {
 
     // member variables
     public int configuration = CPI_DEF_VAL;
-    public int campaignId = CPI_DEF_VAL;
-    public int lineItemId = CPI_DEF_VAL;
-    public int creativeId = CPI_DEF_VAL;
-    public int placementId = CPI_DEF_VAL;
+    public int campaignId    = CPI_DEF_VAL;
+    public int lineItemId    = CPI_DEF_VAL;
+    public int creativeId    = CPI_DEF_VAL;
+    public int placementId   = CPI_DEF_VAL;
 
     /**
      * Basic constructor

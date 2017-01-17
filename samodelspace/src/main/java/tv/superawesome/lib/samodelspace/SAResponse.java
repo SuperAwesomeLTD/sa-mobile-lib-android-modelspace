@@ -30,10 +30,10 @@ import tv.superawesome.lib.sajsonparser.SAListToJson;
 public class SAResponse extends SABaseObject implements Parcelable {
 
     // member variables
-    public int placementId = 0;
-    public int status = 0;
-    public SACreativeFormat format = SACreativeFormat.invalid;
-    public List<SAAd> ads = new ArrayList<>();
+    public int              placementId = 0;
+    public int              status      = 0;
+    public SACreativeFormat format      = SACreativeFormat.invalid;
+    public List<SAAd>       ads         = new ArrayList<>();
 
     /**
      * Basic constructor
