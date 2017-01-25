@@ -35,19 +35,22 @@ import tv.superawesome.lib.sajsonparser.SAListToJson;
 public class SACreative extends SABaseObject implements Parcelable {
 
     // member variables
-    public int              id             = 0;
-    public String           name           = null;
-    public int              cpm            = 0;
-    public SACreativeFormat format         = SACreativeFormat.invalid;
-    public boolean          live           = true;
-    public boolean          approved       = true;
-    public String           customPayload  = null;
-    public String           clickUrl       = null;
-    public String           impressionUrl  = null;
-    public String           installUrl     = null;
-    public String           bundleId       = null;
-    public List<SATracking> events         = new ArrayList<>();
-    public SADetails        details        = new SADetails();
+    public int              id              = 0;
+    public String           name            = null;
+    public int              cpm             = 0;
+    public SACreativeFormat format          = SACreativeFormat.invalid;
+    public boolean          live            = true;
+    public boolean          approved        = true;
+    public String           customPayload   = null;
+
+    public String           clickUrl        = null;
+    public String           clickCounterUrl = null;
+    public String           impressionUrl   = null;
+    public String           installUrl      = null;
+
+    public String           bundleId        = null;
+    public List<SATracking> events          = new ArrayList<>();
+    public SADetails        details         = new SADetails();
 
     /**
      * Basic constructor
@@ -89,6 +92,7 @@ public class SACreative extends SABaseObject implements Parcelable {
         approved = in.readByte() != 0;
         customPayload = in.readString();
         clickUrl = in.readString();
+        clickCounterUrl = in.readString();
         impressionUrl = in.readString();
         installUrl = in.readString();
         bundleId = in.readString();
@@ -123,9 +127,12 @@ public class SACreative extends SABaseObject implements Parcelable {
         live = SAJsonParser.getBoolean(jsonObject, "live", live);
         approved = SAJsonParser.getBoolean(jsonObject, "approved", approved);
         customPayload = SAJsonParser.getString(jsonObject, "customPayload", customPayload);
+
         clickUrl = SAJsonParser.getString(jsonObject, "click_url", clickUrl);
+        clickCounterUrl = SAJsonParser.getString(jsonObject, "clickCounterUrl", clickCounterUrl);
         impressionUrl = SAJsonParser.getString(jsonObject, "impression_url", impressionUrl);
         installUrl = SAJsonParser.getString(jsonObject, "installUrl", installUrl);
+
         bundleId = SAJsonParser.getString(jsonObject, "bundleId", bundleId);
 
         JSONArray eventsArray = SAJsonParser.getJsonArray(jsonObject, "events", new JSONArray());
@@ -156,6 +163,7 @@ public class SACreative extends SABaseObject implements Parcelable {
                 "approved", approved,
                 "customPayload", customPayload,
                 "click_url", clickUrl,
+                "clickCounterUrl", clickCounterUrl,
                 "impression_url", impressionUrl,
                 "installUrl", installUrl,
                 "bundleId", bundleId,
@@ -210,6 +218,7 @@ public class SACreative extends SABaseObject implements Parcelable {
         dest.writeByte((byte) (approved ? 1 : 0));
         dest.writeString(customPayload);
         dest.writeString(clickUrl);
+        dest.writeString(clickCounterUrl);
         dest.writeString(impressionUrl);
         dest.writeString(installUrl);
         dest.writeString(bundleId);
