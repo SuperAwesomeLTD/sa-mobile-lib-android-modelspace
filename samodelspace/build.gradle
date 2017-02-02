@@ -82,5 +82,5 @@ repositories {
 
 dependencies {
     compile 'tv.superawesome.lib.sajsonparser:sajsonparser:0.2.5'
-    compile 'tv.superawesome.lib.sautils:sautils:0.3.2'
+    compile 'tv.superawesome.lib.sautils:sautils:0.3.4'
 }
