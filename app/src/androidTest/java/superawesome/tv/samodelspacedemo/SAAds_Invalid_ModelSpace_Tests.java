@@ -3,6 +3,7 @@ package superawesome.tv.samodelspacedemo;
 import android.app.Application;
 import android.test.ApplicationTestCase;
 import android.test.suitebuilder.annotation.SmallTest;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,6 +52,12 @@ public class SAAds_Invalid_ModelSpace_Tests extends ApplicationTestCase<Applicat
         String expected_creative_impressionUrl = null;
         String expected_creative_bundleId = null;
         List<SATracking> expected_creative_events = new ArrayList<>();
+
+        int expected_referral_configuration = -1;
+        int expected_referral_campaignId = -1;
+        int expected_referral_lineItemId = -1;
+        int expected_referral_creativeId = -1;
+        int expected_referral_placementId = -1;
 
         int expected_details_width = 0;
         int expected_details_height = 0;
@@ -109,6 +116,18 @@ public class SAAds_Invalid_ModelSpace_Tests extends ApplicationTestCase<Applicat
         assertEquals(result.creative.impressionUrl, expected_creative_impressionUrl);
         assertEquals(result.creative.bundleId, expected_creative_bundleId);
         assertEquals(result.creative.events, expected_creative_events);
+
+        assertNotNull(result.creative.referralData);
+        assertEquals(result.creative.referralData.configuration, expected_referral_configuration);
+        assertEquals(result.creative.referralData.campaignId, expected_referral_campaignId);
+        assertEquals(result.creative.referralData.lineItemId, expected_referral_lineItemId);
+        assertEquals(result.creative.referralData.creativeId, expected_referral_creativeId);
+        assertEquals(result.creative.referralData.placementId, expected_referral_placementId);
+        assertTrue(result.creative.referralData.writeToReferralQuery().contains("utm_content%3D-1"));
+        assertTrue(result.creative.referralData.writeToReferralQuery().contains("utm_medium%3D-1"));
+        assertTrue(result.creative.referralData.writeToReferralQuery().contains("utm_term%3D-1"));
+        assertTrue(result.creative.referralData.writeToReferralQuery().contains("utm_campaign%3D-1"));
+        assertTrue(result.creative.referralData.writeToReferralQuery().contains("utm_source%3D-1"));
 
         assertNotNull(result.creative.details);
         assertEquals(result.creative.details.width, expected_details_width);

@@ -11,6 +11,7 @@ import org.json.JSONObject;
 
 import tv.superawesome.lib.sajsonparser.SABaseObject;
 import tv.superawesome.lib.sajsonparser.SAJsonParser;
+import tv.superawesome.lib.sautils.SAUtils;
 
 /**
  * Class that contains information for data usually needed by the CPI process.
@@ -38,6 +39,23 @@ public class SAReferralData extends SABaseObject implements Parcelable {
      */
     public SAReferralData() {
         // do nothing
+    }
+
+    /**
+     * Constructor with member variables
+     *
+     * @param configuration current configuration (0 = production, 1 = staging)
+     * @param campaignId    campaign id
+     * @param lineItemId    sub-campaign id
+     * @param creativeId    creative id
+     * @param placementId   placement id
+     */
+    public SAReferralData (int configuration, int campaignId, int lineItemId, int creativeId, int placementId) {
+        this.configuration = configuration;
+        this.campaignId = campaignId;
+        this.lineItemId = lineItemId;
+        this.creativeId = creativeId;
+        this.placementId = placementId;
     }
 
     /**
@@ -108,11 +126,20 @@ public class SAReferralData extends SABaseObject implements Parcelable {
     public JSONObject writeToJson() {
         return SAJsonParser.newObject(new Object[]{
                 "utm_source", configuration,
-                "utm_term", campaignId,
+                "utm_campaign", campaignId,
                 "utm_term", lineItemId,
                 "utm_content", creativeId,
                 "utm_medium", placementId
         });
+    }
+
+    /**
+     * Method that writes as a referral html encoded query
+     *
+     * @return a string
+     */
+    public String writeToReferralQuery () {
+        return SAUtils.formGetQueryFromDict(writeToJson()).replace("&", "%26").replace("=", "%3D");
     }
 
     /**

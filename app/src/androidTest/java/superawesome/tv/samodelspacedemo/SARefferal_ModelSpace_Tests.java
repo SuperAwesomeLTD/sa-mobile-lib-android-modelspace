@@ -36,6 +36,11 @@ public class SARefferal_ModelSpace_Tests extends ApplicationTestCase<Application
         assertEquals(expected_lineItemId, referralData.lineItemId);
         assertEquals(expected_creativeId, referralData.creativeId);
         assertEquals(expected_placementId, referralData.placementId);
+        assertTrue(referralData.writeToReferralQuery().contains("utm_content%3D2041"));
+        assertTrue(referralData.writeToReferralQuery().contains("utm_medium%3D28000"));
+        assertTrue(referralData.writeToReferralQuery().contains("utm_term%3D22"));
+        assertTrue(referralData.writeToReferralQuery().contains("utm_campaign%3D33"));
+        assertTrue(referralData.writeToReferralQuery().contains("utm_source%3D1"));
 
         assertTrue(referralData.isValid());
 
@@ -64,6 +69,11 @@ public class SARefferal_ModelSpace_Tests extends ApplicationTestCase<Application
         assertEquals(expected_lineItemId, referralData.lineItemId);
         assertEquals(expected_creativeId, referralData.creativeId);
         assertEquals(expected_placementId, referralData.placementId);
+        assertTrue(referralData.writeToReferralQuery().contains("utm_content%3D-1"));
+        assertTrue(referralData.writeToReferralQuery().contains("utm_medium%3D28000"));
+        assertTrue(referralData.writeToReferralQuery().contains("utm_term%3D-1"));
+        assertTrue(referralData.writeToReferralQuery().contains("utm_campaign%3D33"));
+        assertTrue(referralData.writeToReferralQuery().contains("utm_source%3D1"));
 
         assertFalse(referralData.isValid());
     }
@@ -88,6 +98,11 @@ public class SARefferal_ModelSpace_Tests extends ApplicationTestCase<Application
         assertEquals(expected_lineItemId, referralData.lineItemId);
         assertEquals(expected_creativeId, referralData.creativeId);
         assertEquals(expected_placementId, referralData.placementId);
+        assertTrue(referralData.writeToReferralQuery().contains("utm_content%3D-1"));
+        assertTrue(referralData.writeToReferralQuery().contains("utm_medium%3D-1"));
+        assertTrue(referralData.writeToReferralQuery().contains("utm_term%3D-1"));
+        assertTrue(referralData.writeToReferralQuery().contains("utm_campaign%3D-1"));
+        assertTrue(referralData.writeToReferralQuery().contains("utm_source%3D-1"));
 
         assertFalse(referralData.isValid());
 

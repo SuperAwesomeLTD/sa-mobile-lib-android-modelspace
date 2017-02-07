@@ -50,6 +50,7 @@ public class SACreative extends SABaseObject implements Parcelable {
 
     public String           bundleId        = null;
     public List<SATracking> events          = new ArrayList<>();
+    public SAReferralData   referralData    = new SAReferralData();
     public SADetails        details         = new SADetails();
 
     /**
@@ -97,6 +98,7 @@ public class SACreative extends SABaseObject implements Parcelable {
         installUrl = in.readString();
         bundleId = in.readString();
         events = in.createTypedArrayList(SATracking.CREATOR);
+        referralData = in.readParcelable(SAReferralData.class.getClassLoader());
         details = in.readParcelable(SADetails.class.getClassLoader());
     }
 
@@ -145,6 +147,9 @@ public class SACreative extends SABaseObject implements Parcelable {
 
         JSONObject detailsJson = SAJsonParser.getJsonObject(jsonObject, "details", new JSONObject());
         details = new SADetails(detailsJson);
+
+        JSONObject referralJson = SAJsonParser.getJsonObject(jsonObject, "referralData", new JSONObject());
+        referralData = new SAReferralData(referralJson);
     }
 
     /**
@@ -173,7 +178,8 @@ public class SACreative extends SABaseObject implements Parcelable {
                         return saTracking.writeToJson();
                     }
                 }),
-                "details", details.writeToJson()
+                "details", details.writeToJson(),
+                "referralData", referralData.writeToJson()
         });
     }
 
@@ -224,5 +230,6 @@ public class SACreative extends SABaseObject implements Parcelable {
         dest.writeString(bundleId);
         dest.writeTypedList(events);
         dest.writeParcelable(details, flags);
+        dest.writeParcelable(referralData, flags);
     }
 }
