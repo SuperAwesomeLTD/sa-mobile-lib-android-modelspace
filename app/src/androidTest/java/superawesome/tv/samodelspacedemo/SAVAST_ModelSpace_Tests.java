@@ -19,7 +19,7 @@ public class SAVAST_ModelSpace_Tests extends ApplicationTestCase<Application> {
 
         String json = "{\n" +
                 "\t\"type\": \"video/mp4\",\n" +
-                "\t\"mediaUrl\": \"https://s3-eu-west-1.amazonaws.com/sb-ads-video-transcoded/c0sKSRTuPu8dDkok2HQTnLS1k3A6vL6c.mp4\",\n" +
+                "\t\"url\": \"https://s3-eu-west-1.amazonaws.com/sb-ads-video-transcoded/c0sKSRTuPu8dDkok2HQTnLS1k3A6vL6c.mp4\",\n" +
                 "\t\"bitrate\": 720,\n" +
                 "\t\"width\": 600,\n" +
                 "\t\"height\": 480\n" +
@@ -35,7 +35,7 @@ public class SAVAST_ModelSpace_Tests extends ApplicationTestCase<Application> {
         int expected_height = 480;
 
         assertEquals(expected_type, savastMedia.type);
-        assertEquals(expected_mediaUrl, savastMedia.mediaUrl);
+        assertEquals(expected_mediaUrl, savastMedia.url);
         assertEquals(expected_bitrate, savastMedia.bitrate);
         assertEquals(expected_width, savastMedia.width);
         assertEquals(expected_height, savastMedia.height);
@@ -47,7 +47,7 @@ public class SAVAST_ModelSpace_Tests extends ApplicationTestCase<Application> {
 
         String json = "{\n" +
                 "\t\"type\": \"video/mp4\",\n" +
-                "\t\"mediaUrl\": \"https://s3-eu-west-1.amazonaws.com/sb-ads-video-transcoded/c0sKSRTuPu8dDkok2HQTnLS1k3A6vL6c.mp4\",\n" +
+                "\t\"url\": \"https://s3-eu-west-1.amazonaws.com/sb-ads-video-transcoded/c0sKSRTuPu8dDkok2HQTnLS1k3A6vL6c.mp4\",\n" +
                 "\t\"height\": 480\n" +
                 "}";
 
@@ -61,7 +61,7 @@ public class SAVAST_ModelSpace_Tests extends ApplicationTestCase<Application> {
         int expected_height = 480;
 
         assertEquals(expected_type, savastMedia.type);
-        assertEquals(expected_mediaUrl, savastMedia.mediaUrl);
+        assertEquals(expected_mediaUrl, savastMedia.url);
         assertEquals(expected_bitrate, savastMedia.bitrate);
         assertEquals(expected_width, savastMedia.width);
         assertEquals(expected_height, savastMedia.height);
@@ -73,7 +73,7 @@ public class SAVAST_ModelSpace_Tests extends ApplicationTestCase<Application> {
 
         String json = "{\n" +
                 "\t\"type\": \"video/mp4\",\n" +
-                "\t\"mediaUrl\": \"https://s3-eu-west-1.amazonaws.com/sbh\": 600,\n" +
+                "\t\"url\": \"https://s3-eu-west-1.amazonaws.com/sbh\": 600,\n" +
                 "\t\"height\": 480\n" +
                 "}";
 
@@ -87,7 +87,7 @@ public class SAVAST_ModelSpace_Tests extends ApplicationTestCase<Application> {
         int expected_height = 0;
 
         assertEquals(expected_type, savastMedia.type);
-        assertEquals(expected_mediaUrl, savastMedia.mediaUrl);
+        assertEquals(expected_mediaUrl, savastMedia.url);
         assertEquals(expected_bitrate, savastMedia.bitrate);
         assertEquals(expected_width, savastMedia.width);
         assertEquals(expected_height, savastMedia.height);
@@ -109,7 +109,7 @@ public class SAVAST_ModelSpace_Tests extends ApplicationTestCase<Application> {
         int expected_height = 0;
 
         assertEquals(expected_type, savastMedia.type);
-        assertEquals(expected_mediaUrl, savastMedia.mediaUrl);
+        assertEquals(expected_mediaUrl, savastMedia.url);
         assertEquals(expected_bitrate, savastMedia.bitrate);
         assertEquals(expected_width, savastMedia.width);
         assertEquals(expected_height, savastMedia.height);
@@ -120,10 +120,10 @@ public class SAVAST_ModelSpace_Tests extends ApplicationTestCase<Application> {
     @SmallTest
     public void testSAVASTAd1 () {
         String json = "{\n" +
-                "\t\"vastRedirect\": null,\n" +
-                "\t\"vastType\": 0,\n" +
-                "\t\"mediaUrl\": null,\n" +
-                "\t\"mediaList\": []\n" +
+                "\t\"redirect\": null,\n" +
+                "\t\"type\": 0,\n" +
+                "\t\"url\": null,\n" +
+                "\t\"media\": []\n" +
                 "}";
 
         SAVASTAd savastAd = new SAVASTAd(json);
@@ -136,31 +136,31 @@ public class SAVAST_ModelSpace_Tests extends ApplicationTestCase<Application> {
         int expected_medias = 0;
         int expected_events = 0;
 
-        assertEquals(expected_vastRedirect, savastAd.vastRedirect);
-        assertEquals(expected_vastType, savastAd.vastType);
-        assertEquals(expected_mediaUrl, savastAd.mediaUrl);
-        assertNotNull(savastAd.mediaList);
-        assertEquals(expected_medias, savastAd.mediaList.size());
-        assertNotNull(savastAd.vastEvents);
-        assertEquals(expected_events, savastAd.vastEvents.size());
+        assertEquals(expected_vastRedirect, savastAd.redirect);
+        assertEquals(expected_vastType, savastAd.type);
+        assertEquals(expected_mediaUrl, savastAd.url);
+        assertNotNull(savastAd.media);
+        assertEquals(expected_medias, savastAd.media.size());
+        assertNotNull(savastAd.events);
+        assertEquals(expected_events, savastAd.events.size());
     }
 
     @SmallTest
     public void testSAVASTAd2 () {
         String json = "{\n" +
-                "\t\"vastRedirect\": null,\n" +
-                "\t\"vastType\": 1,\n" +
-                "\t\"mediaUrl\": \"https://ads.superawesome.tv/v2/demo_images/video.mp4\",\n" +
-                "\t\"mediaList\": [\n" +
+                "\t\"redirect\": null,\n" +
+                "\t\"type\": 1,\n" +
+                "\t\"url\": \"https://ads.superawesome.tv/v2/demo_images/video.mp4\",\n" +
+                "\t\"media\": [\n" +
                 "\t\t{\n" +
                 "\t\t\t\"type\": \"video/mp4\",\n" +
-                "\t\t\t\"mediaUrl\": \"https://ads.superawesome.tv/v2/demo_images/video.mp4\",\n" +
+                "\t\t\t\"url\": \"https://ads.superawesome.tv/v2/demo_images/video.mp4\",\n" +
                 "\t\t\t\"bitrate\": 720,\n" +
                 "\t\t\t\"width\": 600,\n" +
                 "\t\t\t\"height\": 400 \n" +
                 "\t\t}\n" +
                 "\t],\n" +
-                "\t\"vastEvents\": [\n" +
+                "\t\"events\": [\n" +
                 "\t\t{\n" +
                 "\t\t\t\"event\": \"creativeView\",\n" +
                 "\t\t\t\"URL\": \"https://ads.superawesome.tv/v2/video/tracking?event=creativeView&amp;placement=30479&amp;creative=-1&amp;line_item=-1&amp;sdkVersion=unknown&amp;rnd=4240693&amp;device=web&amp;country=GB\"\n" +
@@ -182,18 +182,18 @@ public class SAVAST_ModelSpace_Tests extends ApplicationTestCase<Application> {
         int expected_medias = 1;
         int expected_events = 2;
 
-        assertEquals(expected_vastRedirect, savastAd.vastRedirect);
-        assertEquals(expected_vastType, savastAd.vastType);
-        assertEquals(expected_mediaUrl, savastAd.mediaUrl);
-        assertNotNull(savastAd.mediaList);
-        assertEquals(expected_medias, savastAd.mediaList.size());
-        assertNotNull(savastAd.vastEvents);
-        assertEquals(expected_events, savastAd.vastEvents.size());
+        assertEquals(expected_vastRedirect, savastAd.redirect);
+        assertEquals(expected_vastType, savastAd.type);
+        assertEquals(expected_mediaUrl, savastAd.url);
+        assertNotNull(savastAd.media);
+        assertEquals(expected_medias, savastAd.media.size());
+        assertNotNull(savastAd.events);
+        assertEquals(expected_events, savastAd.events.size());
 
-        for (SATracking tracking : savastAd.vastEvents) {
+        for (SATracking tracking : savastAd.events) {
             assertTrue(tracking.isValid());
         }
-        for (SAVASTMedia media : savastAd.mediaList) {
+        for (SAVASTMedia media : savastAd.media) {
             assertTrue(media.isValid());
         }
     }
@@ -201,26 +201,26 @@ public class SAVAST_ModelSpace_Tests extends ApplicationTestCase<Application> {
     @SmallTest
     public void testSAVASTAd3 () {
         String json = "{\n" +
-                "\t\"vastRedirect\": null,\n" +
-                "\t\"vastType\": 2,\n" +
-                "\t\"mediaUrl\": \"https://ads.superawesome.tv/v2/demo_images/video.mp4\",\n" +
-                "\t\"mediaList\": [\n" +
+                "\t\"redirect\": null,\n" +
+                "\t\"type\": 2,\n" +
+                "\t\"url\": \"https://ads.superawesome.tv/v2/demo_images/video.mp4\",\n" +
+                "\t\"media\": [\n" +
                 "\t\t{\n" +
                 "\t\t\t\"type\": \"video/mp4\",\n" +
-                "\t\t\t\"mediaUrl\": \"https://ads.superawesome.tv/v2/demo_images/video.mp4\",\n" +
+                "\t\t\t\"url\": \"https://ads.superawesome.tv/v2/demo_images/video.mp4\",\n" +
                 "\t\t\t\"bitrate\": 720,\n" +
                 "\t\t\t\"width\": 600,\n" +
                 "\t\t\t\"height\": 400 \n" +
                 "\t\t},\n" +
                 "\t\t{\n" +
                 "\t\t\t\"type\": \"video/m3u8\",\n" +
-                "\t\t\t\"mediaUrl\": \"https://ads.superawesome.tv/v2/demo_images/video.m3u8\",\n" +
+                "\t\t\t\"url\": \"https://ads.superawesome.tv/v2/demo_images/video.m3u8\",\n" +
                 "\t\t\t\"bitrate\": 1800,\n" +
                 "\t\t\t\"width\": 640,\n" +
                 "\t\t\t\"height\": 480 \n" +
                 "\t\t}\n" +
                 "\t],\n" +
-                "\t\"vastEvents\": [\n" +
+                "\t\"events\": [\n" +
                 "\t\t{\n" +
                 "\t\t\t\"event\": \"creativeView\",\n" +
                 "\t\t\t\"URL\": \"https://ads.superawesome.tv/v2/video/tracking?event=creativeView&amp;placement=30479&amp;creative=-1&amp;line_item=-1&amp;sdkVersion=unknown&amp;rnd=4240693&amp;device=web&amp;country=GB\"\n" +
@@ -246,18 +246,18 @@ public class SAVAST_ModelSpace_Tests extends ApplicationTestCase<Application> {
         int expected_medias = 2;
         int expected_events = 3;
 
-        assertEquals(expected_vastRedirect, savastAd.vastRedirect);
-        assertEquals(expected_vastType, savastAd.vastType);
-        assertEquals(expected_mediaUrl, savastAd.mediaUrl);
-        assertNotNull(savastAd.mediaList);
-        assertEquals(expected_medias, savastAd.mediaList.size());
-        assertNotNull(savastAd.vastEvents);
-        assertEquals(expected_events, savastAd.vastEvents.size());
+        assertEquals(expected_vastRedirect, savastAd.redirect);
+        assertEquals(expected_vastType, savastAd.type);
+        assertEquals(expected_mediaUrl, savastAd.url);
+        assertNotNull(savastAd.media);
+        assertEquals(expected_medias, savastAd.media.size());
+        assertNotNull(savastAd.events);
+        assertEquals(expected_events, savastAd.events.size());
 
-        for (SATracking tracking : savastAd.vastEvents) {
+        for (SATracking tracking : savastAd.events) {
             assertTrue(tracking.isValid());
         }
-        for (SAVASTMedia media : savastAd.mediaList) {
+        for (SAVASTMedia media : savastAd.media) {
             assertTrue(media.isValid());
         }
     }
@@ -265,20 +265,20 @@ public class SAVAST_ModelSpace_Tests extends ApplicationTestCase<Application> {
     @SmallTest
     public void testSAVASTAd4 () {
         String json = "{\n" +
-                "\t\"vastRedirect\": null,\n" +
-                "\t\"vastType\": 2,\n" +
-                "\t\"mediaUrl\": \"https://ads.superawesome.tv/v2/demo_images/video.mp4\",\n" +
-                "\t\"mediaList\": [\n" +
+                "\t\"redirect\": null,\n" +
+                "\t\"type\": 2,\n" +
+                "\t\"url\": \"https://ads.superawesome.tv/v2/demo_images/video.mp4\",\n" +
+                "\t\"media\": [\n" +
                 "\t\t{\n" +
                 "\t\t\t\"type\": \"video/mp4\",\n" +
-                "\t\t\t\"mediaUrl\": \"https://ads.superawesome.tv/v2/demo_images/video.mp4\",\n" +
+                "\t\t\t\"url\": \"https://ads.superawesome.tv/v2/demo_images/video.mp4\",\n" +
                 "\t\t\t\"bitrate\": 720,\n" +
                 "\t\t\t\"width\": 600,\n" +
                 "\t\t\t\"height\": 400 \n" +
                 "\t\t},\n" +
                 "\t\t{\n" +
                 "\t\t\t\"type\": \"video/mp4\",\n" +
-                "\t\t\t\"mediaUrl\": \"https://ads.superawesome.tv/v2/demo_\n" +
+                "\t\t\t\"url\": \"https://ads.superawesome.tv/v2/demo_\n" +
                 "\t\t\t\"event\": \"complete\",\n" +
                 "\t\t\t\"URL\": \"https://ads.superawesome.tv/v2/video/tracking?event=complete&amp;placement=30479&amp;creative=-1&amp;line_item=-1&amp;sdkVersion=unknown&amp;rnd=2312316&amp;device=web&amp;country=GB\"\n" +
                 "\t\t},\n" +
@@ -299,12 +299,12 @@ public class SAVAST_ModelSpace_Tests extends ApplicationTestCase<Application> {
         int expected_medias = 0;
         int expected_events = 0;
 
-        assertEquals(expected_vastRedirect, savastAd.vastRedirect);
-        assertEquals(expected_vastType, savastAd.vastType);
-        assertEquals(expected_mediaUrl, savastAd.mediaUrl);
-        assertNotNull(savastAd.mediaList);
-        assertEquals(expected_medias, savastAd.mediaList.size());
-        assertNotNull(savastAd.vastEvents);
-        assertEquals(expected_events, savastAd.vastEvents.size());
+        assertEquals(expected_vastRedirect, savastAd.redirect);
+        assertEquals(expected_vastType, savastAd.type);
+        assertEquals(expected_mediaUrl, savastAd.url);
+        assertNotNull(savastAd.media);
+        assertEquals(expected_medias, savastAd.media.size());
+        assertNotNull(savastAd.events);
+        assertEquals(expected_events, savastAd.events.size());
     }
 }

@@ -3,20 +3,15 @@ package superawesome.tv.samodelspacedemo;
 import android.app.Application;
 import android.test.ApplicationTestCase;
 import android.test.suitebuilder.annotation.SmallTest;
-import android.util.Log;
-
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import tv.superawesome.lib.sajsonparser.SAJsonParser;
 import tv.superawesome.lib.samodelspace.SAAd;
 import tv.superawesome.lib.samodelspace.SACampaignType;
 import tv.superawesome.lib.samodelspace.SACreativeFormat;
 import tv.superawesome.lib.samodelspace.SATracking;
-import tv.superawesome.lib.samodelspace.SAVASTAdType;
 
 public class SAAds_Valid_ModelSpace_Tests extends ApplicationTestCase<Application> {
     public SAAds_Valid_ModelSpace_Tests() {
@@ -62,18 +57,18 @@ public class SAAds_Valid_ModelSpace_Tests extends ApplicationTestCase<Applicatio
         int expected_error = 0;
         int expected_advertiserId = 1;
         int expected_publisherId = 1;
-        int expected_app = 1484;
+        int expected_appId = 1484;
         int expected_lineItemId = 931;
         int expected_campaignId = 0;
         int expected_placementId = 0;
         double expected_moat = 0.2;
         SACampaignType expected_campaignType = SACampaignType.CPM;
-        boolean expected_test = false;
+        boolean expected_isTest = false;
         boolean expected_isFallback = false;
         boolean expected_isFill = false;
         boolean expected_isHouse = false;
-        boolean expected_safeAdApproved = true;
-        boolean expected_showPadlock = true;
+        boolean expected_isSafeAdApproved = true;
+        boolean expected_isPadlockVisible = true;
         String expected_device = "web";
 
         int expected_creative_id = 4906;
@@ -82,12 +77,12 @@ public class SAAds_Valid_ModelSpace_Tests extends ApplicationTestCase<Applicatio
         SACreativeFormat expected_creative_format = SACreativeFormat.video;
         boolean expected_creative_live = true;
         boolean expected_creative_approved = true;
-        String expected_creative_customPayload = null;
+        String expected_creative_payload = null;
         String expected_creative_clickUrl = "https://superawesome.tv";
         String expected_creative_clickCounterUrl = null;
         String expected_creative_installUrl = null;
         String expected_creative_impressionUrl = null;
-        String expected_creative_bundleId = null;
+        String expected_creative_bundle = null;
         List<SATracking> expected_creative_events = new ArrayList<>();
 
         int expected_referral_configuration = -1;
@@ -99,23 +94,23 @@ public class SAAds_Valid_ModelSpace_Tests extends ApplicationTestCase<Applicatio
         int expected_details_width = 600;
         int expected_details_height = 480;
         String expected_details_name = null;
-        String expected_details_placementFormat = "video";
+        String expected_details_format = "video";
         int expected_details_bitrate = 0;
         int expected_details_duration = 32;
         int expected_details_value = 0;
         String expected_details_image = "https://s3-eu-west-1.amazonaws.com/sb-ads-video-transcoded/Jnit8s0LdkbOKbx6q6qn4A4jqMid2T4I.mp4";
         String expected_details_video = "https://s3-eu-west-1.amazonaws.com/sb-ads-video-transcoded/Jnit8s0LdkbOKbx6q6qn4A4jqMid2T4I.mp4";
         String expected_details_tag = null;
-        String expected_details_zipFile = null;
+        String expected_details_zip = null;
         String expected_details_url = "https://s3-eu-west-1.amazonaws.com/sb-ads-video-transcoded/Jnit8s0LdkbOKbx6q6qn4A4jqMid2T4I.mp4";
-        String expected_details_cdnUrl = "https://s3-eu-west-1.amazonaws.com/sb-ads-video-transcoded/";
+        String expected_details_cdn = "https://s3-eu-west-1.amazonaws.com/sb-ads-video-transcoded/";
         String expected_details_vast = "https://ads.staging.superawesome.tv/v2/video/vast/480/931/4906/?sdkVersion=unknown&rnd=434251983&device=web";
 
         String expected_media_html = null;
-        String expected_media_playableDiskUrl = null;
-        String expected_media_playableMediaUrl = null;
+        String expected_media_path = null;
+        String expected_media_url = null;
         String expected_media_type = null;
-        boolean expected_media_isOnDisk = false;
+        boolean expected_media_isDownloaded = false;
 
         // then
         SAAd result = new SAAd(given);
@@ -126,18 +121,18 @@ public class SAAds_Valid_ModelSpace_Tests extends ApplicationTestCase<Applicatio
         assertEquals(result.advertiserId, expected_advertiserId);
         assertEquals(result.publisherId, expected_publisherId);
         assertEquals(result.moat, expected_moat, 0.01);
-        assertEquals(result.app, expected_app);
+        assertEquals(result.appId, expected_appId);
         assertEquals(result.lineItemId, expected_lineItemId);
         assertEquals(result.campaignId, expected_campaignId);
         assertEquals(result.placementId, expected_placementId);
         assertEquals(result.campaignType, expected_campaignType);
         assertEquals(result.device, expected_device);
-        assertEquals(result.test, expected_test);
+        assertEquals(result.isTest, expected_isTest);
         assertEquals(result.isFallback, expected_isFallback);
         assertEquals(result.isFill, expected_isFill);
         assertEquals(result.isHouse, expected_isHouse);
-        assertEquals(result.safeAdApproved, expected_safeAdApproved);
-        assertEquals(result.showPadlock, expected_showPadlock);
+        assertEquals(result.isSafeAdApproved, expected_isSafeAdApproved);
+        assertEquals(result.isPadlockVisible, expected_isPadlockVisible);
 
         assertNotNull(result.creative);
         assertEquals(result.creative.id, expected_creative_id);
@@ -146,48 +141,48 @@ public class SAAds_Valid_ModelSpace_Tests extends ApplicationTestCase<Applicatio
         assertEquals(result.creative.format, expected_creative_format);
         assertEquals(result.creative.live, expected_creative_live);
         assertEquals(result.creative.approved, expected_creative_approved);
-        assertEquals(result.creative.customPayload, expected_creative_customPayload);
+        assertEquals(result.creative.payload, expected_creative_payload);
         assertEquals(result.creative.clickUrl, expected_creative_clickUrl);
         assertEquals(result.creative.clickCounterUrl, expected_creative_clickCounterUrl);
         assertEquals(result.creative.installUrl, expected_creative_installUrl);
         assertEquals(result.creative.impressionUrl, expected_creative_impressionUrl);
-        assertEquals(result.creative.bundleId, expected_creative_bundleId);
+        assertEquals(result.creative.bundle, expected_creative_bundle);
         assertEquals(result.creative.events, expected_creative_events);
 
-        assertNotNull(result.creative.referralData);
-        assertEquals(result.creative.referralData.configuration, expected_referral_configuration);
-        assertEquals(result.creative.referralData.campaignId, expected_referral_campaignId);
-        assertEquals(result.creative.referralData.lineItemId, expected_referral_lineItemId);
-        assertEquals(result.creative.referralData.creativeId, expected_referral_creativeId);
-        assertEquals(result.creative.referralData.placementId, expected_referral_placementId);
-        assertTrue(result.creative.referralData.writeToReferralQuery().contains("utm_content%3D-1"));
-        assertTrue(result.creative.referralData.writeToReferralQuery().contains("utm_medium%3D-1"));
-        assertTrue(result.creative.referralData.writeToReferralQuery().contains("utm_term%3D-1"));
-        assertTrue(result.creative.referralData.writeToReferralQuery().contains("utm_campaign%3D-1"));
-        assertTrue(result.creative.referralData.writeToReferralQuery().contains("utm_source%3D-1"));
+        assertNotNull(result.creative.referral);
+        assertEquals(result.creative.referral.configuration, expected_referral_configuration);
+        assertEquals(result.creative.referral.campaignId, expected_referral_campaignId);
+        assertEquals(result.creative.referral.lineItemId, expected_referral_lineItemId);
+        assertEquals(result.creative.referral.creativeId, expected_referral_creativeId);
+        assertEquals(result.creative.referral.placementId, expected_referral_placementId);
+        assertTrue(result.creative.referral.writeToReferralQuery().contains("utm_content%3D-1"));
+        assertTrue(result.creative.referral.writeToReferralQuery().contains("utm_medium%3D-1"));
+        assertTrue(result.creative.referral.writeToReferralQuery().contains("utm_term%3D-1"));
+        assertTrue(result.creative.referral.writeToReferralQuery().contains("utm_campaign%3D-1"));
+        assertTrue(result.creative.referral.writeToReferralQuery().contains("utm_source%3D-1"));
 
         assertNotNull(result.creative.details);
         assertEquals(result.creative.details.width, expected_details_width);
         assertEquals(result.creative.details.height, expected_details_height);
         assertEquals(result.creative.details.name, expected_details_name);
-        assertEquals(result.creative.details.placementFormat, expected_details_placementFormat);
+        assertEquals(result.creative.details.format, expected_details_format);
         assertEquals(result.creative.details.bitrate, expected_details_bitrate);
         assertEquals(result.creative.details.duration, expected_details_duration);
         assertEquals(result.creative.details.value, expected_details_value);
         assertEquals(result.creative.details.image, expected_details_image);
         assertEquals(result.creative.details.video, expected_details_video);
         assertEquals(result.creative.details.tag, expected_details_tag);
-        assertEquals(result.creative.details.zipFile, expected_details_zipFile);
+        assertEquals(result.creative.details.zip, expected_details_zip);
         assertEquals(result.creative.details.url, expected_details_url);
-        assertEquals(result.creative.details.cdnUrl, expected_details_cdnUrl);
+        assertEquals(result.creative.details.cdn, expected_details_cdn);
         assertEquals(result.creative.details.vast, expected_details_vast);
 
         assertNotNull(result.creative.details.media);
         assertEquals(result.creative.details.media.html, expected_media_html);
-        assertEquals(result.creative.details.media.playableDiskUrl, expected_media_playableDiskUrl);
-        assertEquals(result.creative.details.media.playableMediaUrl, expected_media_playableMediaUrl);
+        assertEquals(result.creative.details.media.path, expected_media_path);
+        assertEquals(result.creative.details.media.url, expected_media_url);
         assertEquals(result.creative.details.media.type, expected_media_type);
-        assertEquals(result.creative.details.media.isOnDisk, expected_media_isOnDisk);
+        assertEquals(result.creative.details.media.isDownloaded, expected_media_isDownloaded);
     }
 
     @SmallTest
@@ -241,19 +236,19 @@ public class SAAds_Valid_ModelSpace_Tests extends ApplicationTestCase<Applicatio
         int expected_error = 0;
         int expected_advertiserId = 1;
         int expected_publisherId = 1;
-        int expected_app = 105;
+        int expected_appId = 105;
         double expected_moat = 0.2;
         int expected_lineItemId = 138;
         int expected_campaignId = 117;
         int expected_placementId = 0;
         SACampaignType expected_campaignType = SACampaignType.CPM;
         String expected_device = "web";
-        boolean expected_test = false;
+        boolean expected_isTest = false;
         boolean expected_isFallback = false;
         boolean expected_isFill = false;
         boolean expected_isHouse = false;
-        boolean expected_safeAdApproved = true;
-        boolean expected_showPadlock = true;
+        boolean expected_isSafeAdApproved = true;
+        boolean expected_isPadlockVisible= true;
 
         int expected_creative_id = 114;
         String expected_creative_name = "Banner 1";
@@ -261,12 +256,12 @@ public class SAAds_Valid_ModelSpace_Tests extends ApplicationTestCase<Applicatio
         SACreativeFormat expected_creative_format = SACreativeFormat.image;
         boolean expected_creative_live = true;
         boolean expected_creative_approved = true;
-        String expected_creative_customPayload = null;
+        String expected_creative_payload = null;
         String expected_creative_clickUrl = "http://superawesome.tv";
         String expected_creative_clickCounterUrl = "http://zoso.ro";
         String expected_creative_installUrl = null;
         String expected_creative_impressionUrl = "http://superawesome.tv";
-        String expected_creative_bundleId = null;
+        String expected_creative_bundle = null;
         List<SATracking> expected_creative_events = new ArrayList<>();
 
         int expected_referral_configuration = -1;
@@ -278,23 +273,23 @@ public class SAAds_Valid_ModelSpace_Tests extends ApplicationTestCase<Applicatio
         int expected_details_width = 320;
         int expected_details_height = 50;
         String expected_details_name = null;
-        String expected_details_placementFormat = "mobile_display";
+        String expected_details_format = "mobile_display";
         int expected_details_bitrate = 0;
         int expected_details_duration = 0;
         int expected_details_value = 0;
         String expected_details_image = "https://s3-eu-west-1.amazonaws.com/sb-ads-uploads/images/cvWABPEIS7vUEtlv5U17MwaTNhRARYjB.png";
         String expected_details_video = "https://s3-eu-west-1.amazonaws.com/sb-ads-uploads/images/cvWABPEIS7vUEtlv5U17MwaTNhRARYjB.png";
         String expected_details_tag = null;
-        String expected_details_zipFile = null;
+        String expected_details_zip = null;
         String expected_details_url = "https://s3-eu-west-1.amazonaws.com/sb-ads-uploads/images/cvWABPEIS7vUEtlv5U17MwaTNhRARYjB.png";
-        String expected_details_cdnUrl = "https://s3-eu-west-1.amazonaws.com/sb-ads-uploads/images/";
+        String expected_details_cdn = "https://s3-eu-west-1.amazonaws.com/sb-ads-uploads/images/";
         String expected_details_vast = null;
 
         String expected_media_html = null;
-        String expected_media_playableDiskUrl = null;
-        String expected_media_playableMediaUrl = null;
+        String expected_media_path = null;
+        String expected_media_url = null;
         String expected_media_type = null;
-        boolean expected_media_isOnDisk = false;
+        boolean expected_media_isDownloaded = false;
         
         // then
         SAAd result = new SAAd(given);
@@ -304,19 +299,19 @@ public class SAAds_Valid_ModelSpace_Tests extends ApplicationTestCase<Applicatio
         assertEquals(result.error, expected_error);
         assertEquals(result.advertiserId, expected_advertiserId);
         assertEquals(result.publisherId, expected_publisherId);
-        assertEquals(result.app, expected_app);
+        assertEquals(result.appId, expected_appId);
         assertEquals(result.moat, expected_moat, 0.01);
         assertEquals(result.lineItemId, expected_lineItemId);
         assertEquals(result.campaignId, expected_campaignId);
         assertEquals(result.placementId, expected_placementId);
         assertEquals(result.campaignType, expected_campaignType);
         assertEquals(result.device, expected_device);
-        assertEquals(result.test, expected_test);
+        assertEquals(result.isTest, expected_isTest);
         assertEquals(result.isFallback, expected_isFallback);
         assertEquals(result.isFill, expected_isFill);
         assertEquals(result.isHouse, expected_isHouse);
-        assertEquals(result.safeAdApproved, expected_safeAdApproved);
-        assertEquals(result.showPadlock, expected_showPadlock);
+        assertEquals(result.isSafeAdApproved, expected_isSafeAdApproved);
+        assertEquals(result.isPadlockVisible, expected_isPadlockVisible);
 
         assertNotNull(result.creative);
         assertEquals(result.creative.id, expected_creative_id);
@@ -325,48 +320,48 @@ public class SAAds_Valid_ModelSpace_Tests extends ApplicationTestCase<Applicatio
         assertEquals(result.creative.format, expected_creative_format);
         assertEquals(result.creative.live, expected_creative_live);
         assertEquals(result.creative.approved, expected_creative_approved);
-        assertEquals(result.creative.customPayload, expected_creative_customPayload);
+        assertEquals(result.creative.payload, expected_creative_payload);
         assertEquals(result.creative.clickUrl, expected_creative_clickUrl);
         assertEquals(result.creative.clickCounterUrl, expected_creative_clickCounterUrl);
         assertEquals(result.creative.installUrl, expected_creative_installUrl);
         assertEquals(result.creative.impressionUrl, expected_creative_impressionUrl);
-        assertEquals(result.creative.bundleId, expected_creative_bundleId);
+        assertEquals(result.creative.bundle, expected_creative_bundle);
         assertEquals(result.creative.events, expected_creative_events);
 
-        assertNotNull(result.creative.referralData);
-        assertEquals(result.creative.referralData.configuration, expected_referral_configuration);
-        assertEquals(result.creative.referralData.campaignId, expected_referral_campaignId);
-        assertEquals(result.creative.referralData.lineItemId, expected_referral_lineItemId);
-        assertEquals(result.creative.referralData.creativeId, expected_referral_creativeId);
-        assertEquals(result.creative.referralData.placementId, expected_referral_placementId);
-        assertTrue(result.creative.referralData.writeToReferralQuery().contains("utm_content%3D-1"));
-        assertTrue(result.creative.referralData.writeToReferralQuery().contains("utm_medium%3D-1"));
-        assertTrue(result.creative.referralData.writeToReferralQuery().contains("utm_term%3D-1"));
-        assertTrue(result.creative.referralData.writeToReferralQuery().contains("utm_campaign%3D-1"));
-        assertTrue(result.creative.referralData.writeToReferralQuery().contains("utm_source%3D-1"));
+        assertNotNull(result.creative.referral);
+        assertEquals(result.creative.referral.configuration, expected_referral_configuration);
+        assertEquals(result.creative.referral.campaignId, expected_referral_campaignId);
+        assertEquals(result.creative.referral.lineItemId, expected_referral_lineItemId);
+        assertEquals(result.creative.referral.creativeId, expected_referral_creativeId);
+        assertEquals(result.creative.referral.placementId, expected_referral_placementId);
+        assertTrue(result.creative.referral.writeToReferralQuery().contains("utm_content%3D-1"));
+        assertTrue(result.creative.referral.writeToReferralQuery().contains("utm_medium%3D-1"));
+        assertTrue(result.creative.referral.writeToReferralQuery().contains("utm_term%3D-1"));
+        assertTrue(result.creative.referral.writeToReferralQuery().contains("utm_campaign%3D-1"));
+        assertTrue(result.creative.referral.writeToReferralQuery().contains("utm_source%3D-1"));
 
         assertNotNull(result.creative.details);
         assertEquals(result.creative.details.width, expected_details_width);
         assertEquals(result.creative.details.height, expected_details_height);
         assertEquals(result.creative.details.name, expected_details_name);
-        assertEquals(result.creative.details.placementFormat, expected_details_placementFormat);
+        assertEquals(result.creative.details.format, expected_details_format);
         assertEquals(result.creative.details.bitrate, expected_details_bitrate);
         assertEquals(result.creative.details.duration, expected_details_duration);
         assertEquals(result.creative.details.value, expected_details_value);
         assertEquals(result.creative.details.image, expected_details_image);
         assertEquals(result.creative.details.video, expected_details_video);
         assertEquals(result.creative.details.tag, expected_details_tag);
-        assertEquals(result.creative.details.zipFile, expected_details_zipFile);
+        assertEquals(result.creative.details.zip, expected_details_zip);
         assertEquals(result.creative.details.url, expected_details_url);
-        assertEquals(result.creative.details.cdnUrl, expected_details_cdnUrl);
+        assertEquals(result.creative.details.cdn, expected_details_cdn);
         assertEquals(result.creative.details.vast, expected_details_vast);
 
         assertNotNull(result.creative.details.media);
         assertEquals(result.creative.details.media.html, expected_media_html);
-        assertEquals(result.creative.details.media.playableDiskUrl, expected_media_playableDiskUrl);
-        assertEquals(result.creative.details.media.playableMediaUrl, expected_media_playableMediaUrl);
+        assertEquals(result.creative.details.media.path, expected_media_path);
+        assertEquals(result.creative.details.media.url, expected_media_url);
         assertEquals(result.creative.details.media.type, expected_media_type);
-        assertEquals(result.creative.details.media.isOnDisk, expected_media_isOnDisk);
+        assertEquals(result.creative.details.media.isDownloaded, expected_media_isDownloaded);
     }
 
     @SmallTest
@@ -417,19 +412,19 @@ public class SAAds_Valid_ModelSpace_Tests extends ApplicationTestCase<Applicatio
         int expected_error = 0;
         int expected_advertiserId = 1;
         int expected_publisherId = 1;
-        int expected_app = 105;
+        int expected_appId = 105;
         int expected_lineItemId = 141;
         double expected_moat = 0.5;
         int expected_campaignId = 117;
         int expected_placementId = 0;
         SACampaignType expected_campaignType = SACampaignType.CPM;
         String expected_device = "web";
-        boolean expected_test = false;
+        boolean expected_isTest = false;
         boolean expected_isFallback = false;
         boolean expected_isFill = false;
         boolean expected_isHouse = false;
-        boolean expected_safeAdApproved = true;
-        boolean expected_showPadlock = true;
+        boolean expected_isSafeAdApproved = true;
+        boolean expected_isPadlockVisible = true;
 
         int expected_creative_id = 127;
         String expected_creative_name = "Interstitial 3-1";
@@ -437,12 +432,12 @@ public class SAAds_Valid_ModelSpace_Tests extends ApplicationTestCase<Applicatio
         SACreativeFormat expected_creative_format = SACreativeFormat.tag;
         boolean expected_creative_live = true;
         boolean expected_creative_approved = true;
-        String expected_creative_customPayload = null;
+        String expected_creative_payload = null;
         String expected_creative_clickUrl = null;
         String expected_creative_clickCounterUrl = null;
         String expected_creative_installUrl = null;
         String expected_creative_impressionUrl = null;
-        String expected_creative_bundleId = null;
+        String expected_creative_bundle = null;
         List<SATracking> expected_creative_events = new ArrayList<>();
 
         int expected_referral_configuration = -1;
@@ -454,23 +449,23 @@ public class SAAds_Valid_ModelSpace_Tests extends ApplicationTestCase<Applicatio
         int expected_details_width = 320;
         int expected_details_height = 480;
         String expected_details_name = null;
-        String expected_details_placementFormat = "mobile_display";
+        String expected_details_format = "mobile_display";
         int expected_details_bitrate = 0;
         int expected_details_duration = 0;
         int expected_details_value = 0;
         String expected_details_image = null;
         String expected_details_video = null;
         String expected_details_tag = "<!-- Beginning PassBack for Ad unit FK:Site-Skyscraper-Passback ### size: [[120,600]] -->\\n\\t<script type='text/javascript' src='http://www.googletagservices.com/tag/js/gpt.js'>\\n\\t\\tgoogletag.pubads().definePassback('1002534/FK:Site-Skyscraper-Passback', [[120,600]]).display();\\n\\t</script>\\n<!-- End Passback -->";
-        String expected_details_zipFile = null;
+        String expected_details_zip = null;
         String expected_details_url = null;
-        String expected_details_cdnUrl = null;
+        String expected_details_cdn = null;
         String expected_details_vast = null;
 
         String expected_media_html = null;
-        String expected_media_playableDiskUrl = null;
-        String expected_media_playableMediaUrl = null;
+        String expected_media_path = null;
+        String expected_media_url = null;
         String expected_media_type = null;
-        boolean expected_media_isOnDisk = false;
+        boolean expected_media_isDownloaded = false;
 
         // then
         SAAd result = new SAAd(given);
@@ -480,19 +475,19 @@ public class SAAds_Valid_ModelSpace_Tests extends ApplicationTestCase<Applicatio
         assertEquals(result.error, expected_error);
         assertEquals(result.advertiserId, expected_advertiserId);
         assertEquals(result.publisherId, expected_publisherId);
-        assertEquals(result.app, expected_app);
+        assertEquals(result.appId, expected_appId);
         assertEquals(result.moat, expected_moat, 0.01);
         assertEquals(result.lineItemId, expected_lineItemId);
         assertEquals(result.campaignId, expected_campaignId);
         assertEquals(result.placementId, expected_placementId);
         assertEquals(result.campaignType, expected_campaignType);
         assertEquals(result.device, expected_device);
-        assertEquals(result.test, expected_test);
+        assertEquals(result.isTest, expected_isTest);
         assertEquals(result.isFallback, expected_isFallback);
         assertEquals(result.isFill, expected_isFill);
         assertEquals(result.isHouse, expected_isHouse);
-        assertEquals(result.safeAdApproved, expected_safeAdApproved);
-        assertEquals(result.showPadlock, expected_showPadlock);
+        assertEquals(result.isSafeAdApproved, expected_isSafeAdApproved);
+        assertEquals(result.isPadlockVisible, expected_isPadlockVisible);
 
         assertNotNull(result.creative);
         assertEquals(result.creative.id, expected_creative_id);
@@ -501,48 +496,48 @@ public class SAAds_Valid_ModelSpace_Tests extends ApplicationTestCase<Applicatio
         assertEquals(result.creative.format, expected_creative_format);
         assertEquals(result.creative.live, expected_creative_live);
         assertEquals(result.creative.approved, expected_creative_approved);
-        assertEquals(result.creative.customPayload, expected_creative_customPayload);
+        assertEquals(result.creative.payload, expected_creative_payload);
         assertEquals(result.creative.clickUrl, expected_creative_clickUrl);
         assertEquals(result.creative.clickCounterUrl, expected_creative_clickCounterUrl);
         assertEquals(result.creative.installUrl, expected_creative_installUrl);
         assertEquals(result.creative.impressionUrl, expected_creative_impressionUrl);
-        assertEquals(result.creative.bundleId, expected_creative_bundleId);
+        assertEquals(result.creative.bundle, expected_creative_bundle);
         assertEquals(result.creative.events, expected_creative_events);
 
-        assertNotNull(result.creative.referralData);
-        assertEquals(result.creative.referralData.configuration, expected_referral_configuration);
-        assertEquals(result.creative.referralData.campaignId, expected_referral_campaignId);
-        assertEquals(result.creative.referralData.lineItemId, expected_referral_lineItemId);
-        assertEquals(result.creative.referralData.creativeId, expected_referral_creativeId);
-        assertEquals(result.creative.referralData.placementId, expected_referral_placementId);
-        assertTrue(result.creative.referralData.writeToReferralQuery().contains("utm_content%3D-1"));
-        assertTrue(result.creative.referralData.writeToReferralQuery().contains("utm_medium%3D-1"));
-        assertTrue(result.creative.referralData.writeToReferralQuery().contains("utm_term%3D-1"));
-        assertTrue(result.creative.referralData.writeToReferralQuery().contains("utm_campaign%3D-1"));
-        assertTrue(result.creative.referralData.writeToReferralQuery().contains("utm_source%3D-1"));
+        assertNotNull(result.creative.referral);
+        assertEquals(result.creative.referral.configuration, expected_referral_configuration);
+        assertEquals(result.creative.referral.campaignId, expected_referral_campaignId);
+        assertEquals(result.creative.referral.lineItemId, expected_referral_lineItemId);
+        assertEquals(result.creative.referral.creativeId, expected_referral_creativeId);
+        assertEquals(result.creative.referral.placementId, expected_referral_placementId);
+        assertTrue(result.creative.referral.writeToReferralQuery().contains("utm_content%3D-1"));
+        assertTrue(result.creative.referral.writeToReferralQuery().contains("utm_medium%3D-1"));
+        assertTrue(result.creative.referral.writeToReferralQuery().contains("utm_term%3D-1"));
+        assertTrue(result.creative.referral.writeToReferralQuery().contains("utm_campaign%3D-1"));
+        assertTrue(result.creative.referral.writeToReferralQuery().contains("utm_source%3D-1"));
 
         assertNotNull(result.creative.details);
         assertEquals(result.creative.details.width, expected_details_width);
         assertEquals(result.creative.details.height, expected_details_height);
         assertEquals(result.creative.details.name, expected_details_name);
-        assertEquals(result.creative.details.placementFormat, expected_details_placementFormat);
+        assertEquals(result.creative.details.format, expected_details_format);
         assertEquals(result.creative.details.bitrate, expected_details_bitrate);
         assertEquals(result.creative.details.duration, expected_details_duration);
         assertEquals(result.creative.details.value, expected_details_value);
         assertEquals(result.creative.details.image, expected_details_image);
         assertEquals(result.creative.details.video, expected_details_video);
         assertEquals(result.creative.details.tag, expected_details_tag);
-        assertEquals(result.creative.details.zipFile, expected_details_zipFile);
+        assertEquals(result.creative.details.zip, expected_details_zip);
         assertEquals(result.creative.details.url, expected_details_url);
-        assertEquals(result.creative.details.cdnUrl, expected_details_cdnUrl);
+        assertEquals(result.creative.details.cdn, expected_details_cdn);
         assertEquals(result.creative.details.vast, expected_details_vast);
 
         assertNotNull(result.creative.details.media);
         assertEquals(result.creative.details.media.html, expected_media_html);
-        assertEquals(result.creative.details.media.playableDiskUrl, expected_media_playableDiskUrl);
-        assertEquals(result.creative.details.media.playableMediaUrl, expected_media_playableMediaUrl);
+        assertEquals(result.creative.details.media.path, expected_media_path);
+        assertEquals(result.creative.details.media.url, expected_media_url);
         assertEquals(result.creative.details.media.type, expected_media_type);
-        assertEquals(result.creative.details.media.isOnDisk, expected_media_isOnDisk);
+        assertEquals(result.creative.details.media.isDownloaded, expected_media_isDownloaded);
     }
 
     @SmallTest
@@ -595,19 +590,19 @@ public class SAAds_Valid_ModelSpace_Tests extends ApplicationTestCase<Applicatio
         int expected_error = 0;
         int expected_advertiserId = 1;
         int expected_publisherId = 1;
-        int expected_app = 105;
+        int expected_appId= 105;
         int expected_lineItemId = 140;
         int expected_campaignId = 117;
         double expected_moat = 0.75;
         int expected_placementId = 0;
         SACampaignType expected_campaignType = SACampaignType.CPM;
         String expected_device = "web";
-        boolean expected_test = false;
+        boolean expected_isTest = false;
         boolean expected_isFallback = false;
         boolean expected_isFill = false;
         boolean expected_isHouse = false;
-        boolean expected_safeAdApproved = true;
-        boolean expected_showPadlock = true;
+        boolean expected_isSafeAdApproved = true;
+        boolean expected_isPadlockVisible = true;
 
         int expected_creative_id = 116;
         String expected_creative_name = "Interstitial 2";
@@ -615,12 +610,12 @@ public class SAAds_Valid_ModelSpace_Tests extends ApplicationTestCase<Applicatio
         SACreativeFormat expected_creative_format = SACreativeFormat.rich;
         boolean expected_creative_live = true;
         boolean expected_creative_approved = true;
-        String expected_creative_customPayload = null;
+        String expected_creative_payload = null;
         String expected_creative_clickUrl = "http://superawesome.tv";
         String expected_creative_clickCounterUrl = "http://zoso.ro";
         String expected_creative_installUrl = null;
         String expected_creative_impressionUrl = "http://superawesome.tv";
-        String expected_creative_bundleId = null;
+        String expected_creative_bundle = null;
         List<SATracking> expected_creative_events = new ArrayList<>();
 
         int expected_referral_configuration = -1;
@@ -632,23 +627,23 @@ public class SAAds_Valid_ModelSpace_Tests extends ApplicationTestCase<Applicatio
         int expected_details_width = 320;
         int expected_details_height = 480;
         String expected_details_name = null;
-        String expected_details_placementFormat = "mobile_display";
+        String expected_details_format = "mobile_display";
         int expected_details_bitrate = 0;
         int expected_details_duration = 0;
         int expected_details_value = 0;
         String expected_details_image = "https://s3-eu-west-1.amazonaws.com/sb-ads-uploads/rich-media/tNmFLJ7kGQWBbyORkIqTJ4oqykaGPU9w/rich-media/index.html";
         String expected_details_video = "https://s3-eu-west-1.amazonaws.com/sb-ads-uploads/rich-media/tNmFLJ7kGQWBbyORkIqTJ4oqykaGPU9w/rich-media/index.html";
         String expected_details_tag = null;
-        String expected_details_zipFile = null;
+        String expected_details_zip = null;
         String expected_details_url = "https://s3-eu-west-1.amazonaws.com/sb-ads-uploads/rich-media/tNmFLJ7kGQWBbyORkIqTJ4oqykaGPU9w/rich-media/index.html";
-        String expected_details_cdnUrl = "https://s3-eu-west-1.amazonaws.com/sb-ads-uploads/rich-media/tNmFLJ7kGQWBbyORkIqTJ4oqykaGPU9w/rich-media/";
+        String expected_details_cdn = "https://s3-eu-west-1.amazonaws.com/sb-ads-uploads/rich-media/tNmFLJ7kGQWBbyORkIqTJ4oqykaGPU9w/rich-media/";
         String expected_details_vast = null;
 
         String expected_media_html = null;
-        String expected_media_playableDiskUrl = null;
-        String expected_media_playableMediaUrl = null;
+        String expected_media_path = null;
+        String expected_media_url = null;
         String expected_media_type = null;
-        boolean expected_media_isOnDisk = false;
+        boolean expected_media_isDownloaded = false;
         
         // then
         SAAd result = new SAAd(given);
@@ -658,19 +653,19 @@ public class SAAds_Valid_ModelSpace_Tests extends ApplicationTestCase<Applicatio
         assertEquals(result.error, expected_error);
         assertEquals(result.advertiserId, expected_advertiserId);
         assertEquals(result.publisherId, expected_publisherId);
-        assertEquals(result.app, expected_app);
+        assertEquals(result.appId, expected_appId);
         assertEquals(result.moat, expected_moat, 0.01);
         assertEquals(result.lineItemId, expected_lineItemId);
         assertEquals(result.campaignId, expected_campaignId);
         assertEquals(result.placementId, expected_placementId);
         assertEquals(result.campaignType, expected_campaignType);
         assertEquals(result.device, expected_device);
-        assertEquals(result.test, expected_test);
+        assertEquals(result.isTest, expected_isTest);
         assertEquals(result.isFallback, expected_isFallback);
         assertEquals(result.isFill, expected_isFill);
         assertEquals(result.isHouse, expected_isHouse);
-        assertEquals(result.safeAdApproved, expected_safeAdApproved);
-        assertEquals(result.showPadlock, expected_showPadlock);
+        assertEquals(result.isSafeAdApproved, expected_isSafeAdApproved);
+        assertEquals(result.isPadlockVisible, expected_isPadlockVisible);
 
         assertNotNull(result.creative);
         assertEquals(result.creative.id, expected_creative_id);
@@ -679,48 +674,48 @@ public class SAAds_Valid_ModelSpace_Tests extends ApplicationTestCase<Applicatio
         assertEquals(result.creative.format, expected_creative_format);
         assertEquals(result.creative.live, expected_creative_live);
         assertEquals(result.creative.approved, expected_creative_approved);
-        assertEquals(result.creative.customPayload, expected_creative_customPayload);
+        assertEquals(result.creative.payload, expected_creative_payload);
         assertEquals(result.creative.clickUrl, expected_creative_clickUrl);
         assertEquals(result.creative.clickCounterUrl, expected_creative_clickCounterUrl);
         assertEquals(result.creative.installUrl, expected_creative_installUrl);
         assertEquals(result.creative.impressionUrl, expected_creative_impressionUrl);
-        assertEquals(result.creative.bundleId, expected_creative_bundleId);
+        assertEquals(result.creative.bundle, expected_creative_bundle);
         assertEquals(result.creative.events, expected_creative_events);
 
-        assertNotNull(result.creative.referralData);
-        assertEquals(result.creative.referralData.configuration, expected_referral_configuration);
-        assertEquals(result.creative.referralData.campaignId, expected_referral_campaignId);
-        assertEquals(result.creative.referralData.lineItemId, expected_referral_lineItemId);
-        assertEquals(result.creative.referralData.creativeId, expected_referral_creativeId);
-        assertEquals(result.creative.referralData.placementId, expected_referral_placementId);
-        assertTrue(result.creative.referralData.writeToReferralQuery().contains("utm_content%3D-1"));
-        assertTrue(result.creative.referralData.writeToReferralQuery().contains("utm_medium%3D-1"));
-        assertTrue(result.creative.referralData.writeToReferralQuery().contains("utm_term%3D-1"));
-        assertTrue(result.creative.referralData.writeToReferralQuery().contains("utm_campaign%3D-1"));
-        assertTrue(result.creative.referralData.writeToReferralQuery().contains("utm_source%3D-1"));
+        assertNotNull(result.creative.referral);
+        assertEquals(result.creative.referral.configuration, expected_referral_configuration);
+        assertEquals(result.creative.referral.campaignId, expected_referral_campaignId);
+        assertEquals(result.creative.referral.lineItemId, expected_referral_lineItemId);
+        assertEquals(result.creative.referral.creativeId, expected_referral_creativeId);
+        assertEquals(result.creative.referral.placementId, expected_referral_placementId);
+        assertTrue(result.creative.referral.writeToReferralQuery().contains("utm_content%3D-1"));
+        assertTrue(result.creative.referral.writeToReferralQuery().contains("utm_medium%3D-1"));
+        assertTrue(result.creative.referral.writeToReferralQuery().contains("utm_term%3D-1"));
+        assertTrue(result.creative.referral.writeToReferralQuery().contains("utm_campaign%3D-1"));
+        assertTrue(result.creative.referral.writeToReferralQuery().contains("utm_source%3D-1"));
 
         assertNotNull(result.creative.details);
         assertEquals(result.creative.details.width, expected_details_width);
         assertEquals(result.creative.details.height, expected_details_height);
         assertEquals(result.creative.details.name, expected_details_name);
-        assertEquals(result.creative.details.placementFormat, expected_details_placementFormat);
+        assertEquals(result.creative.details.format, expected_details_format);
         assertEquals(result.creative.details.bitrate, expected_details_bitrate);
         assertEquals(result.creative.details.duration, expected_details_duration);
         assertEquals(result.creative.details.value, expected_details_value);
         assertEquals(result.creative.details.image, expected_details_image);
         assertEquals(result.creative.details.video, expected_details_video);
         assertEquals(result.creative.details.tag, expected_details_tag);
-        assertEquals(result.creative.details.zipFile, expected_details_zipFile);
+        assertEquals(result.creative.details.zip, expected_details_zip);
         assertEquals(result.creative.details.url, expected_details_url);
-        assertEquals(result.creative.details.cdnUrl, expected_details_cdnUrl);
+        assertEquals(result.creative.details.cdn, expected_details_cdn);
         assertEquals(result.creative.details.vast, expected_details_vast);
 
         assertNotNull(result.creative.details.media);
         assertEquals(result.creative.details.media.html, expected_media_html);
-        assertEquals(result.creative.details.media.playableDiskUrl, expected_media_playableDiskUrl);
-        assertEquals(result.creative.details.media.playableMediaUrl, expected_media_playableMediaUrl);
+        assertEquals(result.creative.details.media.path, expected_media_path);
+        assertEquals(result.creative.details.media.url, expected_media_url);
         assertEquals(result.creative.details.media.type, expected_media_type);
-        assertEquals(result.creative.details.media.isOnDisk, expected_media_isOnDisk);
+        assertEquals(result.creative.details.media.isDownloaded, expected_media_isDownloaded);
     }
 
     @SmallTest
@@ -774,19 +769,19 @@ public class SAAds_Valid_ModelSpace_Tests extends ApplicationTestCase<Applicatio
         int expected_error = 0;
         int expected_advertiserId = 1;
         int expected_publisherId = 1;
-        int expected_app = 541;
+        int expected_appId = 541;
         int expected_lineItemId = 673;
         int expected_campaignId = 556;
         int expected_placementId = 0;
         double expected_moat = 1;
         SACampaignType expected_campaignType = SACampaignType.CPI;
         String expected_device = "phone";
-        boolean expected_test = false;
+        boolean expected_isTest = false;
         boolean expected_isFallback = false;
         boolean expected_isFill = false;
         boolean expected_isHouse = false;
-        boolean expected_safeAdApproved = true;
-        boolean expected_showPadlock = true;
+        boolean expected_isSafeAdApproved = true;
+        boolean expected_isPadlockVisible = true;
 
         int expected_creative_id = 1051;
         String expected_creative_name = "CPI Gab iOS Banner";
@@ -794,12 +789,12 @@ public class SAAds_Valid_ModelSpace_Tests extends ApplicationTestCase<Applicatio
         SACreativeFormat expected_creative_format = SACreativeFormat.image;
         boolean expected_creative_live = true;
         boolean expected_creative_approved = true;
-        String expected_creative_customPayload = null;
+        String expected_creative_payload = null;
         String expected_creative_clickUrl = "http://theguardian.com";
         String expected_creative_clickCounterUrl = "http://zoso.ro";
         String expected_creative_installUrl = null;
         String expected_creative_impressionUrl = null;
-        String expected_creative_bundleId = "tv.superawesome.KWSDemo";
+        String expected_creative_bundle = "tv.superawesome.KWSDemo";
         List<SATracking> expected_creative_events = new ArrayList<>();
 
         int expected_referral_configuration = -1;
@@ -811,23 +806,23 @@ public class SAAds_Valid_ModelSpace_Tests extends ApplicationTestCase<Applicatio
         int expected_details_width = 320;
         int expected_details_height = 50;
         String expected_details_name = null;
-        String expected_details_placementFormat = "mobile_display";
+        String expected_details_format = "mobile_display";
         int expected_details_bitrate = 0;
         int expected_details_duration = 0;
         int expected_details_value = 0;
         String expected_details_image = "https://s3-eu-west-1.amazonaws.com/sb-ads-uploads/images/iwPc7H9hU94gNhw8bx7SBgoQy0rUy3o5.jpg";
         String expected_details_video = "https://s3-eu-west-1.amazonaws.com/sb-ads-uploads/images/iwPc7H9hU94gNhw8bx7SBgoQy0rUy3o5.jpg";
         String expected_details_tag = null;
-        String expected_details_zipFile = null;
+        String expected_details_zip = null;
         String expected_details_url = "https://s3-eu-west-1.amazonaws.com/sb-ads-uploads/images/iwPc7H9hU94gNhw8bx7SBgoQy0rUy3o5.jpg";
-        String expected_details_cdnUrl = "https://s3-eu-west-1.amazonaws.com/sb-ads-uploads/images/";
+        String expected_details_cdn = "https://s3-eu-west-1.amazonaws.com/sb-ads-uploads/images/";
         String expected_details_vast = null;
 
         String expected_media_html = null;
-        String expected_media_playableDiskUrl = null;
-        String expected_media_playableMediaUrl = null;
+        String expected_media_path = null;
+        String expected_media_url = null;
         String expected_media_type = null;
-        boolean expected_media_isOnDisk = false;
+        boolean expected_media_isDownloaded = false;
 
         
         // then
@@ -838,19 +833,19 @@ public class SAAds_Valid_ModelSpace_Tests extends ApplicationTestCase<Applicatio
         assertEquals(result.error, expected_error);
         assertEquals(result.advertiserId, expected_advertiserId);
         assertEquals(result.publisherId, expected_publisherId);
-        assertEquals(result.app, expected_app);
+        assertEquals(result.appId, expected_appId);
         assertEquals(result.moat, expected_moat, 0.01);
         assertEquals(result.lineItemId, expected_lineItemId);
         assertEquals(result.campaignId, expected_campaignId);
         assertEquals(result.placementId, expected_placementId);
         assertEquals(result.campaignType, expected_campaignType);
         assertEquals(result.device, expected_device);
-        assertEquals(result.test, expected_test);
+        assertEquals(result.isTest, expected_isTest);
         assertEquals(result.isFallback, expected_isFallback);
         assertEquals(result.isFill, expected_isFill);
         assertEquals(result.isHouse, expected_isHouse);
-        assertEquals(result.safeAdApproved, expected_safeAdApproved);
-        assertEquals(result.showPadlock, expected_showPadlock);
+        assertEquals(result.isSafeAdApproved, expected_isSafeAdApproved);
+        assertEquals(result.isPadlockVisible, expected_isPadlockVisible);
 
         assertNotNull(result.creative);
         assertEquals(result.creative.id, expected_creative_id);
@@ -859,48 +854,48 @@ public class SAAds_Valid_ModelSpace_Tests extends ApplicationTestCase<Applicatio
         assertEquals(result.creative.format, expected_creative_format);
         assertEquals(result.creative.live, expected_creative_live);
         assertEquals(result.creative.approved, expected_creative_approved);
-        assertEquals(result.creative.customPayload, expected_creative_customPayload);
+        assertEquals(result.creative.payload, expected_creative_payload);
         assertEquals(result.creative.clickUrl, expected_creative_clickUrl);
         assertEquals(result.creative.clickCounterUrl, expected_creative_clickCounterUrl);
         assertEquals(result.creative.installUrl, expected_creative_installUrl);
         assertEquals(result.creative.impressionUrl, expected_creative_impressionUrl);
-        assertEquals(result.creative.bundleId, expected_creative_bundleId);
+        assertEquals(result.creative.bundle, expected_creative_bundle);
         assertEquals(result.creative.events, expected_creative_events);
 
-        assertNotNull(result.creative.referralData);
-        assertEquals(result.creative.referralData.configuration, expected_referral_configuration);
-        assertEquals(result.creative.referralData.campaignId, expected_referral_campaignId);
-        assertEquals(result.creative.referralData.lineItemId, expected_referral_lineItemId);
-        assertEquals(result.creative.referralData.creativeId, expected_referral_creativeId);
-        assertEquals(result.creative.referralData.placementId, expected_referral_placementId);
-        assertTrue(result.creative.referralData.writeToReferralQuery().contains("utm_content%3D-1"));
-        assertTrue(result.creative.referralData.writeToReferralQuery().contains("utm_medium%3D-1"));
-        assertTrue(result.creative.referralData.writeToReferralQuery().contains("utm_term%3D-1"));
-        assertTrue(result.creative.referralData.writeToReferralQuery().contains("utm_campaign%3D-1"));
-        assertTrue(result.creative.referralData.writeToReferralQuery().contains("utm_source%3D-1"));
+        assertNotNull(result.creative.referral);
+        assertEquals(result.creative.referral.configuration, expected_referral_configuration);
+        assertEquals(result.creative.referral.campaignId, expected_referral_campaignId);
+        assertEquals(result.creative.referral.lineItemId, expected_referral_lineItemId);
+        assertEquals(result.creative.referral.creativeId, expected_referral_creativeId);
+        assertEquals(result.creative.referral.placementId, expected_referral_placementId);
+        assertTrue(result.creative.referral.writeToReferralQuery().contains("utm_content%3D-1"));
+        assertTrue(result.creative.referral.writeToReferralQuery().contains("utm_medium%3D-1"));
+        assertTrue(result.creative.referral.writeToReferralQuery().contains("utm_term%3D-1"));
+        assertTrue(result.creative.referral.writeToReferralQuery().contains("utm_campaign%3D-1"));
+        assertTrue(result.creative.referral.writeToReferralQuery().contains("utm_source%3D-1"));
 
         assertNotNull(result.creative.details);
         assertEquals(result.creative.details.width, expected_details_width);
         assertEquals(result.creative.details.height, expected_details_height);
         assertEquals(result.creative.details.name, expected_details_name);
-        assertEquals(result.creative.details.placementFormat, expected_details_placementFormat);
+        assertEquals(result.creative.details.format, expected_details_format);
         assertEquals(result.creative.details.bitrate, expected_details_bitrate);
         assertEquals(result.creative.details.duration, expected_details_duration);
         assertEquals(result.creative.details.value, expected_details_value);
         assertEquals(result.creative.details.image, expected_details_image);
         assertEquals(result.creative.details.video, expected_details_video);
         assertEquals(result.creative.details.tag, expected_details_tag);
-        assertEquals(result.creative.details.zipFile, expected_details_zipFile);
+        assertEquals(result.creative.details.zip, expected_details_zip);
         assertEquals(result.creative.details.url, expected_details_url);
-        assertEquals(result.creative.details.cdnUrl, expected_details_cdnUrl);
+        assertEquals(result.creative.details.cdn, expected_details_cdn);
         assertEquals(result.creative.details.vast, expected_details_vast);
 
         assertNotNull(result.creative.details.media);
         assertEquals(result.creative.details.media.html, expected_media_html);
-        assertEquals(result.creative.details.media.playableDiskUrl, expected_media_playableDiskUrl);
-        assertEquals(result.creative.details.media.playableMediaUrl, expected_media_playableMediaUrl);
+        assertEquals(result.creative.details.media.path, expected_media_path);
+        assertEquals(result.creative.details.media.url, expected_media_url);
         assertEquals(result.creative.details.media.type, expected_media_type);
-        assertEquals(result.creative.details.media.isOnDisk, expected_media_isOnDisk);
+        assertEquals(result.creative.details.media.isDownloaded, expected_media_isDownloaded);
     }
 
     @SmallTest
@@ -946,21 +941,21 @@ public class SAAds_Valid_ModelSpace_Tests extends ApplicationTestCase<Applicatio
                 "            \"value\": 0,\n" +
                 "            \"image\": \"https://s3-eu-west-1.amazonaws.com/sb-ads-video-transcoded/l2UWsR6EWLZ8amjR8dTierr9hNS1mkOP.mp4\",\n" +
                 "            \"tag\": null,\n" +
-                "            \"cdnUrl\": \"https://s3-eu-west-1.amazonaws.com/sb-ads-video-transcoded/\",\n" +
+                "            \"cdn\": \"https://s3-eu-west-1.amazonaws.com/sb-ads-video-transcoded/\",\n" +
                 "            \"height\": 480,\n" +
-                "            \"zipFile\": null,\n" +
+                "            \"zip\": null,\n" +
                 "            \"duration\": 32,\n" +
                 "            \"media\": {\n" +
-                "                \"isOnDisk\": true,\n" +
-                "                \"playableDiskUrl\": \"samov_19410.mp4\",\n" +
-                "                \"playableMediaUrl\": \"https://s3-eu-west-1.amazonaws.com/sb-ads-video-transcoded/l2UWsR6EWLZ8amjR8dTierr9hNS1mkOP.mp4\",\n" +
+                "                \"isDownloaded\": true,\n" +
+                "                \"path\": \"samov_19410.mp4\",\n" +
+                "                \"url\": \"https://s3-eu-west-1.amazonaws.com/sb-ads-video-transcoded/l2UWsR6EWLZ8amjR8dTierr9hNS1mkOP.mp4\",\n" +
                 "                \"html\": null,\n" +
                 "                \"type\": \"video/mp4\"\n" +
                 "            },\n" +
                 "            \"name\": null,\n" +
                 "            \"video\": \"https://s3-eu-west-1.amazonaws.com/sb-ads-video-transcoded/l2UWsR6EWLZ8amjR8dTierr9hNS1mkOP.mp4\"\n" +
                 "        },\n" +
-                "        \"customPayload\": null,\n" +
+                "        \"payload\": null,\n" +
                 "        \"live\": false,\n" +
                 "        \"format\": \"video\",\n" +
                 "        \"impression_url\": null,\n" +
@@ -986,19 +981,19 @@ public class SAAds_Valid_ModelSpace_Tests extends ApplicationTestCase<Applicatio
         int expected_error = 0;
         int expected_advertiserId = 1;
         int expected_publisherId = 1;
-        int expected_app = 1484;
+        int expected_appId = 1484;
         int expected_lineItemId = 932;
         int expected_campaignId = 0;
         int expected_placementId = 481;
         double expected_moat = 0.2;
         SACampaignType expected_campaignType = SACampaignType.CPM;
         String expected_device = null;
-        boolean expected_test = false;
+        boolean expected_isTest = false;
         boolean expected_isFallback = false;
         boolean expected_isFill = false;
         boolean expected_isHouse = false;
-        boolean expected_safeAdApproved = true;
-        boolean expected_showPadlock = true;
+        boolean expected_isSafeAdApproved = true;
+        boolean expected_isPadlockVisible = true;
 
         int expected_creative_id = 4907;
         String expected_creative_name = null;
@@ -1006,11 +1001,11 @@ public class SAAds_Valid_ModelSpace_Tests extends ApplicationTestCase<Applicatio
         SACreativeFormat expected_creative_format = SACreativeFormat.video;
         boolean expected_creative_live = false;
         boolean expected_creative_approved = false;
-        String expected_creative_customPayload = null;
+        String expected_creative_payload = null;
         String expected_creative_clickUrl =  "https://superawesome.tv";
         String expected_creative_installUrl = null;
         String expected_creative_impressionUrl = null;
-        String expected_creative_bundleId = null;
+        String expected_creative_bundle = null;
         SATracking t1 = new SATracking();
         t1.event =  "impression";
         t1.URL =  "https://ads.staging.superawesome.tv/v2/video/impression?placement=481&creative=4907&line_item=932&sdkVersion=ios_5.2.3&rnd=8832683&dauid=8798453893251470766&device=phone";
@@ -1037,23 +1032,23 @@ public class SAAds_Valid_ModelSpace_Tests extends ApplicationTestCase<Applicatio
         int expected_details_width = 600;
         int expected_details_height = 480;
         String expected_details_name = null;
-        String expected_details_placementFormat =  "video";
+        String expected_details_format =  "video";
         int expected_details_bitrate = 0;
         int expected_details_duration = 32;
         int expected_details_value = 0;
         String expected_details_image =  "https://s3-eu-west-1.amazonaws.com/sb-ads-video-transcoded/l2UWsR6EWLZ8amjR8dTierr9hNS1mkOP.mp4";
         String expected_details_video =  "https://s3-eu-west-1.amazonaws.com/sb-ads-video-transcoded/l2UWsR6EWLZ8amjR8dTierr9hNS1mkOP.mp4";
         String expected_details_tag = null;
-        String expected_details_zipFile = null;
+        String expected_details_zip = null;
         String expected_details_url =  "https://s3-eu-west-1.amazonaws.com/sb-ads-video-transcoded/l2UWsR6EWLZ8amjR8dTierr9hNS1mkOP.mp4";
-        String expected_details_cdnUrl =  "https://s3-eu-west-1.amazonaws.com/sb-ads-video-transcoded/";
+        String expected_details_cdn =  "https://s3-eu-west-1.amazonaws.com/sb-ads-video-transcoded/";
         String expected_details_vast =  "https://ads.staging.superawesome.tv/v2/video/vast/481/932/4907/?sdkVersion=ios_5.2.3&rnd=621706701&dauid=8798453893251470766&device=phone";
 
         String expected_media_html = null;
-        String expected_media_playableDiskUrl =  "samov_19410.mp4";
-        String expected_media_playableMediaUrl =  "https://s3-eu-west-1.amazonaws.com/sb-ads-video-transcoded/l2UWsR6EWLZ8amjR8dTierr9hNS1mkOP.mp4";
+        String expected_media_path =  "samov_19410.mp4";
+        String expected_media_url =  "https://s3-eu-west-1.amazonaws.com/sb-ads-video-transcoded/l2UWsR6EWLZ8amjR8dTierr9hNS1mkOP.mp4";
         String expected_media_type =  "video/mp4";
-        boolean expected_media_isOnDisk = true;
+        boolean expected_media_isDownloaded = true;
 
         // then
         SAAd result = new SAAd(given);
@@ -1063,19 +1058,19 @@ public class SAAds_Valid_ModelSpace_Tests extends ApplicationTestCase<Applicatio
         assertEquals(result.error, expected_error);
         assertEquals(result.advertiserId, expected_advertiserId);
         assertEquals(result.publisherId, expected_publisherId);
-        assertEquals(result.app, expected_app);
+        assertEquals(result.appId, expected_appId);
         assertEquals(result.moat, expected_moat, 0.01);
         assertEquals(result.lineItemId, expected_lineItemId);
         assertEquals(result.campaignId, expected_campaignId);
         assertEquals(result.placementId, expected_placementId);
         assertEquals(result.campaignType, expected_campaignType);
         assertEquals(result.device, expected_device);
-        assertEquals(result.test, expected_test);
+        assertEquals(result.isTest, expected_isTest);
         assertEquals(result.isFallback, expected_isFallback);
         assertEquals(result.isFill, expected_isFill);
         assertEquals(result.isHouse, expected_isHouse);
-        assertEquals(result.safeAdApproved, expected_safeAdApproved);
-        assertEquals(result.showPadlock, expected_showPadlock);
+        assertEquals(result.isSafeAdApproved, expected_isSafeAdApproved);
+        assertEquals(result.isPadlockVisible, expected_isPadlockVisible);
 
         assertNotNull(result.creative);
         assertEquals(result.creative.id, expected_creative_id);
@@ -1084,46 +1079,46 @@ public class SAAds_Valid_ModelSpace_Tests extends ApplicationTestCase<Applicatio
         assertEquals(result.creative.format, expected_creative_format);
         assertEquals(result.creative.live, expected_creative_live);
         assertEquals(result.creative.approved, expected_creative_approved);
-        assertEquals(result.creative.customPayload, expected_creative_customPayload);
+        assertEquals(result.creative.payload, expected_creative_payload);
         assertEquals(result.creative.clickUrl, expected_creative_clickUrl);
         assertEquals(result.creative.installUrl, expected_creative_installUrl);
         assertEquals(result.creative.impressionUrl, expected_creative_impressionUrl);
-        assertEquals(result.creative.bundleId, expected_creative_bundleId);
+        assertEquals(result.creative.bundle, expected_creative_bundle);
         assertEquals(result.creative.events.size(), expected_creative_events.size());
 
-        assertNotNull(result.creative.referralData);
-        assertEquals(result.creative.referralData.configuration, expected_referral_configuration);
-        assertEquals(result.creative.referralData.campaignId, expected_referral_campaignId);
-        assertEquals(result.creative.referralData.lineItemId, expected_referral_lineItemId);
-        assertEquals(result.creative.referralData.creativeId, expected_referral_creativeId);
-        assertEquals(result.creative.referralData.placementId, expected_referral_placementId);
-        assertTrue(result.creative.referralData.writeToReferralQuery().contains("utm_content%3D-1"));
-        assertTrue(result.creative.referralData.writeToReferralQuery().contains("utm_medium%3D-1"));
-        assertTrue(result.creative.referralData.writeToReferralQuery().contains("utm_term%3D-1"));
-        assertTrue(result.creative.referralData.writeToReferralQuery().contains("utm_campaign%3D-1"));
-        assertTrue(result.creative.referralData.writeToReferralQuery().contains("utm_source%3D-1"));
+        assertNotNull(result.creative.referral);
+        assertEquals(result.creative.referral.configuration, expected_referral_configuration);
+        assertEquals(result.creative.referral.campaignId, expected_referral_campaignId);
+        assertEquals(result.creative.referral.lineItemId, expected_referral_lineItemId);
+        assertEquals(result.creative.referral.creativeId, expected_referral_creativeId);
+        assertEquals(result.creative.referral.placementId, expected_referral_placementId);
+        assertTrue(result.creative.referral.writeToReferralQuery().contains("utm_content%3D-1"));
+        assertTrue(result.creative.referral.writeToReferralQuery().contains("utm_medium%3D-1"));
+        assertTrue(result.creative.referral.writeToReferralQuery().contains("utm_term%3D-1"));
+        assertTrue(result.creative.referral.writeToReferralQuery().contains("utm_campaign%3D-1"));
+        assertTrue(result.creative.referral.writeToReferralQuery().contains("utm_source%3D-1"));
 
         assertNotNull(result.creative.details);
         assertEquals(result.creative.details.width, expected_details_width);
         assertEquals(result.creative.details.height, expected_details_height);
         assertEquals(result.creative.details.name, expected_details_name);
-        assertEquals(result.creative.details.placementFormat, expected_details_placementFormat);
+        assertEquals(result.creative.details.format, expected_details_format);
         assertEquals(result.creative.details.bitrate, expected_details_bitrate);
         assertEquals(result.creative.details.duration, expected_details_duration);
         assertEquals(result.creative.details.value, expected_details_value);
         assertEquals(result.creative.details.image, expected_details_image);
         assertEquals(result.creative.details.video, expected_details_video);
         assertEquals(result.creative.details.tag, expected_details_tag);
-        assertEquals(result.creative.details.zipFile, expected_details_zipFile);
+        assertEquals(result.creative.details.zip, expected_details_zip);
         assertEquals(result.creative.details.url, expected_details_url);
-        assertEquals(result.creative.details.cdnUrl, expected_details_cdnUrl);
+        assertEquals(result.creative.details.cdn, expected_details_cdn);
         assertEquals(result.creative.details.vast, expected_details_vast);
 
         assertNotNull(result.creative.details.media);
         assertEquals(result.creative.details.media.html, expected_media_html);
-        assertEquals(result.creative.details.media.playableDiskUrl, expected_media_playableDiskUrl);
-        assertEquals(result.creative.details.media.playableMediaUrl, expected_media_playableMediaUrl);
+        assertEquals(result.creative.details.media.path, expected_media_path);
+        assertEquals(result.creative.details.media.url, expected_media_url);
         assertEquals(result.creative.details.media.type, expected_media_type);
-        assertEquals(result.creative.details.media.isOnDisk, expected_media_isOnDisk);
+        assertEquals(result.creative.details.media.isDownloaded, expected_media_isDownloaded);
     }
 }

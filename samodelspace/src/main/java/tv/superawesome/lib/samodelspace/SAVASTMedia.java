@@ -23,7 +23,7 @@ public class SAVASTMedia extends SABaseObject implements Parcelable {
 
     // member variables
     public String type     = null;
-    public String mediaUrl = null;
+    public String url      = null;
     public int    bitrate  = 0;
     public int    width    = 0;
     public int    height   = 0;
@@ -61,7 +61,7 @@ public class SAVASTMedia extends SABaseObject implements Parcelable {
      */
     protected SAVASTMedia(Parcel in) {
         type = in.readString();
-        mediaUrl = in.readString();
+        url = in.readString();
         bitrate = in.readInt();
         width = in.readInt();
         height = in.readInt();
@@ -74,7 +74,7 @@ public class SAVASTMedia extends SABaseObject implements Parcelable {
      */
     @Override
     public boolean isValid() {
-        return mediaUrl != null;
+        return url != null;
     }
 
     /**
@@ -85,7 +85,7 @@ public class SAVASTMedia extends SABaseObject implements Parcelable {
     @Override
     public void readFromJson(JSONObject jsonObject) {
         type = SAJsonParser.getString(jsonObject, "type", null);
-        mediaUrl = SAJsonParser.getString(jsonObject, "mediaUrl", null);
+        url = SAJsonParser.getString(jsonObject, "url", null);
         bitrate = SAJsonParser.getInt(jsonObject, "bitrate", 0);
         width = SAJsonParser.getInt(jsonObject, "width", 0);
         height = SAJsonParser.getInt(jsonObject, "height", 0);
@@ -100,7 +100,7 @@ public class SAVASTMedia extends SABaseObject implements Parcelable {
     public JSONObject writeToJson() {
         return SAJsonParser.newObject(new Object[] {
                 "type", type,
-                "mediaUrl", mediaUrl,
+                "url", url,
                 "bitrate", bitrate,
                 "width", width,
                 "height", height
@@ -141,7 +141,7 @@ public class SAVASTMedia extends SABaseObject implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(type);
-        dest.writeString(mediaUrl);
+        dest.writeString(url);
         dest.writeInt(bitrate);
         dest.writeInt(width);
         dest.writeInt(height);

@@ -41,16 +41,16 @@ public class SACreative extends SABaseObject implements Parcelable {
     public SACreativeFormat format          = SACreativeFormat.invalid;
     public boolean          live            = true;
     public boolean          approved        = true;
-    public String           customPayload   = null;
+    public String           payload         = null;
 
     public String           clickUrl        = null;
     public String           clickCounterUrl = null;
     public String           impressionUrl   = null;
     public String           installUrl      = null;
 
-    public String           bundleId        = null;
+    public String           bundle          = null;
     public List<SATracking> events          = new ArrayList<>();
-    public SAReferralData   referralData    = new SAReferralData();
+    public SAReferral       referral        = new SAReferral();
     public SADetails        details         = new SADetails();
 
     /**
@@ -91,14 +91,14 @@ public class SACreative extends SABaseObject implements Parcelable {
         format = in.readParcelable(SACreativeFormat.class.getClassLoader());
         live = in.readByte() != 0;
         approved = in.readByte() != 0;
-        customPayload = in.readString();
+        payload = in.readString();
         clickUrl = in.readString();
         clickCounterUrl = in.readString();
         impressionUrl = in.readString();
         installUrl = in.readString();
-        bundleId = in.readString();
+        bundle = in.readString();
         events = in.createTypedArrayList(SATracking.CREATOR);
-        referralData = in.readParcelable(SAReferralData.class.getClassLoader());
+        referral = in.readParcelable(SAReferral.class.getClassLoader());
         details = in.readParcelable(SADetails.class.getClassLoader());
     }
 
@@ -128,14 +128,14 @@ public class SACreative extends SABaseObject implements Parcelable {
 
         live = SAJsonParser.getBoolean(jsonObject, "live", live);
         approved = SAJsonParser.getBoolean(jsonObject, "approved", approved);
-        customPayload = SAJsonParser.getString(jsonObject, "customPayload", customPayload);
+        payload = SAJsonParser.getString(jsonObject, "customPayload", payload);
 
         clickUrl = SAJsonParser.getString(jsonObject, "click_url", clickUrl);
         clickCounterUrl = SAJsonParser.getString(jsonObject, "clickCounterUrl", clickCounterUrl);
         impressionUrl = SAJsonParser.getString(jsonObject, "impression_url", impressionUrl);
         installUrl = SAJsonParser.getString(jsonObject, "installUrl", installUrl);
 
-        bundleId = SAJsonParser.getString(jsonObject, "bundleId", bundleId);
+        bundle = SAJsonParser.getString(jsonObject, "bundleId", bundle);
 
         JSONArray eventsArray = SAJsonParser.getJsonArray(jsonObject, "events", new JSONArray());
         events = SAJsonParser.getListFromJsonArray(eventsArray, new SAJsonToList<SATracking, JSONObject>() {
@@ -148,8 +148,8 @@ public class SACreative extends SABaseObject implements Parcelable {
         JSONObject detailsJson = SAJsonParser.getJsonObject(jsonObject, "details", new JSONObject());
         details = new SADetails(detailsJson);
 
-        JSONObject referralJson = SAJsonParser.getJsonObject(jsonObject, "referralData", new JSONObject());
-        referralData = new SAReferralData(referralJson);
+        JSONObject referralJson = SAJsonParser.getJsonObject(jsonObject, "referral", new JSONObject());
+        referral = new SAReferral(referralJson);
     }
 
     /**
@@ -166,12 +166,12 @@ public class SACreative extends SABaseObject implements Parcelable {
                 "format", format.toString(),
                 "live", live,
                 "approved", approved,
-                "customPayload", customPayload,
+                "customPayload", payload,
                 "click_url", clickUrl,
                 "clickCounterUrl", clickCounterUrl,
                 "impression_url", impressionUrl,
                 "installUrl", installUrl,
-                "bundleId", bundleId,
+                "bundleId", bundle,
                 "events", SAJsonParser.getJsonArrayFromList(events, new SAListToJson<JSONObject, SATracking>() {
                     @Override
                     public JSONObject traverseItem(SATracking saTracking) {
@@ -179,7 +179,7 @@ public class SACreative extends SABaseObject implements Parcelable {
                     }
                 }),
                 "details", details.writeToJson(),
-                "referralData", referralData.writeToJson()
+                "referral", referral.writeToJson()
         });
     }
 
@@ -222,14 +222,14 @@ public class SACreative extends SABaseObject implements Parcelable {
         dest.writeParcelable(format, flags);
         dest.writeByte((byte) (live ? 1 : 0));
         dest.writeByte((byte) (approved ? 1 : 0));
-        dest.writeString(customPayload);
+        dest.writeString(payload);
         dest.writeString(clickUrl);
         dest.writeString(clickCounterUrl);
         dest.writeString(impressionUrl);
         dest.writeString(installUrl);
-        dest.writeString(bundleId);
+        dest.writeString(bundle);
         dest.writeTypedList(events);
         dest.writeParcelable(details, flags);
-        dest.writeParcelable(referralData, flags);
+        dest.writeParcelable(referral, flags);
     }
 }

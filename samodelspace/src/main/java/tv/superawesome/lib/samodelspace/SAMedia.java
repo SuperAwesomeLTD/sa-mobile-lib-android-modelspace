@@ -22,10 +22,10 @@ public class SAMedia extends SABaseObject implements Parcelable {
 
     // member variables
     public String  html             = null;
-    public String  playableDiskUrl  = null;
-    public String  playableMediaUrl = null;
+    public String  path             = null;
+    public String  url              = null;
     public String  type             = null;
-    public boolean isOnDisk         = false;
+    public boolean isDownloaded     = false;
 
     /**
      * Basic constructor
@@ -60,10 +60,10 @@ public class SAMedia extends SABaseObject implements Parcelable {
      */
     protected SAMedia(Parcel in) {
         html = in.readString();
-        playableDiskUrl = in.readString();
-        playableMediaUrl = in.readString();
+        path = in.readString();
+        url = in.readString();
         type = in.readString();
-        isOnDisk = in.readByte() != 0;
+        isDownloaded = in.readByte() != 0;
     }
 
     /**
@@ -84,10 +84,10 @@ public class SAMedia extends SABaseObject implements Parcelable {
     @Override
     public void readFromJson(JSONObject jsonObject) {
         html = SAJsonParser.getString(jsonObject, "html", html);
-        playableDiskUrl = SAJsonParser.getString(jsonObject, "playableDiskUrl", playableDiskUrl);
-        playableMediaUrl = SAJsonParser.getString(jsonObject, "playableMediaUrl", playableMediaUrl);
+        path = SAJsonParser.getString(jsonObject, "path", path);
+        url = SAJsonParser.getString(jsonObject, "url", url);
         type = SAJsonParser.getString(jsonObject, "type", type);
-        isOnDisk = SAJsonParser.getBoolean(jsonObject, "isOnDisk", isOnDisk);
+        isDownloaded = SAJsonParser.getBoolean(jsonObject, "isDownloaded", isDownloaded);
     }
 
     /**
@@ -99,10 +99,10 @@ public class SAMedia extends SABaseObject implements Parcelable {
     public JSONObject writeToJson() {
         return SAJsonParser.newObject(new Object[] {
                 "html", html,
-                "playableDiskUrl", playableDiskUrl,
-                "playableMediaUrl", playableMediaUrl,
+                "path", path,
+                "url", url,
                 "type", type,
-                "isOnDisk", isOnDisk
+                "isDownloaded", isDownloaded
         });
     }
 
@@ -140,9 +140,9 @@ public class SAMedia extends SABaseObject implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(html);
-        dest.writeString(playableDiskUrl);
-        dest.writeString(playableMediaUrl);
+        dest.writeString(path);
+        dest.writeString(url);
         dest.writeString(type);
-        dest.writeByte((byte) (isOnDisk ? 1 : 0));
+        dest.writeByte((byte) (isDownloaded ? 1 : 0));
     }
 }

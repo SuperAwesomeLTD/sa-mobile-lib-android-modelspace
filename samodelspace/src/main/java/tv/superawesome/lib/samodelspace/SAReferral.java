@@ -22,7 +22,7 @@ import tv.superawesome.lib.sautils.SAUtils;
  *  - the configuration (staging or production) where the install generated
  *
  */
-public class SAReferralData extends SABaseObject implements Parcelable {
+public class SAReferral extends SABaseObject implements Parcelable {
 
     // constants
     private static final int CPI_DEF_VAL = -1;
@@ -37,7 +37,7 @@ public class SAReferralData extends SABaseObject implements Parcelable {
     /**
      * Basic constructor
      */
-    public SAReferralData() {
+    public SAReferral() {
         // do nothing
     }
 
@@ -50,7 +50,7 @@ public class SAReferralData extends SABaseObject implements Parcelable {
      * @param creativeId    creative id
      * @param placementId   placement id
      */
-    public SAReferralData (int configuration, int campaignId, int lineItemId, int creativeId, int placementId) {
+    public SAReferral(int configuration, int campaignId, int lineItemId, int creativeId, int placementId) {
         this.configuration = configuration;
         this.campaignId = campaignId;
         this.lineItemId = lineItemId;
@@ -63,7 +63,7 @@ public class SAReferralData extends SABaseObject implements Parcelable {
      *
      * @param json a valid JSON string
      */
-    public SAReferralData(String json) {
+    public SAReferral(String json) {
         JSONObject jsonObject = SAJsonParser.newObject(json);
         readFromJson(jsonObject);
     }
@@ -73,7 +73,7 @@ public class SAReferralData extends SABaseObject implements Parcelable {
      *
      * @param jsonObject a valid JSON object
      */
-    public SAReferralData(JSONObject jsonObject) {
+    public SAReferral(JSONObject jsonObject) {
         readFromJson(jsonObject);
     }
 
@@ -82,7 +82,7 @@ public class SAReferralData extends SABaseObject implements Parcelable {
      *
      * @param in the parcel object to read data from
      */
-    protected SAReferralData(Parcel in) {
+    protected SAReferral(Parcel in) {
         configuration = in.readInt();
         campaignId = in.readInt();
         lineItemId = in.readInt();
@@ -145,15 +145,15 @@ public class SAReferralData extends SABaseObject implements Parcelable {
     /**
      * Method needed for Parcelable implementation
      */
-    public static final Creator<SAReferralData> CREATOR = new Creator<SAReferralData>() {
+    public static final Creator<SAReferral> CREATOR = new Creator<SAReferral>() {
         @Override
-        public SAReferralData createFromParcel(Parcel in) {
-            return new SAReferralData(in);
+        public SAReferral createFromParcel(Parcel in) {
+            return new SAReferral(in);
         }
 
         @Override
-        public SAReferralData[] newArray(int size) {
-            return new SAReferralData[size];
+        public SAReferral[] newArray(int size) {
+            return new SAReferral[size];
         }
     };
 

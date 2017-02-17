@@ -27,11 +27,11 @@ import tv.superawesome.lib.sajsonparser.SAListToJson;
 public class SAVASTAd extends SABaseObject implements Parcelable {
 
     // member variables
-    public String            vastRedirect = null;
-    public SAVASTAdType      vastType     = SAVASTAdType.Invalid;
-    public String            mediaUrl     = null;
-    public List<SAVASTMedia> mediaList    = new ArrayList<>();
-    public List<SATracking>  vastEvents   = new ArrayList<>();
+    public String            redirect = null;
+    public SAVASTAdType      type     = SAVASTAdType.Invalid;
+    public String            url      = null;
+    public List<SAVASTMedia> media    = new ArrayList<>();
+    public List<SATracking>  events   = new ArrayList<>();
 
     /**
      * Basic constructor
@@ -65,11 +65,11 @@ public class SAVASTAd extends SABaseObject implements Parcelable {
      * @param in the parcel object to read data from
      */
     protected SAVASTAd(Parcel in) {
-        vastRedirect = in.readString();
-        mediaUrl = in.readString();
-        mediaList = in.createTypedArrayList(SAVASTMedia.CREATOR);
-        vastEvents = in.createTypedArrayList(SATracking.CREATOR);
-        vastType = in.readParcelable(SAVASTAdType.class.getClassLoader());
+        redirect = in.readString();
+        url = in.readString();
+        media = in.createTypedArrayList(SAVASTMedia.CREATOR);
+        events = in.createTypedArrayList(SATracking.CREATOR);
+        type = in.readParcelable(SAVASTAdType.class.getClassLoader());
     }
 
     /**
@@ -78,9 +78,9 @@ public class SAVASTAd extends SABaseObject implements Parcelable {
      * @param toBeAdded the ad that's going to be added
      */
     public void sumAd (SAVASTAd toBeAdded) {
-        mediaUrl = toBeAdded.mediaUrl != null ? toBeAdded.mediaUrl : mediaUrl;
-        vastEvents.addAll(toBeAdded.vastEvents);
-        mediaList.addAll(toBeAdded.mediaList);
+        url = toBeAdded.url != null ? toBeAdded.url : url;
+        events.addAll(toBeAdded.events);
+        media.addAll(toBeAdded.media);
     }
 
     /**
@@ -90,7 +90,7 @@ public class SAVASTAd extends SABaseObject implements Parcelable {
      */
     @Override
     public boolean isValid() {
-        return mediaUrl != null && vastType != SAVASTAdType.Invalid && mediaList.size() >= 1;
+        return url != null && type != SAVASTAdType.Invalid && media.size() >= 1;
     }
 
     /**
@@ -100,18 +100,18 @@ public class SAVASTAd extends SABaseObject implements Parcelable {
      */
     @Override
     public void readFromJson(JSONObject jsonObject) {
-        vastRedirect = SAJsonParser.getString(jsonObject, "vastRedirect", null);
-        mediaUrl = SAJsonParser.getString(jsonObject, "mediaUrl", null);
-        vastType = SAVASTAdType.fromValue(SAJsonParser.getInt(jsonObject, "vastType", 0));
+        redirect = SAJsonParser.getString(jsonObject, "redirect", null);
+        url = SAJsonParser.getString(jsonObject, "url", null);
+        type = SAVASTAdType.fromValue(SAJsonParser.getInt(jsonObject, "type", 0));
 
-        mediaList = SAJsonParser.getListFromJsonArray(jsonObject, "mediaList", new SAJsonToList<SAVASTMedia, JSONObject>() {
+        media = SAJsonParser.getListFromJsonArray(jsonObject, "media", new SAJsonToList<SAVASTMedia, JSONObject>() {
             @Override
             public SAVASTMedia traverseItem(JSONObject jsonObject) {
                 return new SAVASTMedia(jsonObject);
             }
         });
 
-        vastEvents = SAJsonParser.getListFromJsonArray(jsonObject, "vastEvents", new SAJsonToList<SATracking, JSONObject>() {
+        events = SAJsonParser.getListFromJsonArray(jsonObject, "events", new SAJsonToList<SATracking, JSONObject>() {
             @Override
             public SATracking traverseItem(JSONObject jsonObject) {
                 return new SATracking(jsonObject);
@@ -127,16 +127,16 @@ public class SAVASTAd extends SABaseObject implements Parcelable {
     @Override
     public JSONObject writeToJson() {
         return SAJsonParser.newObject(new Object[] {
-                "vastRedirect", vastRedirect,
-                "mediaUrl", mediaUrl,
-                "vastType", vastType.ordinal(),
-                "mediaList", SAJsonParser.getJsonArrayFromList(mediaList, new SAListToJson<JSONObject, SAVASTMedia>() {
+                "redirect", redirect,
+                "url", url,
+                "type", type.ordinal(),
+                "media", SAJsonParser.getJsonArrayFromList(media, new SAListToJson<JSONObject, SAVASTMedia>() {
                     @Override
                     public JSONObject traverseItem(SAVASTMedia savastMedia) {
                         return savastMedia.writeToJson();
                     }
                 }),
-                "vastEvents", SAJsonParser.getJsonArrayFromList(vastEvents, new SAListToJson<JSONObject, SATracking>() {
+                "events", SAJsonParser.getJsonArrayFromList(events, new SAListToJson<JSONObject, SATracking>() {
                     @Override
                     public JSONObject traverseItem(SATracking saTracking) {
                         return saTracking.writeToJson();
@@ -178,10 +178,10 @@ public class SAVASTAd extends SABaseObject implements Parcelable {
      */
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(vastRedirect);
-        dest.writeString(mediaUrl);
-        dest.writeTypedList(vastEvents);
-        dest.writeTypedList(mediaList);
-        dest.writeParcelable(vastType, flags);
+        dest.writeString(redirect);
+        dest.writeString(url);
+        dest.writeTypedList(events);
+        dest.writeTypedList(media);
+        dest.writeParcelable(type, flags);
     }
 }

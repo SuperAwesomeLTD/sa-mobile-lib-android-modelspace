@@ -4,7 +4,7 @@ import android.app.Application;
 import android.test.ApplicationTestCase;
 import android.test.suitebuilder.annotation.SmallTest;
 
-import tv.superawesome.lib.samodelspace.SAReferralData;
+import tv.superawesome.lib.samodelspace.SAReferral;
 
 public class SARefferal_ModelSpace_Tests extends ApplicationTestCase<Application> {
     public SARefferal_ModelSpace_Tests() {
@@ -22,7 +22,7 @@ public class SARefferal_ModelSpace_Tests extends ApplicationTestCase<Application
                 "\t\"utm_medium\": 28000\n" +
                 "}";
 
-        SAReferralData referralData = new SAReferralData(json);
+        SAReferral referralData = new SAReferral(json);
         assertNotNull(referralData);
 
         int expected_configuration = 1;
@@ -55,7 +55,7 @@ public class SARefferal_ModelSpace_Tests extends ApplicationTestCase<Application
                 "\t\"utm_medium\": 28000\n" +
                 "}";
 
-        SAReferralData referralData = new SAReferralData(json);
+        SAReferral referralData = new SAReferral(json);
         assertNotNull(referralData);
 
         int expected_configuration = 1;
@@ -84,7 +84,7 @@ public class SARefferal_ModelSpace_Tests extends ApplicationTestCase<Application
         // source JSON
         String json = null;
 
-        SAReferralData referralData = new SAReferralData(json);
+        SAReferral referralData = new SAReferral(json);
         assertNotNull(referralData);
 
         int expected_configuration = -1;

@@ -29,23 +29,28 @@ import tv.superawesome.lib.sajsonparser.SAJsonParser;
 public class SAAd extends SABaseObject implements Parcelable {
 
     // member variables
-    public int            error          = 0;
-    public int            advertiserId   = 0;
-    public int            publisherId    = 0;
-    public int            app            = 0;
-    public int            lineItemId     = 0;
-    public int            campaignId     = 0;
-    public int            placementId    = 0;
-    public SACampaignType campaignType = SACampaignType.CPM;
-    public double         moat           = 0.2;
-    public boolean        test           = false;
-    public boolean        isFallback     = false;
-    public boolean        isFill         = false;
-    public boolean        isHouse        = false;
-    public boolean        safeAdApproved = false;
-    public boolean        showPadlock    = false;
-    public String         device         = null;
-    public SACreative     creative       = new SACreative();
+    public int            error             = 0;
+    public int            advertiserId      = 0;
+    public int            publisherId       = 0;
+    public int            appId             = 0;
+    public int            lineItemId        = 0;
+    public int            campaignId        = 0;
+    public int            placementId       = 0;
+
+    public SACampaignType campaignType  = SACampaignType.CPM;
+
+    public double         moat              = 0.2;
+
+    public boolean        isTest            = false;
+    public boolean        isFallback        = false;
+    public boolean        isFill            = false;
+    public boolean        isHouse           = false;
+    public boolean        isSafeAdApproved  = false;
+    public boolean        isPadlockVisible  = false;
+
+    public String         device            = null;
+
+    public SACreative     creative          = new SACreative();
 
     /**
      * Basic constructor
@@ -82,18 +87,18 @@ public class SAAd extends SABaseObject implements Parcelable {
         error = in.readInt();
         advertiserId = in.readInt();
         publisherId = in.readInt();
-        app = in.readInt();
+        appId = in.readInt();
         lineItemId = in.readInt();
         campaignId = in.readInt();
         placementId = in.readInt();
         moat = in.readDouble();
         campaignType = in.readParcelable(SACampaignType.class.getClassLoader());
-        test = in.readByte() != 0;
+        isTest = in.readByte() != 0;
         isFallback = in.readByte() != 0;
         isFill = in.readByte() != 0;
         isHouse = in.readByte() != 0;
-        safeAdApproved = in.readByte() != 0;
-        showPadlock = in.readByte() != 0;
+        isSafeAdApproved = in.readByte() != 0;
+        isPadlockVisible = in.readByte() != 0;
         device = in.readString();
         creative = in.readParcelable(SACreative.class.getClassLoader());
     }
@@ -118,18 +123,18 @@ public class SAAd extends SABaseObject implements Parcelable {
             }
             case video: {
                 return creative.details.vast != null &&
-                        creative.details.media.playableMediaUrl != null &&
-                        creative.details.media.playableDiskUrl != null &&
-                        creative.details.media.isOnDisk;
+                        creative.details.media.url != null &&
+                        creative.details.media.path != null &&
+                        creative.details.media.isDownloaded;
             }
             case tag: {
                 return creative.details.tag != null && creative.details.media.html != null;
             }
             case appwall: {
                 return creative.details.image != null &&
-                        creative.details.media.playableMediaUrl != null &&
-                        creative.details.media.playableDiskUrl != null &&
-                        creative.details.media.isOnDisk;
+                        creative.details.media.url != null &&
+                        creative.details.media.path != null &&
+                        creative.details.media.isDownloaded;
             }
         }
 
@@ -147,7 +152,7 @@ public class SAAd extends SABaseObject implements Parcelable {
         error = SAJsonParser.getInt(jsonObject, "error", error);
         advertiserId = SAJsonParser.getInt(jsonObject, "advertiserId", advertiserId);
         publisherId = SAJsonParser.getInt(jsonObject, "publisherId", publisherId);
-        app = SAJsonParser.getInt(jsonObject, "app", app);
+        appId = SAJsonParser.getInt(jsonObject, "app", appId);
 
         int val1 = SAJsonParser.getInt(jsonObject, "moat", (int) moat * 100);
         double val2 = SAJsonParser.getDouble(jsonObject, "moat", moat);
@@ -161,12 +166,12 @@ public class SAAd extends SABaseObject implements Parcelable {
         int campaign = SAJsonParser.getInt(jsonObject, "campaign_type", 0);
         campaignType = SACampaignType.fromValue(campaign);
 
-        test = SAJsonParser.getBoolean(jsonObject, "test", test);
+        isTest = SAJsonParser.getBoolean(jsonObject, "test", isTest);
         isFallback = SAJsonParser.getBoolean(jsonObject, "is_fallback", isFallback);
         isFill = SAJsonParser.getBoolean(jsonObject, "is_fill", isFill);
         isHouse = SAJsonParser.getBoolean(jsonObject, "is_house", isHouse);
-        safeAdApproved = SAJsonParser.getBoolean(jsonObject, "safe_ad_approved", safeAdApproved);
-        showPadlock = SAJsonParser.getBoolean(jsonObject, "show_padlock", showPadlock);
+        isSafeAdApproved = SAJsonParser.getBoolean(jsonObject, "safe_ad_approved", isSafeAdApproved);
+        isPadlockVisible = SAJsonParser.getBoolean(jsonObject, "show_padlock", isPadlockVisible);
         device = SAJsonParser.getString(jsonObject, "device", device);
 
         JSONObject creativeJson = SAJsonParser.getJsonObject(jsonObject, "creative", new JSONObject());
@@ -184,18 +189,18 @@ public class SAAd extends SABaseObject implements Parcelable {
                 "error", error,
                 "advertiserId", advertiserId,
                 "publisherId", publisherId,
-                "app", app,
+                "app", appId,
                 "moat", moat,
                 "line_item_id", lineItemId,
                 "campaign_id", campaignId,
                 "placementId", placementId,
                 "campaign_type", campaignType.ordinal(),
-                "test", test,
+                "test", isTest,
                 "is_fallback", isFallback,
                 "is_fill", isFill,
                 "is_house", isHouse,
-                "safe_ad_approved", safeAdApproved,
-                "show_padlock", showPadlock,
+                "safe_ad_approved", isSafeAdApproved,
+                "show_padlock", isPadlockVisible,
                 "creative", creative.writeToJson(),
                 "device", device
         });
@@ -237,18 +242,18 @@ public class SAAd extends SABaseObject implements Parcelable {
         dest.writeInt(error);
         dest.writeInt(advertiserId);
         dest.writeInt(publisherId);
-        dest.writeInt(app);
+        dest.writeInt(appId);
         dest.writeInt(lineItemId);
         dest.writeInt(campaignId);
         dest.writeInt(placementId);
         dest.writeDouble(moat);
         dest.writeParcelable(campaignType, flags);
-        dest.writeByte((byte) (test ? 1 : 0));
+        dest.writeByte((byte) (isTest ? 1 : 0));
         dest.writeByte((byte) (isFallback ? 1 : 0));
         dest.writeByte((byte) (isFill ? 1 : 0));
         dest.writeByte((byte) (isHouse ? 1 : 0));
-        dest.writeByte((byte) (safeAdApproved ? 1 : 0));
-        dest.writeByte((byte) (showPadlock ? 1 : 0));
+        dest.writeByte((byte) (isSafeAdApproved ? 1 : 0));
+        dest.writeByte((byte) (isPadlockVisible ? 1 : 0));
         dest.writeString(device);
         dest.writeParcelable(creative, flags);
     }

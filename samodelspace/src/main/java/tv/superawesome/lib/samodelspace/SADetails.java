@@ -21,7 +21,7 @@ import tv.superawesome.lib.sautils.SAUtils;
  *  - bitrate, duration, value (for video; not really used)
  *  - image, video, tag, url, vast - needed to describe the location of the creative (whether
  *    rich media, video, 3rd party tag, etc)
- *  - cdnUrl & zipFile (not really used)
+ *  - cdn & zip (not really used)
  *  - a SAMedia object
  *
  */
@@ -31,16 +31,16 @@ public class SADetails extends SABaseObject implements Parcelable {
     public int     width           = 0;
     public int     height          = 0;
     public String  name            = null;
-    public String  placementFormat = null;
+    public String  format          = null;
     public int     bitrate         = 0;
     public int     duration        = 0;
     public int     value           = 0;
     public String  image           = null;
     public String  video           = null;
     public String  tag             = null;
-    public String  zipFile         = null;
+    public String  zip             = null;
     public String  url             = null;
-    public String  cdnUrl          = null;
+    public String  cdn             = null;
     public String  vast            = null;
     public SAMedia media           = new SAMedia();
 
@@ -79,16 +79,16 @@ public class SADetails extends SABaseObject implements Parcelable {
         width = in.readInt();
         height = in.readInt();
         name = in.readString();
-        placementFormat = in.readString();
+        format = in.readString();
         bitrate = in.readInt();
         duration = in.readInt();
         value = in.readInt();
         image = in.readString();
         video = in.readString();
         tag = in.readString();
-        zipFile = in.readString();
+        zip = in.readString();
         url = in.readString();
-        cdnUrl = in.readString();
+        cdn = in.readString();
         vast = in.readString();
         media = in.readParcelable(SAMedia.class.getClassLoader());
     }
@@ -113,21 +113,21 @@ public class SADetails extends SABaseObject implements Parcelable {
         width = SAJsonParser.getInt(jsonObject, "width", width);
         height = SAJsonParser.getInt(jsonObject, "height", height);
         name = SAJsonParser.getString(jsonObject, "name", name);
-        placementFormat = SAJsonParser.getString(jsonObject, "placement_format", placementFormat);
+        format = SAJsonParser.getString(jsonObject, "placement_format", format);
         bitrate = SAJsonParser.getInt(jsonObject, "bitrate", bitrate);
         duration = SAJsonParser.getInt(jsonObject, "duration", duration);
         value = SAJsonParser.getInt(jsonObject, "value", value);
         image = SAJsonParser.getString(jsonObject, "image", image);
         video = SAJsonParser.getString(jsonObject, "video", video);
         tag = SAJsonParser.getString(jsonObject, "tag", tag);
-        zipFile = SAJsonParser.getString(jsonObject, "zipFile", zipFile);
+        zip = SAJsonParser.getString(jsonObject, "zipFile", zip);
         url = SAJsonParser.getString(jsonObject, "url", url);
         vast = SAJsonParser.getString(jsonObject, "vast", vast);
 
-        cdnUrl = SAJsonParser.getString(jsonObject, "cdnUrl", cdnUrl);
-        if (cdnUrl == null) cdnUrl = SAUtils.findBaseURLFromResourceURL(image);
-        if (cdnUrl == null) cdnUrl = SAUtils.findBaseURLFromResourceURL(video);
-        if (cdnUrl == null) cdnUrl = SAUtils.findBaseURLFromResourceURL(url);
+        cdn = SAJsonParser.getString(jsonObject, "cdn", cdn);
+        if (cdn == null) cdn = SAUtils.findBaseURLFromResourceURL(image);
+        if (cdn == null) cdn = SAUtils.findBaseURLFromResourceURL(video);
+        if (cdn == null) cdn = SAUtils.findBaseURLFromResourceURL(url);
 
         JSONObject mediaJson = SAJsonParser.getJsonObject(jsonObject, "media", new JSONObject());
         media = new SAMedia(mediaJson);
@@ -144,16 +144,16 @@ public class SADetails extends SABaseObject implements Parcelable {
                 "width", width,
                 "height", height,
                 "name", name,
-                "placement_format", placementFormat,
+                "placement_format", format,
                 "bitrate", bitrate,
                 "duration", duration,
                 "value", value,
                 "image", image,
                 "video", video,
                 "tag", tag,
-                "zipFile", zipFile,
+                "zipFile", zip,
                 "url", url,
-                "cdnUrl", cdnUrl,
+                "cdn", cdn,
                 "vast", vast,
                 "media", media.writeToJson()
         });
@@ -195,16 +195,16 @@ public class SADetails extends SABaseObject implements Parcelable {
         dest.writeInt(width);
         dest.writeInt(height);
         dest.writeString(name);
-        dest.writeString(placementFormat);
+        dest.writeString(format);
         dest.writeInt(bitrate);
         dest.writeInt(duration);
         dest.writeInt(value);
         dest.writeString(image);
         dest.writeString(video);
         dest.writeString(tag);
-        dest.writeString(zipFile);
+        dest.writeString(zip);
         dest.writeString(url);
-        dest.writeString(cdnUrl);
+        dest.writeString(cdn);
         dest.writeString(vast);
         dest.writeParcelable(media, flags);
     }
