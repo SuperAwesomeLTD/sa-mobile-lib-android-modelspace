@@ -61,7 +61,7 @@ public class SAAds_Valid_ModelSpace_Tests extends ApplicationTestCase<Applicatio
         int expected_appId = 1484;
         int expected_lineItemId = 931;
         int expected_campaignId = 0;
-        int expected_placementId = 0;
+        int expected_placementId = 100;
         double expected_moat = 0.2;
         SACampaignType expected_campaignType = SACampaignType.CPM;
         boolean expected_isTest = false;
@@ -85,11 +85,11 @@ public class SAAds_Valid_ModelSpace_Tests extends ApplicationTestCase<Applicatio
         String expected_creative_impressionUrl = null;
         String expected_creative_bundle = null;
 
-        int expected_referral_configuration = -1;
-        int expected_referral_campaignId = -1;
-        int expected_referral_lineItemId = -1;
-        int expected_referral_creativeId = -1;
-        int expected_referral_placementId = -1;
+        int expected_referral_configuration = 0;
+        int expected_referral_campaignId = 0;
+        int expected_referral_lineItemId = 931;
+        int expected_referral_creativeId = 4906;
+        int expected_referral_placementId = 100;
 
         int expected_details_width = 600;
         int expected_details_height = 480;
@@ -119,7 +119,7 @@ public class SAAds_Valid_ModelSpace_Tests extends ApplicationTestCase<Applicatio
         List<SAVASTEvent> expected_vastad_events = new ArrayList<>();
 
         // then
-        SAAd result = new SAAd(given);
+        SAAd result = new SAAd(100, 0, given);
 
         // assert
         assertNotNull(result);
@@ -160,11 +160,11 @@ public class SAAds_Valid_ModelSpace_Tests extends ApplicationTestCase<Applicatio
         assertEquals(result.creative.referral.lineItemId, expected_referral_lineItemId);
         assertEquals(result.creative.referral.creativeId, expected_referral_creativeId);
         assertEquals(result.creative.referral.placementId, expected_referral_placementId);
-        assertTrue(result.creative.referral.writeToReferralQuery().contains("utm_content%3D-1"));
-        assertTrue(result.creative.referral.writeToReferralQuery().contains("utm_medium%3D-1"));
-        assertTrue(result.creative.referral.writeToReferralQuery().contains("utm_term%3D-1"));
-        assertTrue(result.creative.referral.writeToReferralQuery().contains("utm_campaign%3D-1"));
-        assertTrue(result.creative.referral.writeToReferralQuery().contains("utm_source%3D-1"));
+        assertTrue(result.creative.referral.writeToReferralQuery().contains("utm_source%3D0"));
+        assertTrue(result.creative.referral.writeToReferralQuery().contains("utm_campaign%3D0"));
+        assertTrue(result.creative.referral.writeToReferralQuery().contains("utm_term%3D931"));
+        assertTrue(result.creative.referral.writeToReferralQuery().contains("utm_content%3D4906"));
+        assertTrue(result.creative.referral.writeToReferralQuery().contains("utm_medium%3D100"));
 
         assertNotNull(result.creative.details);
         assertEquals(result.creative.details.width, expected_details_width);
@@ -254,7 +254,7 @@ public class SAAds_Valid_ModelSpace_Tests extends ApplicationTestCase<Applicatio
         double expected_moat = 0.2;
         int expected_lineItemId = 138;
         int expected_campaignId = 117;
-        int expected_placementId = 0;
+        int expected_placementId = 100;
         SACampaignType expected_campaignType = SACampaignType.CPM;
         String expected_device = "web";
         boolean expected_isTest = false;
@@ -277,11 +277,11 @@ public class SAAds_Valid_ModelSpace_Tests extends ApplicationTestCase<Applicatio
         String expected_creative_impressionUrl = "http://superawesome.tv";
         String expected_creative_bundle = null;
 
-        int expected_referral_configuration = -1;
-        int expected_referral_campaignId = -1;
-        int expected_referral_lineItemId = -1;
-        int expected_referral_creativeId = -1;
-        int expected_referral_placementId = -1;
+        int expected_referral_configuration = 0;
+        int expected_referral_campaignId = 117;
+        int expected_referral_lineItemId = 138;
+        int expected_referral_creativeId = 114;
+        int expected_referral_placementId = 100;
 
         int expected_details_width = 320;
         int expected_details_height = 50;
@@ -311,7 +311,7 @@ public class SAAds_Valid_ModelSpace_Tests extends ApplicationTestCase<Applicatio
         List<SAVASTEvent> expected_vastad_events = new ArrayList<>();
         
         // then
-        SAAd result = new SAAd(given);
+        SAAd result = new SAAd(100, 0, given);
 
         // assert
         assertNotNull(result);
@@ -352,11 +352,11 @@ public class SAAds_Valid_ModelSpace_Tests extends ApplicationTestCase<Applicatio
         assertEquals(result.creative.referral.lineItemId, expected_referral_lineItemId);
         assertEquals(result.creative.referral.creativeId, expected_referral_creativeId);
         assertEquals(result.creative.referral.placementId, expected_referral_placementId);
-        assertTrue(result.creative.referral.writeToReferralQuery().contains("utm_content%3D-1"));
-        assertTrue(result.creative.referral.writeToReferralQuery().contains("utm_medium%3D-1"));
-        assertTrue(result.creative.referral.writeToReferralQuery().contains("utm_term%3D-1"));
-        assertTrue(result.creative.referral.writeToReferralQuery().contains("utm_campaign%3D-1"));
-        assertTrue(result.creative.referral.writeToReferralQuery().contains("utm_source%3D-1"));
+        assertTrue(result.creative.referral.writeToReferralQuery().contains("utm_source%3D0"));
+        assertTrue(result.creative.referral.writeToReferralQuery().contains("utm_campaign%3D117"));
+        assertTrue(result.creative.referral.writeToReferralQuery().contains("utm_term%3D138"));
+        assertTrue(result.creative.referral.writeToReferralQuery().contains("utm_content%3D114"));
+        assertTrue(result.creative.referral.writeToReferralQuery().contains("utm_medium%3D100"));
 
         assertNotNull(result.creative.details);
         assertEquals(result.creative.details.width, expected_details_width);
@@ -443,7 +443,7 @@ public class SAAds_Valid_ModelSpace_Tests extends ApplicationTestCase<Applicatio
         int expected_lineItemId = 141;
         double expected_moat = 0.5;
         int expected_campaignId = 117;
-        int expected_placementId = 0;
+        int expected_placementId = 100;
         SACampaignType expected_campaignType = SACampaignType.CPM;
         String expected_device = "web";
         boolean expected_isTest = false;
@@ -466,11 +466,11 @@ public class SAAds_Valid_ModelSpace_Tests extends ApplicationTestCase<Applicatio
         String expected_creative_impressionUrl = null;
         String expected_creative_bundle = null;
 
-        int expected_referral_configuration = -1;
-        int expected_referral_campaignId = -1;
-        int expected_referral_lineItemId = -1;
-        int expected_referral_creativeId = -1;
-        int expected_referral_placementId = -1;
+        int expected_referral_configuration = 0;
+        int expected_referral_campaignId = 117;
+        int expected_referral_lineItemId = 141;
+        int expected_referral_creativeId = 127;
+        int expected_referral_placementId = 100;
 
         int expected_details_width = 320;
         int expected_details_height = 480;
@@ -500,7 +500,7 @@ public class SAAds_Valid_ModelSpace_Tests extends ApplicationTestCase<Applicatio
         List<SAVASTEvent> expected_vastad_events = new ArrayList<>();
 
         // then
-        SAAd result = new SAAd(given);
+        SAAd result = new SAAd(100, 0, given);
 
         // assert
         assertNotNull(result);
@@ -541,11 +541,11 @@ public class SAAds_Valid_ModelSpace_Tests extends ApplicationTestCase<Applicatio
         assertEquals(result.creative.referral.lineItemId, expected_referral_lineItemId);
         assertEquals(result.creative.referral.creativeId, expected_referral_creativeId);
         assertEquals(result.creative.referral.placementId, expected_referral_placementId);
-        assertTrue(result.creative.referral.writeToReferralQuery().contains("utm_content%3D-1"));
-        assertTrue(result.creative.referral.writeToReferralQuery().contains("utm_medium%3D-1"));
-        assertTrue(result.creative.referral.writeToReferralQuery().contains("utm_term%3D-1"));
-        assertTrue(result.creative.referral.writeToReferralQuery().contains("utm_campaign%3D-1"));
-        assertTrue(result.creative.referral.writeToReferralQuery().contains("utm_source%3D-1"));
+        assertTrue(result.creative.referral.writeToReferralQuery().contains("utm_source%3D0"));
+        assertTrue(result.creative.referral.writeToReferralQuery().contains("utm_campaign%3D117"));
+        assertTrue(result.creative.referral.writeToReferralQuery().contains("utm_term%3D141"));
+        assertTrue(result.creative.referral.writeToReferralQuery().contains("utm_content%3D127"));
+        assertTrue(result.creative.referral.writeToReferralQuery().contains("utm_medium%3D100"));
 
         assertNotNull(result.creative.details);
         assertEquals(result.creative.details.width, expected_details_width);
@@ -634,7 +634,7 @@ public class SAAds_Valid_ModelSpace_Tests extends ApplicationTestCase<Applicatio
         int expected_lineItemId = 140;
         int expected_campaignId = 117;
         double expected_moat = 0.75;
-        int expected_placementId = 0;
+        int expected_placementId = 100;
         SACampaignType expected_campaignType = SACampaignType.CPM;
         String expected_device = "web";
         boolean expected_isTest = false;
@@ -657,11 +657,11 @@ public class SAAds_Valid_ModelSpace_Tests extends ApplicationTestCase<Applicatio
         String expected_creative_impressionUrl = "http://superawesome.tv";
         String expected_creative_bundle = null;
 
-        int expected_referral_configuration = -1;
-        int expected_referral_campaignId = -1;
-        int expected_referral_lineItemId = -1;
-        int expected_referral_creativeId = -1;
-        int expected_referral_placementId = -1;
+        int expected_referral_configuration = 0;
+        int expected_referral_campaignId = 117;
+        int expected_referral_lineItemId = 140;
+        int expected_referral_creativeId = 116;
+        int expected_referral_placementId = 100;
 
         int expected_details_width = 320;
         int expected_details_height = 480;
@@ -691,7 +691,7 @@ public class SAAds_Valid_ModelSpace_Tests extends ApplicationTestCase<Applicatio
         List<SAVASTEvent> expected_vastad_events = new ArrayList<>();
         
         // then
-        SAAd result = new SAAd(given);
+        SAAd result = new SAAd(100, 0, given);
 
         // assert
         assertNotNull(result);
@@ -732,11 +732,11 @@ public class SAAds_Valid_ModelSpace_Tests extends ApplicationTestCase<Applicatio
         assertEquals(result.creative.referral.lineItemId, expected_referral_lineItemId);
         assertEquals(result.creative.referral.creativeId, expected_referral_creativeId);
         assertEquals(result.creative.referral.placementId, expected_referral_placementId);
-        assertTrue(result.creative.referral.writeToReferralQuery().contains("utm_content%3D-1"));
-        assertTrue(result.creative.referral.writeToReferralQuery().contains("utm_medium%3D-1"));
-        assertTrue(result.creative.referral.writeToReferralQuery().contains("utm_term%3D-1"));
-        assertTrue(result.creative.referral.writeToReferralQuery().contains("utm_campaign%3D-1"));
-        assertTrue(result.creative.referral.writeToReferralQuery().contains("utm_source%3D-1"));
+        assertTrue(result.creative.referral.writeToReferralQuery().contains("utm_source%3D0"));
+        assertTrue(result.creative.referral.writeToReferralQuery().contains("utm_campaign%3D117"));
+        assertTrue(result.creative.referral.writeToReferralQuery().contains("utm_term%3D140"));
+        assertTrue(result.creative.referral.writeToReferralQuery().contains("utm_content%3D116"));
+        assertTrue(result.creative.referral.writeToReferralQuery().contains("utm_medium%3D100"));
 
         assertNotNull(result.creative.details);
         assertEquals(result.creative.details.width, expected_details_width);
@@ -825,7 +825,7 @@ public class SAAds_Valid_ModelSpace_Tests extends ApplicationTestCase<Applicatio
         int expected_appId = 541;
         int expected_lineItemId = 673;
         int expected_campaignId = 556;
-        int expected_placementId = 0;
+        int expected_placementId = 100;
         double expected_moat = 1;
         SACampaignType expected_campaignType = SACampaignType.CPI;
         String expected_device = "phone";
@@ -849,11 +849,11 @@ public class SAAds_Valid_ModelSpace_Tests extends ApplicationTestCase<Applicatio
         String expected_creative_impressionUrl = null;
         String expected_creative_bundle = "tv.superawesome.KWSDemo";
 
-        int expected_referral_configuration = -1;
-        int expected_referral_campaignId = -1;
-        int expected_referral_lineItemId = -1;
-        int expected_referral_creativeId = -1;
-        int expected_referral_placementId = -1;
+        int expected_referral_configuration = 0;
+        int expected_referral_campaignId = 556;
+        int expected_referral_lineItemId = 673;
+        int expected_referral_creativeId = 1051;
+        int expected_referral_placementId = 100;
 
         int expected_details_width = 320;
         int expected_details_height = 50;
@@ -883,7 +883,7 @@ public class SAAds_Valid_ModelSpace_Tests extends ApplicationTestCase<Applicatio
         List<SAVASTEvent> expected_vastad_events = new ArrayList<>();
 
         // then
-        SAAd result = new SAAd(given);
+        SAAd result = new SAAd(100, 0, given);
 
         // assert
         assertNotNull(result);
@@ -924,11 +924,11 @@ public class SAAds_Valid_ModelSpace_Tests extends ApplicationTestCase<Applicatio
         assertEquals(result.creative.referral.lineItemId, expected_referral_lineItemId);
         assertEquals(result.creative.referral.creativeId, expected_referral_creativeId);
         assertEquals(result.creative.referral.placementId, expected_referral_placementId);
-        assertTrue(result.creative.referral.writeToReferralQuery().contains("utm_content%3D-1"));
-        assertTrue(result.creative.referral.writeToReferralQuery().contains("utm_medium%3D-1"));
-        assertTrue(result.creative.referral.writeToReferralQuery().contains("utm_term%3D-1"));
-        assertTrue(result.creative.referral.writeToReferralQuery().contains("utm_campaign%3D-1"));
-        assertTrue(result.creative.referral.writeToReferralQuery().contains("utm_source%3D-1"));
+        assertTrue(result.creative.referral.writeToReferralQuery().contains("utm_source%3D0"));
+        assertTrue(result.creative.referral.writeToReferralQuery().contains("utm_campaign%3D556"));
+        assertTrue(result.creative.referral.writeToReferralQuery().contains("utm_term%3D673"));
+        assertTrue(result.creative.referral.writeToReferralQuery().contains("utm_content%3D1051"));
+        assertTrue(result.creative.referral.writeToReferralQuery().contains("utm_medium%3D100"));
 
         assertNotNull(result.creative.details);
         assertEquals(result.creative.details.width, expected_details_width);
@@ -1076,11 +1076,11 @@ public class SAAds_Valid_ModelSpace_Tests extends ApplicationTestCase<Applicatio
         String expected_creative_impressionUrl = null;
         String expected_creative_bundle = null;
 
-        int expected_referral_configuration = -1;
-        int expected_referral_campaignId = -1;
-        int expected_referral_lineItemId = -1;
-        int expected_referral_creativeId = -1;
-        int expected_referral_placementId = -1;
+        int expected_referral_configuration = 1;
+        int expected_referral_campaignId = 0;
+        int expected_referral_lineItemId = 932;
+        int expected_referral_creativeId = 4907;
+        int expected_referral_placementId = 481;
 
         int expected_details_width = 600;
         int expected_details_height = 480;
@@ -1125,7 +1125,7 @@ public class SAAds_Valid_ModelSpace_Tests extends ApplicationTestCase<Applicatio
         expected_vastad_events.add(event2);
 
         // then
-        SAAd result = new SAAd(given);
+        SAAd result = new SAAd(481, 1, given);
 
         // assert
         assertNotNull(result);
@@ -1165,11 +1165,11 @@ public class SAAds_Valid_ModelSpace_Tests extends ApplicationTestCase<Applicatio
         assertEquals(result.creative.referral.lineItemId, expected_referral_lineItemId);
         assertEquals(result.creative.referral.creativeId, expected_referral_creativeId);
         assertEquals(result.creative.referral.placementId, expected_referral_placementId);
-        assertTrue(result.creative.referral.writeToReferralQuery().contains("utm_content%3D-1"));
-        assertTrue(result.creative.referral.writeToReferralQuery().contains("utm_medium%3D-1"));
-        assertTrue(result.creative.referral.writeToReferralQuery().contains("utm_term%3D-1"));
-        assertTrue(result.creative.referral.writeToReferralQuery().contains("utm_campaign%3D-1"));
-        assertTrue(result.creative.referral.writeToReferralQuery().contains("utm_source%3D-1"));
+        assertTrue(result.creative.referral.writeToReferralQuery().contains("utm_source%3D1"));
+        assertTrue(result.creative.referral.writeToReferralQuery().contains("utm_campaign%3D0"));
+        assertTrue(result.creative.referral.writeToReferralQuery().contains("utm_term%3D932"));
+        assertTrue(result.creative.referral.writeToReferralQuery().contains("utm_content%3D4907"));
+        assertTrue(result.creative.referral.writeToReferralQuery().contains("utm_medium%3D481"));
 
         assertNotNull(result.creative.details);
         assertEquals(result.creative.details.width, expected_details_width);

@@ -36,8 +36,9 @@ public class SAAd extends SABaseObject implements Parcelable {
     public int            lineItemId        = 0;
     public int            campaignId        = 0;
     public int            placementId       = 0;
+    public int            configuration     = 0;
 
-    public SACampaignType campaignType  = SACampaignType.CPM;
+    public SACampaignType campaignType      = SACampaignType.CPM;
 
     public double         moat              = 0.2;
 
@@ -79,6 +80,33 @@ public class SAAd extends SABaseObject implements Parcelable {
     }
 
     /**
+     * Constructor with placement id, configuration (as an integer) and json
+     *
+     * @param placementId   placement id of the ad (this *should* be returned by the ad response)
+     * @param configuration configuration (STAGING or PRODUCTION) as an integer
+     * @param json          a valid JSON string
+     */
+    public SAAd (int placementId, int configuration, String json) {
+        this.placementId = placementId;
+        this.configuration = configuration;
+        JSONObject jsonObject = SAJsonParser.newObject(json);
+        readFromJson(jsonObject);
+    }
+
+    /**
+     * Constructor with placement id, configuration (as an integer) and json
+     *
+     * @param placementId   placement id of the ad (this *should* be returned by the ad response)
+     * @param configuration configuration (STAGING or PRODUCTION) as an integer
+     * @param jsonObject    a valid JSON object
+     */
+    public SAAd (int placementId, int configuration, JSONObject jsonObject) {
+        this.placementId = placementId;
+        this.configuration = configuration;
+        readFromJson(jsonObject);
+    }
+
+    /**
      * Constructor with a Parcel object
      *
      * @param in the parcel object to read data from
@@ -91,6 +119,7 @@ public class SAAd extends SABaseObject implements Parcelable {
         lineItemId = in.readInt();
         campaignId = in.readInt();
         placementId = in.readInt();
+        configuration = in.readInt();
         moat = in.readDouble();
         campaignType = in.readParcelable(SACampaignType.class.getClassLoader());
         isTest = in.readByte() != 0;
@@ -163,6 +192,8 @@ public class SAAd extends SABaseObject implements Parcelable {
         campaignId = SAJsonParser.getInt(jsonObject, "campaign_id", campaignId);
         placementId = SAJsonParser.getInt(jsonObject, "placementId", placementId);
 
+        configuration = SAJsonParser.getInt(jsonObject, "configuration", configuration);
+
         int campaign = SAJsonParser.getInt(jsonObject, "campaign_type", 0);
         campaignType = SACampaignType.fromValue(campaign);
 
@@ -176,6 +207,7 @@ public class SAAd extends SABaseObject implements Parcelable {
 
         JSONObject creativeJson = SAJsonParser.getJsonObject(jsonObject, "creative", new JSONObject());
         creative = new SACreative(creativeJson);
+        creative.referral = new SAReferral(configuration, campaignId, lineItemId, creative.id, placementId);
     }
 
     /**
@@ -194,6 +226,7 @@ public class SAAd extends SABaseObject implements Parcelable {
                 "line_item_id", lineItemId,
                 "campaign_id", campaignId,
                 "placementId", placementId,
+                "configuration", configuration,
                 "campaign_type", campaignType.ordinal(),
                 "test", isTest,
                 "is_fallback", isFallback,
@@ -246,6 +279,7 @@ public class SAAd extends SABaseObject implements Parcelable {
         dest.writeInt(lineItemId);
         dest.writeInt(campaignId);
         dest.writeInt(placementId);
+        dest.writeInt(configuration);
         dest.writeDouble(moat);
         dest.writeParcelable(campaignType, flags);
         dest.writeByte((byte) (isTest ? 1 : 0));
