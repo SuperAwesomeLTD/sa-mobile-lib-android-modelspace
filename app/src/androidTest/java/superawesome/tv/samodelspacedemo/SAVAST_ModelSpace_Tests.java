@@ -4,10 +4,10 @@ import android.app.Application;
 import android.test.ApplicationTestCase;
 import android.test.suitebuilder.annotation.SmallTest;
 
-import tv.superawesome.lib.samodelspace.SATracking;
-import tv.superawesome.lib.samodelspace.SAVASTAd;
-import tv.superawesome.lib.samodelspace.SAVASTAdType;
-import tv.superawesome.lib.samodelspace.SAVASTMedia;
+import tv.superawesome.lib.samodelspace.vastad.SAVASTEvent;
+import tv.superawesome.lib.samodelspace.vastad.SAVASTAd;
+import tv.superawesome.lib.samodelspace.vastad.SAVASTAdType;
+import tv.superawesome.lib.samodelspace.vastad.SAVASTMedia;
 
 public class SAVAST_ModelSpace_Tests extends ApplicationTestCase<Application> {
     public SAVAST_ModelSpace_Tests() {
@@ -190,7 +190,7 @@ public class SAVAST_ModelSpace_Tests extends ApplicationTestCase<Application> {
         assertNotNull(savastAd.events);
         assertEquals(expected_events, savastAd.events.size());
 
-        for (SATracking tracking : savastAd.events) {
+        for (SAVASTEvent tracking : savastAd.events) {
             assertTrue(tracking.isValid());
         }
         for (SAVASTMedia media : savastAd.media) {
@@ -254,7 +254,7 @@ public class SAVAST_ModelSpace_Tests extends ApplicationTestCase<Application> {
         assertNotNull(savastAd.events);
         assertEquals(expected_events, savastAd.events.size());
 
-        for (SATracking tracking : savastAd.events) {
+        for (SAVASTEvent tracking : savastAd.events) {
             assertTrue(tracking.isValid());
         }
         for (SAVASTMedia media : savastAd.media) {

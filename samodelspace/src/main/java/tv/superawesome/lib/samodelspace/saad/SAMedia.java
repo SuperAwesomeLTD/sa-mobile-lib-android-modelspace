@@ -2,7 +2,7 @@
  * @Copyright:   SuperAwesome Trading Limited 2017
  * @Author:      Gabriel Coman (gabriel.coman@superawesome.tv)
  */
-package tv.superawesome.lib.samodelspace;
+package tv.superawesome.lib.samodelspace.saad;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -11,21 +11,24 @@ import org.json.JSONObject;
 
 import tv.superawesome.lib.sajsonparser.SABaseObject;
 import tv.superawesome.lib.sajsonparser.SAJsonParser;
+import tv.superawesome.lib.samodelspace.vastad.SAVASTAd;
 
 /**
  * Class that defines a media element to be played
  * Most important elements contained are:
  *  - a html string to be rendered into a web view
  *  - a disk & media url for a video
+ *  - vast data
  */
 public class SAMedia extends SABaseObject implements Parcelable {
 
     // member variables
-    public String  html             = null;
-    public String  path             = null;
-    public String  url              = null;
-    public String  type             = null;
-    public boolean isDownloaded     = false;
+    public String   html            = null;
+    public String   path            = null;
+    public String   url             = null;
+    public String   type            = null;
+    public boolean  isDownloaded    = false;
+    public SAVASTAd vastAd          = new SAVASTAd();
 
     /**
      * Basic constructor
@@ -64,6 +67,7 @@ public class SAMedia extends SABaseObject implements Parcelable {
         url = in.readString();
         type = in.readString();
         isDownloaded = in.readByte() != 0;
+        vastAd = in.readParcelable(SAVASTAd.class.getClassLoader());
     }
 
     /**
@@ -88,6 +92,9 @@ public class SAMedia extends SABaseObject implements Parcelable {
         url = SAJsonParser.getString(jsonObject, "url", url);
         type = SAJsonParser.getString(jsonObject, "type", type);
         isDownloaded = SAJsonParser.getBoolean(jsonObject, "isDownloaded", isDownloaded);
+
+        JSONObject vastJson = SAJsonParser.getJsonObject(jsonObject, "vastAd", new JSONObject());
+        vastAd = new SAVASTAd(vastJson);
     }
 
     /**
@@ -102,7 +109,8 @@ public class SAMedia extends SABaseObject implements Parcelable {
                 "path", path,
                 "url", url,
                 "type", type,
-                "isDownloaded", isDownloaded
+                "isDownloaded", isDownloaded,
+                "vastAd", vastAd.writeToJson()
         });
     }
 
@@ -144,5 +152,6 @@ public class SAMedia extends SABaseObject implements Parcelable {
         dest.writeString(url);
         dest.writeString(type);
         dest.writeByte((byte) (isDownloaded ? 1 : 0));
+        dest.writeParcelable(vastAd, flags);
     }
 }

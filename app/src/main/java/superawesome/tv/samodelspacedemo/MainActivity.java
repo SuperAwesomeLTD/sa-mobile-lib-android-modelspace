@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import tv.superawesome.lib.samodelspace.SACreativeFormat;
+import tv.superawesome.lib.samodelspace.saad.SACreativeFormat;
 
 public class MainActivity extends AppCompatActivity {
 

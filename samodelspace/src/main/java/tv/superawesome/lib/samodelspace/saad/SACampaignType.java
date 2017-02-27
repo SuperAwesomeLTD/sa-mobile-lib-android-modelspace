@@ -2,34 +2,27 @@
  * @Copyright:   SuperAwesome Trading Limited 2017
  * @Author:      Gabriel Coman (gabriel.coman@superawesome.tv)
  */
-package tv.superawesome.lib.samodelspace;
+package tv.superawesome.lib.samodelspace.saad;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
 /**
- * Enum that defines the types of VAST ads available
- *  - Invalid: when a valid vast ad could not be found
- *  - InLine: when a direct vast ad could be found (which should also contain a video)
- *  - Wrapper: when the current vast tag should redirect to another one down the line
+ * Enum that defines the overall types of acceptable  campaigns in AwesomeAds
+ *  - CPM campaigns, where cost is done "per thousand impressions"
+ *  - CMI campaigns, where cost is done "per thousand installs"
  */
-public enum SAVASTAdType implements Parcelable {
-    Invalid (0) {
+public enum SACampaignType implements Parcelable {
+    CPM(0) {
         @Override
         public String toString() {
-            return "Invalid";
+            return "CPM";
         }
     },
-    InLine (1) {
+    CPI(1) {
         @Override
         public String toString() {
-            return "InLine";
-        }
-    },
-    Wrapper (2) {
-        @Override
-        public String toString() {
-            return "Wrapper";
+            return "CPI";
         }
     };
 
@@ -40,18 +33,18 @@ public enum SAVASTAdType implements Parcelable {
      *
      * @param i the integer value representing an enum
      */
-    SAVASTAdType(int i) {
+    SACampaignType(int i) {
         this.value = i;
     }
 
     /**
      * Factory method that creates this enum from an integer value
      *
-     * @param type the integer value in question
-     * @return     an enum instance
+     * @param campaign the integer value in question
+     * @return         an enum instance
      */
-    public static SAVASTAdType fromValue (int type) {
-        return type == 2 ? Wrapper : type == 1 ? InLine : Invalid;
+    public static SACampaignType fromValue (int campaign) {
+        return campaign == 1 ? CPI : CPM;
     }
 
     /**
@@ -78,15 +71,15 @@ public enum SAVASTAdType implements Parcelable {
     /**
      * Method needed for Parcelable implementation
      */
-    public static final Creator<SAVASTAdType> CREATOR = new Creator<SAVASTAdType>() {
+    public static final Creator<SACampaignType> CREATOR = new Creator<SACampaignType>() {
         @Override
-        public SAVASTAdType createFromParcel(final Parcel source) {
-            return SAVASTAdType.values()[source.readInt()];
+        public SACampaignType createFromParcel(final Parcel source) {
+            return SACampaignType.values()[source.readInt()];
         }
 
         @Override
-        public SAVASTAdType[] newArray(final int size) {
-            return new SAVASTAdType[size];
+        public SACampaignType[] newArray(final int size) {
+            return new SACampaignType[size];
         }
     };
 }

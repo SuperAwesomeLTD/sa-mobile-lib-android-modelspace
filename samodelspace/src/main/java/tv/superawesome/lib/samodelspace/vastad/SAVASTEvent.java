@@ -2,7 +2,7 @@
  * @Copyright:   SuperAwesome Trading Limited 2017
  * @Author:      Gabriel Coman (gabriel.coman@superawesome.tv)
  */
-package tv.superawesome.lib.samodelspace;
+package tv.superawesome.lib.samodelspace.vastad;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -13,26 +13,22 @@ import tv.superawesome.lib.sajsonparser.SABaseObject;
 import tv.superawesome.lib.sajsonparser.SAJsonParser;
 
 /**
- * Class that represents a VAST media object, containing:
- *  - a type (mp4, wav, etc)
- *  - a media Url
- *  - bitrate
- *  - width and height
+ * Class that defines a vast event in AwesomeAds.
+ * Each event contains an:
+ *  - event name (a string)
+ *  - an URL to be hit
  */
-public class SAVASTMedia extends SABaseObject implements Parcelable {
+public class SAVASTEvent extends SABaseObject implements Parcelable {
 
     // member variables
-    public String type     = null;
-    public String url      = null;
-    public int    bitrate  = 0;
-    public int    width    = 0;
-    public int    height   = 0;
+    public String event = null;
+    public String URL   = null;
 
     /**
      * Basic constructor
      */
-    public SAVASTMedia () {
-        //
+    public SAVASTEvent() {
+        // do nothing
     }
 
     /**
@@ -40,7 +36,7 @@ public class SAVASTMedia extends SABaseObject implements Parcelable {
      *
      * @param json a valid JSON string
      */
-    public SAVASTMedia (String json) {
+    public SAVASTEvent(String json) {
         JSONObject jsonObject = SAJsonParser.newObject(json);
         readFromJson(jsonObject);
     }
@@ -50,7 +46,7 @@ public class SAVASTMedia extends SABaseObject implements Parcelable {
      *
      * @param jsonObject a valid JSON object
      */
-    public SAVASTMedia (JSONObject jsonObject) {
+    public SAVASTEvent(JSONObject jsonObject) {
         readFromJson(jsonObject);
     }
 
@@ -59,12 +55,9 @@ public class SAVASTMedia extends SABaseObject implements Parcelable {
      *
      * @param in the parcel object to read data from
      */
-    protected SAVASTMedia(Parcel in) {
-        type = in.readString();
-        url = in.readString();
-        bitrate = in.readInt();
-        width = in.readInt();
-        height = in.readInt();
+    protected SAVASTEvent(Parcel in) {
+        event = in.readString();
+        URL = in.readString();
     }
 
     /**
@@ -74,7 +67,7 @@ public class SAVASTMedia extends SABaseObject implements Parcelable {
      */
     @Override
     public boolean isValid() {
-        return url != null;
+        return true;
     }
 
     /**
@@ -84,11 +77,8 @@ public class SAVASTMedia extends SABaseObject implements Parcelable {
      */
     @Override
     public void readFromJson(JSONObject jsonObject) {
-        type = SAJsonParser.getString(jsonObject, "type", null);
-        url = SAJsonParser.getString(jsonObject, "url", null);
-        bitrate = SAJsonParser.getInt(jsonObject, "bitrate", 0);
-        width = SAJsonParser.getInt(jsonObject, "width", 0);
-        height = SAJsonParser.getInt(jsonObject, "height", 0);
+        event = SAJsonParser.getString(jsonObject, "event", event);
+        URL = SAJsonParser.getString(jsonObject, "URL", URL);
     }
 
     /**
@@ -99,26 +89,23 @@ public class SAVASTMedia extends SABaseObject implements Parcelable {
     @Override
     public JSONObject writeToJson() {
         return SAJsonParser.newObject(new Object[] {
-                "type", type,
-                "url", url,
-                "bitrate", bitrate,
-                "width", width,
-                "height", height
+                "event", event,
+                "URL", URL
         });
     }
 
     /**
      * Method needed for Parcelable implementation
      */
-    public static final Creator<SAVASTMedia> CREATOR = new Creator<SAVASTMedia>() {
+    public static final Creator<SAVASTEvent> CREATOR = new Creator<SAVASTEvent>() {
         @Override
-        public SAVASTMedia createFromParcel(Parcel in) {
-            return new SAVASTMedia(in);
+        public SAVASTEvent createFromParcel(Parcel in) {
+            return new SAVASTEvent(in);
         }
 
         @Override
-        public SAVASTMedia[] newArray(int size) {
-            return new SAVASTMedia[size];
+        public SAVASTEvent[] newArray(int size) {
+            return new SAVASTEvent[size];
         }
     };
 
@@ -140,10 +127,7 @@ public class SAVASTMedia extends SABaseObject implements Parcelable {
      */
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(type);
-        dest.writeString(url);
-        dest.writeInt(bitrate);
-        dest.writeInt(width);
-        dest.writeInt(height);
+        dest.writeString(event);
+        dest.writeString(URL);
     }
 }

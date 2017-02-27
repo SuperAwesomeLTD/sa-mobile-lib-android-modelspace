@@ -4,7 +4,7 @@ import android.app.Application;
 import android.test.ApplicationTestCase;
 import android.test.suitebuilder.annotation.SmallTest;
 
-import tv.superawesome.lib.samodelspace.SAReferral;
+import tv.superawesome.lib.samodelspace.saad.SAReferral;
 
 public class SARefferal_ModelSpace_Tests extends ApplicationTestCase<Application> {
     public SARefferal_ModelSpace_Tests() {

@@ -2,7 +2,7 @@
  * @Copyright:   SuperAwesome Trading Limited 2017
  * @Author:      Gabriel Coman (gabriel.coman@superawesome.tv)
  */
-package tv.superawesome.lib.samodelspace;
+package tv.superawesome.lib.samodelspace.vastad;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -31,7 +31,7 @@ public class SAVASTAd extends SABaseObject implements Parcelable {
     public SAVASTAdType      type     = SAVASTAdType.Invalid;
     public String            url      = null;
     public List<SAVASTMedia> media    = new ArrayList<>();
-    public List<SATracking>  events   = new ArrayList<>();
+    public List<SAVASTEvent> events   = new ArrayList<>();
 
     /**
      * Basic constructor
@@ -68,7 +68,7 @@ public class SAVASTAd extends SABaseObject implements Parcelable {
         redirect = in.readString();
         url = in.readString();
         media = in.createTypedArrayList(SAVASTMedia.CREATOR);
-        events = in.createTypedArrayList(SATracking.CREATOR);
+        events = in.createTypedArrayList(SAVASTEvent.CREATOR);
         type = in.readParcelable(SAVASTAdType.class.getClassLoader());
     }
 
@@ -111,10 +111,10 @@ public class SAVASTAd extends SABaseObject implements Parcelable {
             }
         });
 
-        events = SAJsonParser.getListFromJsonArray(jsonObject, "events", new SAJsonToList<SATracking, JSONObject>() {
+        events = SAJsonParser.getListFromJsonArray(jsonObject, "events", new SAJsonToList<SAVASTEvent, JSONObject>() {
             @Override
-            public SATracking traverseItem(JSONObject jsonObject) {
-                return new SATracking(jsonObject);
+            public SAVASTEvent traverseItem(JSONObject jsonObject) {
+                return new SAVASTEvent(jsonObject);
             }
         });
     }
@@ -136,9 +136,9 @@ public class SAVASTAd extends SABaseObject implements Parcelable {
                         return savastMedia.writeToJson();
                     }
                 }),
-                "events", SAJsonParser.getJsonArrayFromList(events, new SAListToJson<JSONObject, SATracking>() {
+                "events", SAJsonParser.getJsonArrayFromList(events, new SAListToJson<JSONObject, SAVASTEvent>() {
                     @Override
-                    public JSONObject traverseItem(SATracking saTracking) {
+                    public JSONObject traverseItem(SAVASTEvent saTracking) {
                         return saTracking.writeToJson();
                     }
                 })

@@ -2,7 +2,7 @@
  * @Copyright:   SuperAwesome Trading Limited 2017
  * @Author:      Gabriel Coman (gabriel.coman@superawesome.tv)
  */
-package tv.superawesome.lib.samodelspace;
+package tv.superawesome.lib.samodelspace.vastad;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -13,22 +13,26 @@ import tv.superawesome.lib.sajsonparser.SABaseObject;
 import tv.superawesome.lib.sajsonparser.SAJsonParser;
 
 /**
- * Class that defines a tracking element in AwesomeAds.
- * Each tracking element contains an:
- *  - event name (a string)
- *  - an URL to be hit
+ * Class that represents a VAST media object, containing:
+ *  - a type (mp4, wav, etc)
+ *  - a media Url
+ *  - bitrate
+ *  - width and height
  */
-public class SATracking extends SABaseObject implements Parcelable {
+public class SAVASTMedia extends SABaseObject implements Parcelable {
 
     // member variables
-    public String event = null;
-    public String URL   = null;
+    public String type     = null;
+    public String url      = null;
+    public int    bitrate  = 0;
+    public int    width    = 0;
+    public int    height   = 0;
 
     /**
      * Basic constructor
      */
-    public SATracking () {
-        // do nothing
+    public SAVASTMedia () {
+        //
     }
 
     /**
@@ -36,7 +40,7 @@ public class SATracking extends SABaseObject implements Parcelable {
      *
      * @param json a valid JSON string
      */
-    public SATracking (String json) {
+    public SAVASTMedia (String json) {
         JSONObject jsonObject = SAJsonParser.newObject(json);
         readFromJson(jsonObject);
     }
@@ -46,7 +50,7 @@ public class SATracking extends SABaseObject implements Parcelable {
      *
      * @param jsonObject a valid JSON object
      */
-    public SATracking (JSONObject jsonObject) {
+    public SAVASTMedia (JSONObject jsonObject) {
         readFromJson(jsonObject);
     }
 
@@ -55,9 +59,12 @@ public class SATracking extends SABaseObject implements Parcelable {
      *
      * @param in the parcel object to read data from
      */
-    protected SATracking(Parcel in) {
-        event = in.readString();
-        URL = in.readString();
+    protected SAVASTMedia(Parcel in) {
+        type = in.readString();
+        url = in.readString();
+        bitrate = in.readInt();
+        width = in.readInt();
+        height = in.readInt();
     }
 
     /**
@@ -67,7 +74,7 @@ public class SATracking extends SABaseObject implements Parcelable {
      */
     @Override
     public boolean isValid() {
-        return true;
+        return url != null;
     }
 
     /**
@@ -77,8 +84,11 @@ public class SATracking extends SABaseObject implements Parcelable {
      */
     @Override
     public void readFromJson(JSONObject jsonObject) {
-        event = SAJsonParser.getString(jsonObject, "event", event);
-        URL = SAJsonParser.getString(jsonObject, "URL", URL);
+        type = SAJsonParser.getString(jsonObject, "type", null);
+        url = SAJsonParser.getString(jsonObject, "url", null);
+        bitrate = SAJsonParser.getInt(jsonObject, "bitrate", 0);
+        width = SAJsonParser.getInt(jsonObject, "width", 0);
+        height = SAJsonParser.getInt(jsonObject, "height", 0);
     }
 
     /**
@@ -89,23 +99,26 @@ public class SATracking extends SABaseObject implements Parcelable {
     @Override
     public JSONObject writeToJson() {
         return SAJsonParser.newObject(new Object[] {
-                "event", event,
-                "URL", URL
+                "type", type,
+                "url", url,
+                "bitrate", bitrate,
+                "width", width,
+                "height", height
         });
     }
 
     /**
      * Method needed for Parcelable implementation
      */
-    public static final Creator<SATracking> CREATOR = new Creator<SATracking>() {
+    public static final Creator<SAVASTMedia> CREATOR = new Creator<SAVASTMedia>() {
         @Override
-        public SATracking createFromParcel(Parcel in) {
-            return new SATracking(in);
+        public SAVASTMedia createFromParcel(Parcel in) {
+            return new SAVASTMedia(in);
         }
 
         @Override
-        public SATracking[] newArray(int size) {
-            return new SATracking[size];
+        public SAVASTMedia[] newArray(int size) {
+            return new SAVASTMedia[size];
         }
     };
 
@@ -127,7 +140,10 @@ public class SATracking extends SABaseObject implements Parcelable {
      */
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(event);
-        dest.writeString(URL);
+        dest.writeString(type);
+        dest.writeString(url);
+        dest.writeInt(bitrate);
+        dest.writeInt(width);
+        dest.writeInt(height);
     }
 }

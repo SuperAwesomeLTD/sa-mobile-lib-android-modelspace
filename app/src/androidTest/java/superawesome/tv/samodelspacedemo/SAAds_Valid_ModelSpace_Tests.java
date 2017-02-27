@@ -5,13 +5,14 @@ import android.test.ApplicationTestCase;
 import android.test.suitebuilder.annotation.SmallTest;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-import tv.superawesome.lib.samodelspace.SAAd;
-import tv.superawesome.lib.samodelspace.SACampaignType;
-import tv.superawesome.lib.samodelspace.SACreativeFormat;
-import tv.superawesome.lib.samodelspace.SATracking;
+import tv.superawesome.lib.samodelspace.saad.SAAd;
+import tv.superawesome.lib.samodelspace.saad.SACampaignType;
+import tv.superawesome.lib.samodelspace.saad.SACreativeFormat;
+import tv.superawesome.lib.samodelspace.vastad.SAVASTAdType;
+import tv.superawesome.lib.samodelspace.vastad.SAVASTEvent;
+import tv.superawesome.lib.samodelspace.vastad.SAVASTMedia;
 
 public class SAAds_Valid_ModelSpace_Tests extends ApplicationTestCase<Application> {
     public SAAds_Valid_ModelSpace_Tests() {
@@ -83,7 +84,6 @@ public class SAAds_Valid_ModelSpace_Tests extends ApplicationTestCase<Applicatio
         String expected_creative_installUrl = null;
         String expected_creative_impressionUrl = null;
         String expected_creative_bundle = null;
-        List<SATracking> expected_creative_events = new ArrayList<>();
 
         int expected_referral_configuration = -1;
         int expected_referral_campaignId = -1;
@@ -111,6 +111,12 @@ public class SAAds_Valid_ModelSpace_Tests extends ApplicationTestCase<Applicatio
         String expected_media_url = null;
         String expected_media_type = null;
         boolean expected_media_isDownloaded = false;
+
+        String expected_vastad_redirect = null;
+        String expected_vastad_url = null;
+        SAVASTAdType expected_vastad_type = SAVASTAdType.Invalid;
+        List<SAVASTMedia> expected_vastad_media = new ArrayList<>();
+        List<SAVASTEvent> expected_vastad_events = new ArrayList<>();
 
         // then
         SAAd result = new SAAd(given);
@@ -147,7 +153,6 @@ public class SAAds_Valid_ModelSpace_Tests extends ApplicationTestCase<Applicatio
         assertEquals(result.creative.installUrl, expected_creative_installUrl);
         assertEquals(result.creative.impressionUrl, expected_creative_impressionUrl);
         assertEquals(result.creative.bundle, expected_creative_bundle);
-        assertEquals(result.creative.events, expected_creative_events);
 
         assertNotNull(result.creative.referral);
         assertEquals(result.creative.referral.configuration, expected_referral_configuration);
@@ -183,6 +188,15 @@ public class SAAds_Valid_ModelSpace_Tests extends ApplicationTestCase<Applicatio
         assertEquals(result.creative.details.media.url, expected_media_url);
         assertEquals(result.creative.details.media.type, expected_media_type);
         assertEquals(result.creative.details.media.isDownloaded, expected_media_isDownloaded);
+
+        assertNotNull(result.creative.details.media.vastAd);
+        assertEquals(result.creative.details.media.vastAd.redirect, expected_vastad_redirect);
+        assertEquals(result.creative.details.media.vastAd.url, expected_vastad_url);
+        assertEquals(result.creative.details.media.vastAd.type, expected_vastad_type);
+        assertNotNull(result.creative.details.media.vastAd.media);
+        assertNotNull(result.creative.details.media.vastAd.events);
+        assertEquals(result.creative.details.media.vastAd.media.size(), expected_vastad_media.size());
+        assertEquals(result.creative.details.media.vastAd.events.size(), expected_vastad_events.size());
     }
 
     @SmallTest
@@ -262,7 +276,6 @@ public class SAAds_Valid_ModelSpace_Tests extends ApplicationTestCase<Applicatio
         String expected_creative_installUrl = null;
         String expected_creative_impressionUrl = "http://superawesome.tv";
         String expected_creative_bundle = null;
-        List<SATracking> expected_creative_events = new ArrayList<>();
 
         int expected_referral_configuration = -1;
         int expected_referral_campaignId = -1;
@@ -290,6 +303,12 @@ public class SAAds_Valid_ModelSpace_Tests extends ApplicationTestCase<Applicatio
         String expected_media_url = null;
         String expected_media_type = null;
         boolean expected_media_isDownloaded = false;
+
+        String expected_vastad_redirect = null;
+        String expected_vastad_url = null;
+        SAVASTAdType expected_vastad_type = SAVASTAdType.Invalid;
+        List<SAVASTMedia> expected_vastad_media = new ArrayList<>();
+        List<SAVASTEvent> expected_vastad_events = new ArrayList<>();
         
         // then
         SAAd result = new SAAd(given);
@@ -326,7 +345,6 @@ public class SAAds_Valid_ModelSpace_Tests extends ApplicationTestCase<Applicatio
         assertEquals(result.creative.installUrl, expected_creative_installUrl);
         assertEquals(result.creative.impressionUrl, expected_creative_impressionUrl);
         assertEquals(result.creative.bundle, expected_creative_bundle);
-        assertEquals(result.creative.events, expected_creative_events);
 
         assertNotNull(result.creative.referral);
         assertEquals(result.creative.referral.configuration, expected_referral_configuration);
@@ -362,6 +380,15 @@ public class SAAds_Valid_ModelSpace_Tests extends ApplicationTestCase<Applicatio
         assertEquals(result.creative.details.media.url, expected_media_url);
         assertEquals(result.creative.details.media.type, expected_media_type);
         assertEquals(result.creative.details.media.isDownloaded, expected_media_isDownloaded);
+
+        assertNotNull(result.creative.details.media.vastAd);
+        assertEquals(result.creative.details.media.vastAd.redirect, expected_vastad_redirect);
+        assertEquals(result.creative.details.media.vastAd.url, expected_vastad_url);
+        assertEquals(result.creative.details.media.vastAd.type, expected_vastad_type);
+        assertNotNull(result.creative.details.media.vastAd.media);
+        assertNotNull(result.creative.details.media.vastAd.events);
+        assertEquals(result.creative.details.media.vastAd.media.size(), expected_vastad_media.size());
+        assertEquals(result.creative.details.media.vastAd.events.size(), expected_vastad_events.size());
     }
 
     @SmallTest
@@ -438,7 +465,6 @@ public class SAAds_Valid_ModelSpace_Tests extends ApplicationTestCase<Applicatio
         String expected_creative_installUrl = null;
         String expected_creative_impressionUrl = null;
         String expected_creative_bundle = null;
-        List<SATracking> expected_creative_events = new ArrayList<>();
 
         int expected_referral_configuration = -1;
         int expected_referral_campaignId = -1;
@@ -466,6 +492,12 @@ public class SAAds_Valid_ModelSpace_Tests extends ApplicationTestCase<Applicatio
         String expected_media_url = null;
         String expected_media_type = null;
         boolean expected_media_isDownloaded = false;
+
+        String expected_vastad_redirect = null;
+        String expected_vastad_url = null;
+        SAVASTAdType expected_vastad_type = SAVASTAdType.Invalid;
+        List<SAVASTMedia> expected_vastad_media = new ArrayList<>();
+        List<SAVASTEvent> expected_vastad_events = new ArrayList<>();
 
         // then
         SAAd result = new SAAd(given);
@@ -502,7 +534,6 @@ public class SAAds_Valid_ModelSpace_Tests extends ApplicationTestCase<Applicatio
         assertEquals(result.creative.installUrl, expected_creative_installUrl);
         assertEquals(result.creative.impressionUrl, expected_creative_impressionUrl);
         assertEquals(result.creative.bundle, expected_creative_bundle);
-        assertEquals(result.creative.events, expected_creative_events);
 
         assertNotNull(result.creative.referral);
         assertEquals(result.creative.referral.configuration, expected_referral_configuration);
@@ -538,6 +569,15 @@ public class SAAds_Valid_ModelSpace_Tests extends ApplicationTestCase<Applicatio
         assertEquals(result.creative.details.media.url, expected_media_url);
         assertEquals(result.creative.details.media.type, expected_media_type);
         assertEquals(result.creative.details.media.isDownloaded, expected_media_isDownloaded);
+
+        assertNotNull(result.creative.details.media.vastAd);
+        assertEquals(result.creative.details.media.vastAd.redirect, expected_vastad_redirect);
+        assertEquals(result.creative.details.media.vastAd.url, expected_vastad_url);
+        assertEquals(result.creative.details.media.vastAd.type, expected_vastad_type);
+        assertNotNull(result.creative.details.media.vastAd.media);
+        assertNotNull(result.creative.details.media.vastAd.events);
+        assertEquals(result.creative.details.media.vastAd.media.size(), expected_vastad_media.size());
+        assertEquals(result.creative.details.media.vastAd.events.size(), expected_vastad_events.size());
     }
 
     @SmallTest
@@ -616,7 +656,6 @@ public class SAAds_Valid_ModelSpace_Tests extends ApplicationTestCase<Applicatio
         String expected_creative_installUrl = null;
         String expected_creative_impressionUrl = "http://superawesome.tv";
         String expected_creative_bundle = null;
-        List<SATracking> expected_creative_events = new ArrayList<>();
 
         int expected_referral_configuration = -1;
         int expected_referral_campaignId = -1;
@@ -644,6 +683,12 @@ public class SAAds_Valid_ModelSpace_Tests extends ApplicationTestCase<Applicatio
         String expected_media_url = null;
         String expected_media_type = null;
         boolean expected_media_isDownloaded = false;
+
+        String expected_vastad_redirect = null;
+        String expected_vastad_url = null;
+        SAVASTAdType expected_vastad_type = SAVASTAdType.Invalid;
+        List<SAVASTMedia> expected_vastad_media = new ArrayList<>();
+        List<SAVASTEvent> expected_vastad_events = new ArrayList<>();
         
         // then
         SAAd result = new SAAd(given);
@@ -680,7 +725,6 @@ public class SAAds_Valid_ModelSpace_Tests extends ApplicationTestCase<Applicatio
         assertEquals(result.creative.installUrl, expected_creative_installUrl);
         assertEquals(result.creative.impressionUrl, expected_creative_impressionUrl);
         assertEquals(result.creative.bundle, expected_creative_bundle);
-        assertEquals(result.creative.events, expected_creative_events);
 
         assertNotNull(result.creative.referral);
         assertEquals(result.creative.referral.configuration, expected_referral_configuration);
@@ -716,6 +760,15 @@ public class SAAds_Valid_ModelSpace_Tests extends ApplicationTestCase<Applicatio
         assertEquals(result.creative.details.media.url, expected_media_url);
         assertEquals(result.creative.details.media.type, expected_media_type);
         assertEquals(result.creative.details.media.isDownloaded, expected_media_isDownloaded);
+
+        assertNotNull(result.creative.details.media.vastAd);
+        assertEquals(result.creative.details.media.vastAd.redirect, expected_vastad_redirect);
+        assertEquals(result.creative.details.media.vastAd.url, expected_vastad_url);
+        assertEquals(result.creative.details.media.vastAd.type, expected_vastad_type);
+        assertNotNull(result.creative.details.media.vastAd.media);
+        assertNotNull(result.creative.details.media.vastAd.events);
+        assertEquals(result.creative.details.media.vastAd.media.size(), expected_vastad_media.size());
+        assertEquals(result.creative.details.media.vastAd.events.size(), expected_vastad_events.size());
     }
 
     @SmallTest
@@ -795,7 +848,6 @@ public class SAAds_Valid_ModelSpace_Tests extends ApplicationTestCase<Applicatio
         String expected_creative_installUrl = null;
         String expected_creative_impressionUrl = null;
         String expected_creative_bundle = "tv.superawesome.KWSDemo";
-        List<SATracking> expected_creative_events = new ArrayList<>();
 
         int expected_referral_configuration = -1;
         int expected_referral_campaignId = -1;
@@ -824,7 +876,12 @@ public class SAAds_Valid_ModelSpace_Tests extends ApplicationTestCase<Applicatio
         String expected_media_type = null;
         boolean expected_media_isDownloaded = false;
 
-        
+        String expected_vastad_redirect = null;
+        String expected_vastad_url = null;
+        SAVASTAdType expected_vastad_type = SAVASTAdType.Invalid;
+        List<SAVASTMedia> expected_vastad_media = new ArrayList<>();
+        List<SAVASTEvent> expected_vastad_events = new ArrayList<>();
+
         // then
         SAAd result = new SAAd(given);
 
@@ -860,7 +917,6 @@ public class SAAds_Valid_ModelSpace_Tests extends ApplicationTestCase<Applicatio
         assertEquals(result.creative.installUrl, expected_creative_installUrl);
         assertEquals(result.creative.impressionUrl, expected_creative_impressionUrl);
         assertEquals(result.creative.bundle, expected_creative_bundle);
-        assertEquals(result.creative.events, expected_creative_events);
 
         assertNotNull(result.creative.referral);
         assertEquals(result.creative.referral.configuration, expected_referral_configuration);
@@ -896,6 +952,15 @@ public class SAAds_Valid_ModelSpace_Tests extends ApplicationTestCase<Applicatio
         assertEquals(result.creative.details.media.url, expected_media_url);
         assertEquals(result.creative.details.media.type, expected_media_type);
         assertEquals(result.creative.details.media.isDownloaded, expected_media_isDownloaded);
+
+        assertNotNull(result.creative.details.media.vastAd);
+        assertEquals(result.creative.details.media.vastAd.redirect, expected_vastad_redirect);
+        assertEquals(result.creative.details.media.vastAd.url, expected_vastad_url);
+        assertEquals(result.creative.details.media.vastAd.type, expected_vastad_type);
+        assertNotNull(result.creative.details.media.vastAd.media);
+        assertNotNull(result.creative.details.media.vastAd.events);
+        assertEquals(result.creative.details.media.vastAd.media.size(), expected_vastad_media.size());
+        assertEquals(result.creative.details.media.vastAd.events.size(), expected_vastad_events.size());
     }
 
     @SmallTest
@@ -908,26 +973,6 @@ public class SAAds_Valid_ModelSpace_Tests extends ApplicationTestCase<Applicatio
                 "    \"creative\": {\n" +
                 "        \"id\": 4907,\n" +
                 "        \"creativeFormat\": 1,\n" +
-                "        \"events\": [{\n" +
-                "                   \"event\": \"impression\",\n" +
-                "                   \"URL\": \"https://ads.staging.superawesome.tv/v2/video/impression?placement=481&creative=4907&line_item=932&sdkVersion=ios_5.2.3&rnd=8832683&dauid=8798453893251470766&device=phone\"\n" +
-                "                   },\n" +
-                "                   {\n" +
-                "                   \"event\": \"impression\",\n" +
-                "                   \"URL\": \"https://ads.staging.superawesome.tv/v2/video/impression?placement=481&creative=4907&line_item=932&sdkVersion=ios_5.2.3&rnd=8832683&dauid=8798453893251470766&device=phone\"\n" +
-                "                   },\n" +
-                "                   {\n" +
-                "                   \"event\": \"err_impression\",\n" +
-                "                   \"URL\": \"https://ads.staging.superawesome.tv/v2/video/impression?placement=481&creative=4907&line_item=932&sdkVersion=ios_5.2.3&rnd=8832683&dauid=8798453893251470766&device=phone\"\n" +
-                "                   },\n" +
-                "                   {\n" +
-                "                   \"event\": \"err_impression\",\n" +
-                "                   \"URL\": \"https://ads.staging.superawesome.tv/v2/video/tracking?event=skip&placement=481&creative=4907&line_item=932&sdkVersion=ios_5.2.3&rnd=1570851&dauid=8798453893251470766&device=phone\"\n" +
-                "                   },\n" +
-                "                   {\n" +
-                "                   \"event\": \"err_impression\",\n" +
-                "                   \"URL\": \"https://ads.staging\"\n" +
-                "                   }],\n" +
                 "        \"bundleId\": null,\n" +
                 "        \"approved\": false,\n" +
                 "        \"installUrl\": null,\n" +
@@ -945,15 +990,39 @@ public class SAAds_Valid_ModelSpace_Tests extends ApplicationTestCase<Applicatio
                 "            \"height\": 480,\n" +
                 "            \"zip\": null,\n" +
                 "            \"duration\": 32,\n" +
+                "\t\t\t\t\t\t\"name\": null,\n" +
+                "            \"video\": \"https://s3-eu-west-1.amazonaws.com/sb-ads-video-transcoded/l2UWsR6EWLZ8amjR8dTierr9hNS1mkOP.mp4\",\n" +
                 "            \"media\": {\n" +
                 "                \"isDownloaded\": true,\n" +
                 "                \"path\": \"samov_19410.mp4\",\n" +
                 "                \"url\": \"https://s3-eu-west-1.amazonaws.com/sb-ads-video-transcoded/l2UWsR6EWLZ8amjR8dTierr9hNS1mkOP.mp4\",\n" +
                 "                \"html\": null,\n" +
-                "                \"type\": \"video/mp4\"\n" +
-                "            },\n" +
-                "            \"name\": null,\n" +
-                "            \"video\": \"https://s3-eu-west-1.amazonaws.com/sb-ads-video-transcoded/l2UWsR6EWLZ8amjR8dTierr9hNS1mkOP.mp4\"\n" +
+                "                \"type\": \"video/mp4\",\n" +
+                "\t\t\t\t\t\t\t\t\"vastAd\": {\n" +
+                "\t\t\t\t\t\t\t\t\t\"redirect\": null,\n" +
+                "\t\t\t\t\t\t\t\t\t\"type\": 1,\n" +
+                "\t\t\t\t\t\t\t\t\t\"url\": \"https://s3-eu-west-1.amazonaws.com/sb-ads-video-transcoded/l2UWsR6EWLZ8amjR8dTierr9hNS1mkOP.mp4\",\n" +
+                "\t\t\t\t\t\t\t\t\t\"media\": [\n" +
+                "\t\t\t\t\t\t\t\t\t\t{\n" +
+                "\t\t\t\t\t\t\t\t\t\t\t\"type\": \"video/mp4\",\n" +
+                "\t\t\t\t\t\t\t\t\t\t\t\"url\": \"https://s3-eu-west-1.amazonaws.com/sb-ads-video-transcoded/l2UWsR6EWLZ8amjR8dTierr9hNS1mkOP.mp4\",\n" +
+                "\t\t\t\t\t\t\t\t\t\t\t\"bitrate\": 720,\n" +
+                "\t\t\t\t\t\t\t\t\t\t\t\"width\": 600,\n" +
+                "\t\t\t\t\t\t\t\t\t\t\t\"height\": 480\n" +
+                "\t\t\t\t\t\t\t\t\t\t}\n" +
+                "\t\t\t\t\t\t\t\t\t],\n" +
+                "\t\t\t\t\t\t\t\t\t\"events\": [\n" +
+                "\t\t\t\t\t\t\t\t\t\t{\n" +
+                "\t\t\t\t\t\t\t\t\t\t\t\"event\": \"creativeView\",\n" +
+                "\t\t\t\t\t\t\t\t\t\t\t\"URL\": \"https://ads.staging.superawesome.tv/v2/4907/creativeView\"\n" +
+                "\t\t\t\t\t\t\t\t\t\t},\n" +
+                "\t\t\t\t\t\t\t\t\t\t{\n" +
+                "\t\t\t\t\t\t\t\t\t\t\t\"event\": \"start\",\n" +
+                "\t\t\t\t\t\t\t\t\t\t\t\"URL\": \"https://ads.staging.superawesome.tv/v2/4907/start\"\n" +
+                "\t\t\t\t\t\t\t\t\t\t}\n" +
+                "\t\t\t\t\t\t\t\t\t]\n" +
+                "\t\t\t\t\t\t\t\t}\n" +
+                "            }\n" +
                 "        },\n" +
                 "        \"payload\": null,\n" +
                 "        \"live\": false,\n" +
@@ -1006,22 +1075,6 @@ public class SAAds_Valid_ModelSpace_Tests extends ApplicationTestCase<Applicatio
         String expected_creative_installUrl = null;
         String expected_creative_impressionUrl = null;
         String expected_creative_bundle = null;
-        SATracking t1 = new SATracking();
-        t1.event =  "impression";
-        t1.URL =  "https://ads.staging.superawesome.tv/v2/video/impression?placement=481&creative=4907&line_item=932&sdkVersion=ios_5.2.3&rnd=8832683&dauid=8798453893251470766&device=phone";
-        SATracking t2 = new SATracking();
-        t2.event =  "impression";
-        t2.URL =  "https://ads.staging.superawesome.tv/v2/video/impression?placement=481&creative=4907&line_item=932&sdkVersion=ios_5.2.3&rnd=8832683&dauid=8798453893251470766&device=phone";
-        SATracking t3 = new SATracking();
-        t3.event =  "err_impression";
-        t3.URL =  "https://ads.staging.superawesome.tv/v2/video/impression?placement=481&creative=4907&line_item=932&sdkVersion=ios_5.2.3&rnd=8832683&dauid=8798453893251470766&device=phone";
-        SATracking t4 = new SATracking();
-        t4.event =  "err_impression";
-        t4.URL =  "https://ads.staging.superawesome.tv/v2/video/tracking?event=skip&placement=481&creative=4907&line_item=932&sdkVersion=ios_5.2.3&rnd=1570851&dauid=8798453893251470766&device=phone";
-        SATracking t5 = new SATracking();
-        t5.event =  "err_impression";
-        t5.URL =  "https://ads.staging";
-        List<SATracking> expected_creative_events = Arrays.asList(t1, t2, t3, t4, t5);
 
         int expected_referral_configuration = -1;
         int expected_referral_campaignId = -1;
@@ -1049,6 +1102,27 @@ public class SAAds_Valid_ModelSpace_Tests extends ApplicationTestCase<Applicatio
         String expected_media_url =  "https://s3-eu-west-1.amazonaws.com/sb-ads-video-transcoded/l2UWsR6EWLZ8amjR8dTierr9hNS1mkOP.mp4";
         String expected_media_type =  "video/mp4";
         boolean expected_media_isDownloaded = true;
+
+        String expected_vastad_redirect = null;
+        String expected_vastad_url = "https://s3-eu-west-1.amazonaws.com/sb-ads-video-transcoded/l2UWsR6EWLZ8amjR8dTierr9hNS1mkOP.mp4";
+        SAVASTAdType expected_vastad_type = SAVASTAdType.InLine;
+        List<SAVASTMedia> expected_vastad_media = new ArrayList<>();
+        SAVASTMedia media = new SAVASTMedia();
+        media.type = "video/mp4";
+        media.url = "https://s3-eu-west-1.amazonaws.com/sb-ads-video-transcoded/l2UWsR6EWLZ8amjR8dTierr9hNS1mkOP.mp4";
+        media.bitrate = 720;
+        media.width = 600;
+        media.height = 480;
+        expected_vastad_media.add(media);
+        List<SAVASTEvent> expected_vastad_events = new ArrayList<>();
+        SAVASTEvent event1 = new SAVASTEvent();
+        event1.event = "creativeView";
+        event1.URL = "https://ads.staging.superawesome.tv/v2/4907/creativeView";
+        SAVASTEvent event2 = new SAVASTEvent();
+        event2.event = "start";
+        event2.URL = "https://ads.staging.superawesome.tv/v2/4907/start";
+        expected_vastad_events.add(event1);
+        expected_vastad_events.add(event2);
 
         // then
         SAAd result = new SAAd(given);
@@ -1084,7 +1158,6 @@ public class SAAds_Valid_ModelSpace_Tests extends ApplicationTestCase<Applicatio
         assertEquals(result.creative.installUrl, expected_creative_installUrl);
         assertEquals(result.creative.impressionUrl, expected_creative_impressionUrl);
         assertEquals(result.creative.bundle, expected_creative_bundle);
-        assertEquals(result.creative.events.size(), expected_creative_events.size());
 
         assertNotNull(result.creative.referral);
         assertEquals(result.creative.referral.configuration, expected_referral_configuration);
@@ -1120,5 +1193,29 @@ public class SAAds_Valid_ModelSpace_Tests extends ApplicationTestCase<Applicatio
         assertEquals(result.creative.details.media.url, expected_media_url);
         assertEquals(result.creative.details.media.type, expected_media_type);
         assertEquals(result.creative.details.media.isDownloaded, expected_media_isDownloaded);
+
+        assertNotNull(result.creative.details.media.vastAd);
+        assertEquals(result.creative.details.media.vastAd.redirect, expected_vastad_redirect);
+        assertEquals(result.creative.details.media.vastAd.url, expected_vastad_url);
+        assertEquals(result.creative.details.media.vastAd.type, expected_vastad_type);
+        assertNotNull(result.creative.details.media.vastAd.media);
+        assertNotNull(result.creative.details.media.vastAd.events);
+        assertEquals(result.creative.details.media.vastAd.media.size(), expected_vastad_media.size());
+        assertEquals(result.creative.details.media.vastAd.events.size(), expected_vastad_events.size());
+
+        SAVASTMedia resMedia = result.creative.details.media.vastAd.media.get(0);
+        assertNotNull(resMedia);
+        assertEquals(media.url, resMedia.url);
+        assertEquals(media.type, resMedia.type);
+        assertEquals(media.bitrate, resMedia.bitrate);
+        assertEquals(media.width, resMedia.width);
+        assertEquals(media.height, resMedia.height);
+
+        SAVASTEvent resEvent1 = result.creative.details.media.vastAd.events.get(0);
+        assertEquals(event1.event, resEvent1.event);
+        assertEquals(event1.URL, resEvent1.URL);
+        SAVASTEvent resEvent2 = result.creative.details.media.vastAd.events.get(1);
+        assertEquals(event2.event, resEvent2.event);
+        assertEquals(event2.URL, resEvent2.URL);
     }
 }

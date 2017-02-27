@@ -2,7 +2,7 @@
  * @Copyright:   SuperAwesome Trading Limited 2017
  * @Author:      Gabriel Coman (gabriel.coman@superawesome.tv)
  */
-package tv.superawesome.lib.samodelspace;
+package tv.superawesome.lib.samodelspace.saad;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -17,6 +17,7 @@ import tv.superawesome.lib.sajsonparser.SABaseObject;
 import tv.superawesome.lib.sajsonparser.SAJsonParser;
 import tv.superawesome.lib.sajsonparser.SAJsonToList;
 import tv.superawesome.lib.sajsonparser.SAListToJson;
+import tv.superawesome.lib.samodelspace.vastad.SAVASTEvent;
 
 /**
  * Class that contains creative info, such as:
@@ -49,7 +50,6 @@ public class SACreative extends SABaseObject implements Parcelable {
     public String           installUrl      = null;
 
     public String           bundle          = null;
-    public List<SATracking> events          = new ArrayList<>();
     public SAReferral       referral        = new SAReferral();
     public SADetails        details         = new SADetails();
 
@@ -97,7 +97,6 @@ public class SACreative extends SABaseObject implements Parcelable {
         impressionUrl = in.readString();
         installUrl = in.readString();
         bundle = in.readString();
-        events = in.createTypedArrayList(SATracking.CREATOR);
         referral = in.readParcelable(SAReferral.class.getClassLoader());
         details = in.readParcelable(SADetails.class.getClassLoader());
     }
@@ -137,14 +136,6 @@ public class SACreative extends SABaseObject implements Parcelable {
 
         bundle = SAJsonParser.getString(jsonObject, "bundleId", bundle);
 
-        JSONArray eventsArray = SAJsonParser.getJsonArray(jsonObject, "events", new JSONArray());
-        events = SAJsonParser.getListFromJsonArray(eventsArray, new SAJsonToList<SATracking, JSONObject>() {
-            @Override
-            public SATracking traverseItem(JSONObject jsonObject) {
-                return new SATracking(jsonObject);
-            }
-        });
-
         JSONObject detailsJson = SAJsonParser.getJsonObject(jsonObject, "details", new JSONObject());
         details = new SADetails(detailsJson);
 
@@ -172,12 +163,6 @@ public class SACreative extends SABaseObject implements Parcelable {
                 "impression_url", impressionUrl,
                 "installUrl", installUrl,
                 "bundleId", bundle,
-                "events", SAJsonParser.getJsonArrayFromList(events, new SAListToJson<JSONObject, SATracking>() {
-                    @Override
-                    public JSONObject traverseItem(SATracking saTracking) {
-                        return saTracking.writeToJson();
-                    }
-                }),
                 "details", details.writeToJson(),
                 "referral", referral.writeToJson()
         });
@@ -228,7 +213,6 @@ public class SACreative extends SABaseObject implements Parcelable {
         dest.writeString(impressionUrl);
         dest.writeString(installUrl);
         dest.writeString(bundle);
-        dest.writeTypedList(events);
         dest.writeParcelable(details, flags);
         dest.writeParcelable(referral, flags);
     }
