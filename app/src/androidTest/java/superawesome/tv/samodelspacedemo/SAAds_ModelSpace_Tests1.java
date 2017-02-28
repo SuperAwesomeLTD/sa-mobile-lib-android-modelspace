@@ -1,7 +1,6 @@
 package superawesome.tv.samodelspacedemo;
 
-import android.app.Application;
-import android.test.ApplicationTestCase;
+import android.test.ActivityInstrumentationTestCase2;
 import android.test.suitebuilder.annotation.SmallTest;
 
 import java.util.ArrayList;
@@ -14,15 +13,19 @@ import tv.superawesome.lib.samodelspace.vastad.SAVASTAdType;
 import tv.superawesome.lib.samodelspace.vastad.SAVASTEvent;
 import tv.superawesome.lib.samodelspace.vastad.SAVASTMedia;
 
-public class SAAds_Invalid_ModelSpace_Tests extends ApplicationTestCase<Application> {
-    public SAAds_Invalid_ModelSpace_Tests() {
-        super(Application.class);
+public class SAAds_ModelSpace_Tests1 extends ActivityInstrumentationTestCase2<MainActivity> {
+
+    private SAAd result;
+
+    public SAAds_ModelSpace_Tests1() {
+        super("tv.superawesome.lib", MainActivity.class);
+
+        result = new SAAd();
     }
 
     @SmallTest
-    public void testModelDefault () {
+    public void test_SAAd () {
 
-        // when
         int expected_error = 0;
         int expected_advertiserId = 0;
         int expected_publisherId = 0;
@@ -40,56 +43,6 @@ public class SAAds_Invalid_ModelSpace_Tests extends ApplicationTestCase<Applicat
         boolean expected_isPadlockVisible = false;
         String expected_device = null;
 
-        int expected_creative_id = 0;
-        String expected_creative_name = null;
-        int expected_creative_cpm = 0;
-        SACreativeFormat expected_creative_format = SACreativeFormat.invalid;
-        boolean expected_creative_live = true;
-        boolean expected_creative_approved = true;
-        String expected_creative_payload = null;
-        String expected_creative_clickUrl = null;
-        String expected_creative_clickCounterUrl = null;
-        String expected_creative_installUrl = null;
-        String expected_creative_impressionUrl = null;
-        String expected_creative_bundle = null;
-
-        int expected_referral_configuration = -1;
-        int expected_referral_campaignId = -1;
-        int expected_referral_lineItemId = -1;
-        int expected_referral_creativeId = -1;
-        int expected_referral_placementId = -1;
-
-        int expected_details_width = 0;
-        int expected_details_height = 0;
-        String expected_details_name = null;
-        String expected_details_format = null;
-        int expected_details_bitrate = 0;
-        int expected_details_duration = 0;
-        int expected_details_value = 0;
-        String expected_details_image = null;
-        String expected_details_video = null;
-        String expected_details_tag = null;
-        String expected_details_zip = null;
-        String expected_details_url = null;
-        String expected_details_cdn = null;
-        String expected_details_vast = null;
-
-        String expected_media_html = null;
-        String expected_media_path = null;
-        String expected_media_url = null;
-        String expected_media_type = null;
-        boolean expected_media_isDownloaded = false;
-
-        String expected_vastad_redirect = null;
-        String expected_vastad_url = null;
-        SAVASTAdType expected_vastad_type = SAVASTAdType.Invalid;
-        List<SAVASTMedia> expected_vastad_media = new ArrayList<>();
-        List<SAVASTEvent> expected_vastad_events = new ArrayList<>();
-
-        // then
-        SAAd result = new SAAd();
-
-        // assert
         assertNotNull(result);
         assertEquals(result.error, expected_error);
         assertEquals(result.advertiserId, expected_advertiserId);
@@ -108,6 +61,24 @@ public class SAAds_Invalid_ModelSpace_Tests extends ApplicationTestCase<Applicat
         assertEquals(result.isSafeAdApproved, expected_isSafeAdApproved);
         assertEquals(result.isPadlockVisible, expected_isPadlockVisible);
 
+    }
+
+    @SmallTest
+    public void test_SACreative () {
+
+        int expected_creative_id = 0;
+        String expected_creative_name = null;
+        int expected_creative_cpm = 0;
+        SACreativeFormat expected_creative_format = SACreativeFormat.invalid;
+        boolean expected_creative_live = true;
+        boolean expected_creative_approved = true;
+        String expected_creative_payload = null;
+        String expected_creative_clickUrl = null;
+        String expected_creative_clickCounterUrl = null;
+        String expected_creative_installUrl = null;
+        String expected_creative_impressionUrl = null;
+        String expected_creative_bundle = null;
+
         assertNotNull(result.creative);
         assertEquals(result.creative.id, expected_creative_id);
         assertEquals(result.creative.name, expected_creative_name);
@@ -121,6 +92,16 @@ public class SAAds_Invalid_ModelSpace_Tests extends ApplicationTestCase<Applicat
         assertEquals(result.creative.installUrl, expected_creative_installUrl);
         assertEquals(result.creative.impressionUrl, expected_creative_impressionUrl);
         assertEquals(result.creative.bundle, expected_creative_bundle);
+    }
+
+    @SmallTest
+    public void test_SAReferral () {
+
+        int expected_referral_configuration = -1;
+        int expected_referral_campaignId = -1;
+        int expected_referral_lineItemId = -1;
+        int expected_referral_creativeId = -1;
+        int expected_referral_placementId = -1;
 
         assertNotNull(result.creative.referral);
         assertEquals(result.creative.referral.configuration, expected_referral_configuration);
@@ -133,6 +114,26 @@ public class SAAds_Invalid_ModelSpace_Tests extends ApplicationTestCase<Applicat
         assertTrue(result.creative.referral.writeToReferralQuery().contains("utm_term%3D-1"));
         assertTrue(result.creative.referral.writeToReferralQuery().contains("utm_campaign%3D-1"));
         assertTrue(result.creative.referral.writeToReferralQuery().contains("utm_source%3D-1"));
+
+    }
+
+    @SmallTest
+    public void test_SADetails () {
+
+        int expected_details_width = 0;
+        int expected_details_height = 0;
+        String expected_details_name = null;
+        String expected_details_format = null;
+        int expected_details_bitrate = 0;
+        int expected_details_duration = 0;
+        int expected_details_value = 0;
+        String expected_details_image = null;
+        String expected_details_video = null;
+        String expected_details_tag = null;
+        String expected_details_zip = null;
+        String expected_details_url = null;
+        String expected_details_cdn = null;
+        String expected_details_vast = null;
 
         assertNotNull(result.creative.details);
         assertEquals(result.creative.details.width, expected_details_width);
@@ -150,12 +151,34 @@ public class SAAds_Invalid_ModelSpace_Tests extends ApplicationTestCase<Applicat
         assertEquals(result.creative.details.cdn, expected_details_cdn);
         assertEquals(result.creative.details.vast, expected_details_vast);
 
+    }
+
+    @SmallTest
+    public void test_SAMedia () {
+
+        String expected_media_html = null;
+        String expected_media_path = null;
+        String expected_media_url = null;
+        String expected_media_type = null;
+        boolean expected_media_isDownloaded = false;
+
         assertNotNull(result.creative.details.media);
         assertEquals(result.creative.details.media.html, expected_media_html);
         assertEquals(result.creative.details.media.path, expected_media_path);
         assertEquals(result.creative.details.media.url, expected_media_url);
         assertEquals(result.creative.details.media.type, expected_media_type);
         assertEquals(result.creative.details.media.isDownloaded, expected_media_isDownloaded);
+
+    }
+
+    @SmallTest
+    public void test_SAVASTAd () {
+
+        String expected_vastad_redirect = null;
+        String expected_vastad_url = null;
+        SAVASTAdType expected_vastad_type = SAVASTAdType.Invalid;
+        List<SAVASTMedia> expected_vastad_media = new ArrayList<>();
+        List<SAVASTEvent> expected_vastad_events = new ArrayList<>();
 
         assertNotNull(result.creative.details.media.vastAd);
         assertEquals(result.creative.details.media.vastAd.redirect, expected_vastad_redirect);
@@ -167,4 +190,6 @@ public class SAAds_Invalid_ModelSpace_Tests extends ApplicationTestCase<Applicat
         assertEquals(result.creative.details.media.vastAd.events.size(), expected_vastad_events.size());
 
     }
+
+
 }
