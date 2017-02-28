@@ -79,6 +79,7 @@ public class SAVASTAd extends SABaseObject implements Parcelable {
      */
     public void sumAd (SAVASTAd toBeAdded) {
         url = toBeAdded.url != null ? toBeAdded.url : url;
+        redirect = toBeAdded.redirect != null ? toBeAdded.redirect : redirect;
         events.addAll(toBeAdded.events);
         media.addAll(toBeAdded.media);
     }
