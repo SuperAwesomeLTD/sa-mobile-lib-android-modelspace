@@ -177,6 +177,7 @@ public class SAAds_ModelSpace_Tests5 extends ActivityInstrumentationTestCase2<Ma
         String expected_details_zip = null;
         String expected_details_url = "https://s3-eu-west-1.amazonaws.com/sb-ads-uploads/rich-media/tNmFLJ7kGQWBbyORkIqTJ4oqykaGPU9w/rich-media/index.html";
         String expected_details_cdn = "https://s3-eu-west-1.amazonaws.com/sb-ads-uploads/rich-media/tNmFLJ7kGQWBbyORkIqTJ4oqykaGPU9w/rich-media/";
+        String expected_details_base = "https://s3-eu-west-1.amazonaws.com";
         String expected_details_vast = null;
 
         assertNotNull(result.creative.details);
@@ -193,6 +194,7 @@ public class SAAds_ModelSpace_Tests5 extends ActivityInstrumentationTestCase2<Ma
         assertEquals(result.creative.details.zip, expected_details_zip);
         assertEquals(result.creative.details.url, expected_details_url);
         assertEquals(result.creative.details.cdn, expected_details_cdn);
+        assertEquals(result.creative.details.base, expected_details_base);
         assertEquals(result.creative.details.vast, expected_details_vast);
 
     }

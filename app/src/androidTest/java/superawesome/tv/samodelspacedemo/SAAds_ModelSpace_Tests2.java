@@ -2,6 +2,7 @@ package superawesome.tv.samodelspacedemo;
 
 import android.test.ActivityInstrumentationTestCase2;
 import android.test.suitebuilder.annotation.SmallTest;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -166,6 +167,7 @@ public class SAAds_ModelSpace_Tests2 extends ActivityInstrumentationTestCase2<Ma
         String expected_details_zip = null;
         String expected_details_url = "https://s3-eu-west-1.amazonaws.com/sb-ads-video-transcoded/Jnit8s0LdkbOKbx6q6qn4A4jqMid2T4I.mp4";
         String expected_details_cdn = "https://s3-eu-west-1.amazonaws.com/sb-ads-video-transcoded/";
+        String expected_details_base = "https://s3-eu-west-1.amazonaws.com";
         String expected_details_vast = "https://ads.staging.superawesome.tv/v2/video/vast/480/931/4906/?sdkVersion=unknown&rnd=434251983&device=web";
 
         assertNotNull(result.creative.details);
@@ -182,6 +184,7 @@ public class SAAds_ModelSpace_Tests2 extends ActivityInstrumentationTestCase2<Ma
         assertEquals(result.creative.details.zip, expected_details_zip);
         assertEquals(result.creative.details.url, expected_details_url);
         assertEquals(result.creative.details.cdn, expected_details_cdn);
+        assertEquals(result.creative.details.base, expected_details_base);
         assertEquals(result.creative.details.vast, expected_details_vast);
     }
 

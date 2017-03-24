@@ -6,6 +6,7 @@ package tv.superawesome.lib.samodelspace.saad;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.os.StatFs;
 
 import org.json.JSONObject;
 
@@ -41,6 +42,7 @@ public class SADetails extends SABaseObject implements Parcelable {
     public String  zip             = null;
     public String  url             = null;
     public String  cdn             = null;
+    public String  base            = null;
     public String  vast            = null;
     public SAMedia media           = new SAMedia();
 
@@ -89,6 +91,7 @@ public class SADetails extends SABaseObject implements Parcelable {
         zip = in.readString();
         url = in.readString();
         cdn = in.readString();
+        base = in.readString();
         vast = in.readString();
         media = in.readParcelable(SAMedia.class.getClassLoader());
     }
@@ -154,6 +157,7 @@ public class SADetails extends SABaseObject implements Parcelable {
                 "zipFile", zip,
                 "url", url,
                 "cdn", cdn,
+                "base", base,
                 "vast", vast,
                 "media", media.writeToJson()
         });
@@ -205,6 +209,7 @@ public class SADetails extends SABaseObject implements Parcelable {
         dest.writeString(zip);
         dest.writeString(url);
         dest.writeString(cdn);
+        dest.writeString(base);
         dest.writeString(vast);
         dest.writeParcelable(media, flags);
     }

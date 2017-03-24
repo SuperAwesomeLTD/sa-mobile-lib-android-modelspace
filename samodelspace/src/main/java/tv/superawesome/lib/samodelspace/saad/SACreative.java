@@ -10,6 +10,8 @@ import android.os.Parcelable;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -138,6 +140,48 @@ public class SACreative extends SABaseObject implements Parcelable {
 
         JSONObject detailsJson = SAJsonParser.getJsonObject(jsonObject, "details", new JSONObject());
         details = new SADetails(detailsJson);
+
+        switch (format) {
+            case image: {
+                URL url;
+                try {
+                    url = new URL(details.image);
+                    details.base = url.getProtocol() + "://" + url.getAuthority();
+                } catch (MalformedURLException e) {
+                    // do nothing
+                }
+                break;
+            }
+            case rich: {
+                URL url;
+                try {
+                    url = new URL(details.url);
+                    details.base = url.getProtocol() + "://" + url.getAuthority();
+                } catch (MalformedURLException e) {
+                    // do nothing
+                }
+                break;
+            }
+            case tag: {
+                details.base = "https://ads.superawesome.tv";
+                break;
+            }
+            case video: {
+                URL url;
+                try {
+                    url = new URL(details.video);
+                    details.base = url.getProtocol() + "://" + url.getAuthority();
+                } catch (MalformedURLException e) {
+                    // do nothing
+                }
+                break;
+            }
+            case appwall:
+            case invalid: {
+                // do nothing here
+                break;
+            }
+        }
 
         JSONObject referralJson = SAJsonParser.getJsonObject(jsonObject, "referral", new JSONObject());
         referral = new SAReferral(referralJson);
