@@ -123,6 +123,7 @@ public class SAAds_ModelSpace_Tests4 extends ActivityInstrumentationTestCase2<Ma
         String expected_creative_installUrl = null;
         String expected_creative_impressionUrl = null;
         String expected_creative_bundle = null;
+        List<String> expected_creative_osTarget = new ArrayList<>();
 
         assertNotNull(result.creative);
         assertEquals(result.creative.id, expected_creative_id);
@@ -137,6 +138,7 @@ public class SAAds_ModelSpace_Tests4 extends ActivityInstrumentationTestCase2<Ma
         assertEquals(result.creative.installUrl, expected_creative_installUrl);
         assertEquals(result.creative.impressionUrl, expected_creative_impressionUrl);
         assertEquals(result.creative.bundle, expected_creative_bundle);
+        assertEquals(result.creative.osTarget, expected_creative_osTarget);
 
     }
 

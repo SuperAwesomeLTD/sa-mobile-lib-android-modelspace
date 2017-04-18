@@ -51,6 +51,8 @@ public class SACreative extends SABaseObject implements Parcelable {
     public String           impressionUrl   = null;
     public String           installUrl      = null;
 
+    public List<String>     osTarget        = new ArrayList<>();
+
     public String           bundle          = null;
     public SAReferral       referral        = new SAReferral();
     public SADetails        details         = new SADetails();
@@ -98,6 +100,7 @@ public class SACreative extends SABaseObject implements Parcelable {
         clickCounterUrl = in.readString();
         impressionUrl = in.readString();
         installUrl = in.readString();
+        osTarget = in.createStringArrayList();
         bundle = in.readString();
         referral = in.readParcelable(SAReferral.class.getClassLoader());
         details = in.readParcelable(SADetails.class.getClassLoader());
@@ -132,11 +135,31 @@ public class SACreative extends SABaseObject implements Parcelable {
         payload = SAJsonParser.getString(jsonObject, "customPayload", payload);
 
         clickUrl = SAJsonParser.getString(jsonObject, "click_url", clickUrl);
-        clickCounterUrl = SAJsonParser.getString(jsonObject, "clickCounterUrl", clickCounterUrl);
+        if (clickUrl == null) {
+            clickUrl = SAJsonParser.getString(jsonObject, "clickUrl");
+        }
+
         impressionUrl = SAJsonParser.getString(jsonObject, "impression_url", impressionUrl);
-        installUrl = SAJsonParser.getString(jsonObject, "installUrl", installUrl);
+        if (impressionUrl == null) {
+            impressionUrl = SAJsonParser.getString(jsonObject, "impressionUrl");
+        }
+
+
+        installUrl = SAJsonParser.getString(jsonObject, "install_url", installUrl);
+        if (installUrl == null) {
+            installUrl = SAJsonParser.getString(jsonObject, "installUrl");
+        }
+
+        clickCounterUrl = SAJsonParser.getString(jsonObject, "clickCounterUrl", clickCounterUrl);
 
         bundle = SAJsonParser.getString(jsonObject, "bundleId", bundle);
+
+        osTarget = SAJsonParser.getListFromJsonArray(jsonObject, "osTarget", new SAJsonToList<String, String>() {
+            @Override
+            public String traverseItem(String target) {
+                return target;
+            }
+        });
 
         JSONObject detailsJson = SAJsonParser.getJsonObject(jsonObject, "details", new JSONObject());
         details = new SADetails(detailsJson);
@@ -206,6 +229,12 @@ public class SACreative extends SABaseObject implements Parcelable {
                 "clickCounterUrl", clickCounterUrl,
                 "impression_url", impressionUrl,
                 "installUrl", installUrl,
+                "osTarget", SAJsonParser.getJsonArrayFromList(osTarget, new SAListToJson<String, String>() {
+                    @Override
+                    public String traverseItem(String s) {
+                        return s;
+                    }
+                }),
                 "bundleId", bundle,
                 "details", details.writeToJson(),
                 "referral", referral.writeToJson()
@@ -256,6 +285,7 @@ public class SACreative extends SABaseObject implements Parcelable {
         dest.writeString(clickCounterUrl);
         dest.writeString(impressionUrl);
         dest.writeString(installUrl);
+        dest.writeStringList(osTarget);
         dest.writeString(bundle);
         dest.writeParcelable(details, flags);
         dest.writeParcelable(referral, flags);
