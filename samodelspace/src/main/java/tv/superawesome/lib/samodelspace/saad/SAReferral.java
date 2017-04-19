@@ -124,13 +124,12 @@ public class SAReferral extends SABaseObject implements Parcelable {
      */
     @Override
     public JSONObject writeToJson() {
-        return SAJsonParser.newObject(new Object[]{
+        return SAJsonParser.newObject(
                 "utm_source", configuration,
                 "utm_campaign", campaignId,
                 "utm_term", lineItemId,
                 "utm_content", creativeId,
-                "utm_medium", placementId
-        });
+                "utm_medium", placementId);
     }
 
     /**

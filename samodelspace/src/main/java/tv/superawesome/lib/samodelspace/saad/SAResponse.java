@@ -117,7 +117,7 @@ public class SAResponse extends SABaseObject implements Parcelable {
      */
     @Override
     public JSONObject writeToJson() {
-        return SAJsonParser.newObject(new Object[]{
+        return SAJsonParser.newObject(
                 "status", status,
                 "placementId", placementId,
                 "format", format.ordinal(),
@@ -126,8 +126,7 @@ public class SAResponse extends SABaseObject implements Parcelable {
                             public JSONObject traverseItem(SAAd saAd) {
                                 return saAd.writeToJson();
                             }
-                        })
-        });
+                        }));
     }
 
     /**

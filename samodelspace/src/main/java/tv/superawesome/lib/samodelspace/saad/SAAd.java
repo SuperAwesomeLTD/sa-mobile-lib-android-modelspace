@@ -217,7 +217,7 @@ public class SAAd extends SABaseObject implements Parcelable {
      */
     @Override
     public JSONObject writeToJson() {
-        return SAJsonParser.newObject(new Object[] {
+        return SAJsonParser.newObject(
                 "error", error,
                 "advertiserId", advertiserId,
                 "publisherId", publisherId,
@@ -235,8 +235,7 @@ public class SAAd extends SABaseObject implements Parcelable {
                 "safe_ad_approved", isSafeAdApproved,
                 "show_padlock", isPadlockVisible,
                 "creative", creative.writeToJson(),
-                "device", device
-        });
+                "device", device);
     }
 
     /**

@@ -98,13 +98,12 @@ public class SAVASTMedia extends SABaseObject implements Parcelable {
      */
     @Override
     public JSONObject writeToJson() {
-        return SAJsonParser.newObject(new Object[] {
+        return SAJsonParser.newObject(
                 "type", type,
                 "url", url,
                 "bitrate", bitrate,
                 "width", width,
-                "height", height
-        });
+                "height", height);
     }
 
     /**

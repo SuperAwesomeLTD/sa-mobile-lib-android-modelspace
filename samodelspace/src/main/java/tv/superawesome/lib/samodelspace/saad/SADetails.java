@@ -143,7 +143,7 @@ public class SADetails extends SABaseObject implements Parcelable {
      */
     @Override
     public JSONObject writeToJson() {
-        return SAJsonParser.newObject(new Object[] {
+        return SAJsonParser.newObject(
                 "width", width,
                 "height", height,
                 "name", name,
@@ -159,8 +159,7 @@ public class SADetails extends SABaseObject implements Parcelable {
                 "cdn", cdn,
                 "base", base,
                 "vast", vast,
-                "media", media.writeToJson()
-        });
+                "media", media.writeToJson());
     }
 
     /**

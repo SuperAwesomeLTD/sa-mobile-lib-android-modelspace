@@ -217,7 +217,7 @@ public class SACreative extends SABaseObject implements Parcelable {
      */
     @Override
     public JSONObject writeToJson() {
-        return SAJsonParser.newObject(new Object[] {
+        return SAJsonParser.newObject(
                 "id", id,
                 "name", name,
                 "cpm", cpm,
@@ -237,8 +237,7 @@ public class SACreative extends SABaseObject implements Parcelable {
                 }),
                 "bundleId", bundle,
                 "details", details.writeToJson(),
-                "referral", referral.writeToJson()
-        });
+                "referral", referral.writeToJson());
     }
 
     /**

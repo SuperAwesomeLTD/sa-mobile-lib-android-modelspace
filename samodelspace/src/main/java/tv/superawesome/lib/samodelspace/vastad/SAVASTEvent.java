@@ -88,10 +88,9 @@ public class SAVASTEvent extends SABaseObject implements Parcelable {
      */
     @Override
     public JSONObject writeToJson() {
-        return SAJsonParser.newObject(new Object[] {
+        return SAJsonParser.newObject(
                 "event", event,
-                "URL", URL
-        });
+                "URL", URL);
     }
 
     /**

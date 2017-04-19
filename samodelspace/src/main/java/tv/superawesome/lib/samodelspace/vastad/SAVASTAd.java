@@ -126,7 +126,7 @@ public class SAVASTAd extends SABaseObject implements Parcelable {
      */
     @Override
     public JSONObject writeToJson() {
-        return SAJsonParser.newObject(new Object[] {
+        return SAJsonParser.newObject(
                 "redirect", redirect,
                 "url", url,
                 "type", type.ordinal(),
@@ -141,8 +141,7 @@ public class SAVASTAd extends SABaseObject implements Parcelable {
                     public JSONObject traverseItem(SAVASTEvent saTracking) {
                         return saTracking.writeToJson();
                     }
-                })
-        });
+                }));
     }
 
     /**
