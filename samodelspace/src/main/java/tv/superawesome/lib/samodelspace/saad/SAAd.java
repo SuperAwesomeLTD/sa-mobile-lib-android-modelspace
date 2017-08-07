@@ -53,11 +53,13 @@ public class SAAd extends SABaseObject implements Parcelable {
 
     public SACreative     creative          = new SACreative();
 
+    public long           loadTime          = 0L;
+
     /**
      * Basic constructor
      */
     public SAAd () {
-        // do nothing
+        loadTime = System.currentTimeMillis() / 1000L;
     }
 
     /**
@@ -66,6 +68,7 @@ public class SAAd extends SABaseObject implements Parcelable {
      * @param json a valid JSON string
      */
     public SAAd (String json) {
+        this();
         JSONObject jsonObject = SAJsonParser.newObject(json);
         readFromJson(jsonObject);
     }
@@ -76,6 +79,7 @@ public class SAAd extends SABaseObject implements Parcelable {
      * @param jsonObject a valid JSON object
      */
     public SAAd (JSONObject jsonObject) {
+        this();
         readFromJson(jsonObject);
     }
 
@@ -87,6 +91,7 @@ public class SAAd extends SABaseObject implements Parcelable {
      * @param json          a valid JSON string
      */
     public SAAd (int placementId, int configuration, String json) {
+        this();
         this.placementId = placementId;
         this.configuration = configuration;
         JSONObject jsonObject = SAJsonParser.newObject(json);
@@ -101,6 +106,7 @@ public class SAAd extends SABaseObject implements Parcelable {
      * @param jsonObject    a valid JSON object
      */
     public SAAd (int placementId, int configuration, JSONObject jsonObject) {
+        this();
         this.placementId = placementId;
         this.configuration = configuration;
         readFromJson(jsonObject);
@@ -130,6 +136,7 @@ public class SAAd extends SABaseObject implements Parcelable {
         isPadlockVisible = in.readByte() != 0;
         device = in.readString();
         creative = in.readParcelable(SACreative.class.getClassLoader());
+        loadTime = in.readLong();
     }
 
     /**
@@ -208,6 +215,8 @@ public class SAAd extends SABaseObject implements Parcelable {
         JSONObject creativeJson = SAJsonParser.getJsonObject(jsonObject, "creative", new JSONObject());
         creative = new SACreative(creativeJson);
         creative.referral = new SAReferral(configuration, campaignId, lineItemId, creative.id, placementId);
+
+        loadTime = SAJsonParser.getLong(jsonObject, "loadTime", loadTime);
     }
 
     /**
@@ -235,7 +244,8 @@ public class SAAd extends SABaseObject implements Parcelable {
                 "safe_ad_approved", isSafeAdApproved,
                 "show_padlock", isPadlockVisible,
                 "creative", creative.writeToJson(),
-                "device", device);
+                "device", device,
+                "loadTime", loadTime);
     }
 
     /**
@@ -289,5 +299,6 @@ public class SAAd extends SABaseObject implements Parcelable {
         dest.writeByte((byte) (isPadlockVisible ? 1 : 0));
         dest.writeString(device);
         dest.writeParcelable(creative, flags);
+        dest.writeLong(loadTime);
     }
 }
