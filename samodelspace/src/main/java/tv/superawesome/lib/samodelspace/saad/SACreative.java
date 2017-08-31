@@ -44,6 +44,7 @@ public class SACreative extends SABaseObject implements Parcelable {
     public SACreativeFormat format          = SACreativeFormat.invalid;
     public boolean          live            = true;
     public boolean          approved        = true;
+    public boolean          bumper          = false;
     public String           payload         = null;
 
     public String           clickUrl        = null;
@@ -95,6 +96,7 @@ public class SACreative extends SABaseObject implements Parcelable {
         format = in.readParcelable(SACreativeFormat.class.getClassLoader());
         live = in.readByte() != 0;
         approved = in.readByte() != 0;
+        bumper = in.readByte() != 0;
         payload = in.readString();
         clickUrl = in.readString();
         clickCounterUrl = in.readString();
@@ -132,6 +134,7 @@ public class SACreative extends SABaseObject implements Parcelable {
 
         live = SAJsonParser.getBoolean(jsonObject, "live", live);
         approved = SAJsonParser.getBoolean(jsonObject, "approved", approved);
+        bumper = SAJsonParser.getBoolean(jsonObject, "bumper", bumper);
         payload = SAJsonParser.getString(jsonObject, "customPayload", payload);
 
         clickUrl = SAJsonParser.getString(jsonObject, "click_url", clickUrl);
@@ -224,6 +227,7 @@ public class SACreative extends SABaseObject implements Parcelable {
                 "format", format.toString(),
                 "live", live,
                 "approved", approved,
+                "bumper", bumper,
                 "customPayload", payload,
                 "click_url", clickUrl,
                 "clickCounterUrl", clickCounterUrl,
@@ -279,6 +283,7 @@ public class SACreative extends SABaseObject implements Parcelable {
         dest.writeParcelable(format, flags);
         dest.writeByte((byte) (live ? 1 : 0));
         dest.writeByte((byte) (approved ? 1 : 0));
+        dest.writeByte((byte) (bumper ? 1 : 0));
         dest.writeString(payload);
         dest.writeString(clickUrl);
         dest.writeString(clickCounterUrl);
