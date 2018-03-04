@@ -16,7 +16,7 @@ android {
     buildToolsVersion "23.0.3"
 
     defaultConfig {
-        minSdkVersion 11
+        minSdkVersion 14
         targetSdkVersion 23
         versionCode 1
         versionName version
@@ -82,5 +82,5 @@ repositories {
 
 dependencies {
     compile 'tv.superawesome.lib.sajsonparser:sajsonparser:0.2.7'
-    compile 'tv.superawesome.lib.sautils:sautils:0.3.5'
+    compile 'tv.superawesome.lib.sautils:sautils:0.3.6'
 }
