@@ -1,95 +1,41 @@
-package superawesome.tv.samodelspacedemo;
+package tv.superawesome.lib.samodelspace.saad;
 
-import android.test.ActivityInstrumentationTestCase2;
-import android.test.suitebuilder.annotation.SmallTest;
+import org.junit.Before;
+import org.junit.Test;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
-import tv.superawesome.lib.samodelspace.saad.SAAd;
-import tv.superawesome.lib.samodelspace.saad.SACampaignType;
-import tv.superawesome.lib.samodelspace.saad.SACreativeFormat;
+import tv.superawesome.lib.samodelspace.testutils.ResourceReader;
 import tv.superawesome.lib.samodelspace.vastad.SAVASTAdType;
 import tv.superawesome.lib.samodelspace.vastad.SAVASTEvent;
 import tv.superawesome.lib.samodelspace.vastad.SAVASTMedia;
 
-public class SAAds_ModelSpace_Tests8  extends ActivityInstrumentationTestCase2<MainActivity> {
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertNotNull;
+import static junit.framework.Assert.assertTrue;
 
-    private String given = "{\n" +
-            "        \"advertiserId\": 1,\n" +
-            "        \"publisherId\": 1,\n" +
-            "        \"creative\": {\n" +
-            "            \"id\": 5889,\n" +
-            "            \"name\": \"Gabriel CPI iOS AppWall 1\",\n" +
-            "            \"cpm\": null,\n" +
-            "            \"format\": \"image_with_link\",\n" +
-            "            \"formatId\": 15,\n" +
-            "            \"cpms\": {\n" +
-            "                \"default\": \"2.00\",\n" +
-            "                \"currency\": \"GBP\"\n" +
-            "            },\n" +
-            "            \"impressionUrl\": \"https://cetin.ro\",\n" +
-            "            \"installUrl\": \"http://zoso.ro\",\n" +
-            "            \"clickUrl\": \"http://hotnews.ro\",\n" +
-            "            \"clickCounterUrl\": \"http://zoso.ro\",\n" +
-            "            \"details\": {\n" +
-            "                \"url\": \"https://s3-eu-west-1.amazonaws.com/sb-ads-uploads/images/l2JQuokBbE8frtDqvo4rHF7ijksQCSFS.png\",\n" +
-            "                \"image\": \"https://s3-eu-west-1.amazonaws.com/sb-ads-uploads/images/l2JQuokBbE8frtDqvo4rHF7ijksQCSFS.png\",\n" +
-            "                \"video\": \"https://s3-eu-west-1.amazonaws.com/sb-ads-uploads/images/l2JQuokBbE8frtDqvo4rHF7ijksQCSFS.png\",\n" +
-            "                \"placement_format\": \"gamewall\",\n" +
-            "                \"tag\": null,\n" +
-            "                \"width\": 1,\n" +
-            "                \"height\": 1,\n" +
-            "                \"transcodedVideos\": null,\n" +
-            "                \"duration\": 0\n" +
-            "            },\n" +
-            "            \"approved\": 1,\n" +
-            "            \"live\": true,\n" +
-            "            \"osTarget\": [\n" +
-            "                \"iOS\"\n" +
-            "            ],\n" +
-            "            \"browserTarget\": [],\n" +
-            "            \"browserTargetExclude\": false,\n" +
-            "            \"bundleId\": \"tv.superawesome.SuperAwesome\",\n" +
-            "            \"paused\": false,\n" +
-            "            \"approvedImpressions\": [],\n" +
-            "            \"approvedClickTracking\": [],\n" +
-            "            \"approvedEvents\": {},\n" +
-            "            \"impression_url\": \"https://cetin.ro\",\n" +
-            "            \"click_url\": \"http://hotnews.ro\"\n" +
-            "        },\n" +
-            "        \"is_fill\": false,\n" +
-            "        \"is_fallback\": false,\n" +
-            "        \"is_house\": false,\n" +
-            "        \"safe_ad_approved\": true,\n" +
-            "        \"show_padlock\": true,\n" +
-            "        \"campaign_type\": 1,\n" +
-            "        \"line_item_id\": 1143,\n" +
-            "        \"campaign_id\": 1270,\n" +
-            "        \"test\": false,\n" +
-            "        \"app\": 1568,\n" +
-            "        \"device\": \"phone\"\n" +
-            "    }";
+public class TestSAAd_6 {
+
     private SAAd result;
 
-    public SAAds_ModelSpace_Tests8() {
-        super("tv.superawesome.lib", MainActivity.class);
-        result = new SAAd(100, 1, given);
+    @Before
+    public void setUp() {
+        String json = ResourceReader.readResource("mock_ad_response_5.json");
+        result = new SAAd(100, 0, json);
     }
 
-    @SmallTest
+    @Test
     public void test_SAAd () {
 
         int expected_error = 0;
         int expected_advertiserId = 1;
         int expected_publisherId = 1;
-        int expected_appId = 1568;
-        int expected_lineItemId = 1143;
-        int expected_campaignId = 1270;
+        int expected_appId = 541;
+        int expected_lineItemId = 673;
+        int expected_campaignId = 556;
         int expected_placementId = 100;
-        double expected_moat = 0.2;
+        double expected_moat = 1;
         SACampaignType expected_campaignType = SACampaignType.CPI;
         String expected_device = "phone";
         boolean expected_isTest = false;
@@ -119,22 +65,22 @@ public class SAAds_ModelSpace_Tests8  extends ActivityInstrumentationTestCase2<M
 
     }
 
-    @SmallTest
+    @Test
     public void test_SACreative () {
 
-        int expected_creative_id = 5889;
-        String expected_creative_name = "Gabriel CPI iOS AppWall 1";
+        int expected_creative_id = 1051;
+        String expected_creative_name = "CPI Gab iOS Banner";
         int expected_creative_cpm = 0;
         SACreativeFormat expected_creative_format = SACreativeFormat.image;
         boolean expected_creative_live = true;
         boolean expected_creative_approved = true;
         String expected_creative_payload = null;
-        String expected_creative_clickUrl = "http://hotnews.ro";
+        String expected_creative_clickUrl = "http://theguardian.com";
         String expected_creative_clickCounterUrl = "http://zoso.ro";
-        String expected_creative_installUrl = "http://zoso.ro";
-        String expected_creative_impressionUrl = "https://cetin.ro";
-        String expected_creative_bundle = "tv.superawesome.SuperAwesome";
-        List<String> expected_creative_osTarget = Collections.singletonList("iOS");
+        String expected_creative_installUrl = null;
+        String expected_creative_impressionUrl = null;
+        String expected_creative_bundle = "tv.superawesome.KWSDemo";
+        List<String> expected_creative_osTarget = new ArrayList<>();
 
         assertNotNull(result.creative);
         assertEquals(result.creative.id, expected_creative_id);
@@ -152,13 +98,13 @@ public class SAAds_ModelSpace_Tests8  extends ActivityInstrumentationTestCase2<M
         assertEquals(result.creative.osTarget, expected_creative_osTarget);
     }
 
-    @SmallTest
+    @Test
     public void test_SAReferral () {
 
-        int expected_referral_configuration = 1;
-        int expected_referral_campaignId = 1270;
-        int expected_referral_lineItemId = 1143;
-        int expected_referral_creativeId = 5889;
+        int expected_referral_configuration = 0;
+        int expected_referral_campaignId = 556;
+        int expected_referral_lineItemId = 673;
+        int expected_referral_creativeId = 1051;
         int expected_referral_placementId = 100;
 
         assertNotNull(result.creative.referral);
@@ -167,28 +113,28 @@ public class SAAds_ModelSpace_Tests8  extends ActivityInstrumentationTestCase2<M
         assertEquals(result.creative.referral.lineItemId, expected_referral_lineItemId);
         assertEquals(result.creative.referral.creativeId, expected_referral_creativeId);
         assertEquals(result.creative.referral.placementId, expected_referral_placementId);
-        assertTrue(result.creative.referral.writeToReferralQuery().contains("utm_source%3D1"));
-        assertTrue(result.creative.referral.writeToReferralQuery().contains("utm_campaign%3D1270"));
-        assertTrue(result.creative.referral.writeToReferralQuery().contains("utm_term%3D1143"));
-        assertTrue(result.creative.referral.writeToReferralQuery().contains("utm_content%3D5889"));
+        assertTrue(result.creative.referral.writeToReferralQuery().contains("utm_source%3D0"));
+        assertTrue(result.creative.referral.writeToReferralQuery().contains("utm_campaign%3D556"));
+        assertTrue(result.creative.referral.writeToReferralQuery().contains("utm_term%3D673"));
+        assertTrue(result.creative.referral.writeToReferralQuery().contains("utm_content%3D1051"));
         assertTrue(result.creative.referral.writeToReferralQuery().contains("utm_medium%3D100"));
     }
 
-    @SmallTest
+    @Test
     public void test_SADetails () {
 
-        int expected_details_width = 1;
-        int expected_details_height = 1;
+        int expected_details_width = 320;
+        int expected_details_height = 50;
         String expected_details_name = null;
-        String expected_details_format = "gamewall";
+        String expected_details_format = "mobile_display";
         int expected_details_bitrate = 0;
         int expected_details_duration = 0;
         int expected_details_value = 0;
-        String expected_details_image = "https://s3-eu-west-1.amazonaws.com/sb-ads-uploads/images/l2JQuokBbE8frtDqvo4rHF7ijksQCSFS.png";
-        String expected_details_video = "https://s3-eu-west-1.amazonaws.com/sb-ads-uploads/images/l2JQuokBbE8frtDqvo4rHF7ijksQCSFS.png";
+        String expected_details_image = "https://s3-eu-west-1.amazonaws.com/sb-ads-uploads/images/iwPc7H9hU94gNhw8bx7SBgoQy0rUy3o5.jpg";
+        String expected_details_video = "https://s3-eu-west-1.amazonaws.com/sb-ads-uploads/images/iwPc7H9hU94gNhw8bx7SBgoQy0rUy3o5.jpg";
         String expected_details_tag = null;
         String expected_details_zip = null;
-        String expected_details_url = "https://s3-eu-west-1.amazonaws.com/sb-ads-uploads/images/l2JQuokBbE8frtDqvo4rHF7ijksQCSFS.png";
+        String expected_details_url = "https://s3-eu-west-1.amazonaws.com/sb-ads-uploads/images/iwPc7H9hU94gNhw8bx7SBgoQy0rUy3o5.jpg";
         String expected_details_cdn = "https://s3-eu-west-1.amazonaws.com/sb-ads-uploads/images/";
         String expected_details_base = "https://s3-eu-west-1.amazonaws.com";
         String expected_details_vast = null;
@@ -211,7 +157,7 @@ public class SAAds_ModelSpace_Tests8  extends ActivityInstrumentationTestCase2<M
         assertEquals(result.creative.details.vast, expected_details_vast);
     }
 
-    @SmallTest
+    @Test
     public void test_SAMedia () {
 
         String expected_media_html = null;
@@ -228,7 +174,7 @@ public class SAAds_ModelSpace_Tests8  extends ActivityInstrumentationTestCase2<M
         assertEquals(result.creative.details.media.isDownloaded, expected_media_isDownloaded);
     }
 
-    @SmallTest
+    @Test
     public void test_SAVASTAd () {
 
         String expected_vastad_redirect = null;

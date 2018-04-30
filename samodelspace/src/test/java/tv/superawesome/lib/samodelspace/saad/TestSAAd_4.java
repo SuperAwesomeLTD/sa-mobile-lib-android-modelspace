@@ -1,84 +1,47 @@
-package superawesome.tv.samodelspacedemo;
+package tv.superawesome.lib.samodelspace.saad;
 
-import android.test.ActivityInstrumentationTestCase2;
-import android.test.suitebuilder.annotation.SmallTest;
+import org.junit.Before;
+import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import tv.superawesome.lib.samodelspace.saad.SAAd;
-import tv.superawesome.lib.samodelspace.saad.SACampaignType;
-import tv.superawesome.lib.samodelspace.saad.SACreativeFormat;
+import tv.superawesome.lib.samodelspace.testutils.ResourceReader;
 import tv.superawesome.lib.samodelspace.vastad.SAVASTAdType;
 import tv.superawesome.lib.samodelspace.vastad.SAVASTEvent;
 import tv.superawesome.lib.samodelspace.vastad.SAVASTMedia;
 
-public class SAAds_ModelSpace_Tests6 extends ActivityInstrumentationTestCase2<MainActivity> {
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertNotNull;
+import static junit.framework.Assert.assertTrue;
 
-    private String given = "{\n" +
-            "    \"advertiserId\": 1,\n" +
-            "    \"publisherId\": 1,\n" +
-            "    \"creative\": {\n" +
-            "        \"id\": 1051,\n" +
-            "        \"name\": \"CPI Gab iOS Banner\",\n" +
-            "        \"cpm\": null,\n" +
-            "        \"format\": \"image_with_link\",\n" +
-            "        \"impressionUrl\": null,\n" +
-            "        \"installUrl\": null,\n" +
-            "        \"clickCounterUrl\": \"http://zoso.ro\", \n" +
-            "        \"clickUrl\": \"http://theguardian.com\",\n" +
-            "        \"details\": {\n" +
-            "            \"url\": \"https://s3-eu-west-1.amazonaws.com/sb-ads-uploads/images/iwPc7H9hU94gNhw8bx7SBgoQy0rUy3o5.jpg\",\n" +
-            "            \"image\": \"https://s3-eu-west-1.amazonaws.com/sb-ads-uploads/images/iwPc7H9hU94gNhw8bx7SBgoQy0rUy3o5.jpg\",\n" +
-            "            \"video\": \"https://s3-eu-west-1.amazonaws.com/sb-ads-uploads/images/iwPc7H9hU94gNhw8bx7SBgoQy0rUy3o5.jpg\",\n" +
-            "            \"placement_format\": \"mobile_display\",\n" +
-            "            \"tag\": null,\n" +
-            "            \"width\": 320,\n" +
-            "            \"height\": 50,\n" +
-            "            \"transcodedVideos\": null,\n" +
-            "            \"duration\": 0\n" +
-            "        },\n" +
-            "        \"approved\": 1,\n" +
-            "        \"live\": true,\n" +
-            "        \"osTarget\": 1,\n" +
-            "        \"bundleId\": \"tv.superawesome.KWSDemo\",\n" +
-            "        \"impression_url\": null,\n" +
-            "        \"click_url\": \"http://theguardian.com\"\n" +
-            "    },\n" +
-            "    \"is_fill\": false,\n" +
-            "    \"is_fallback\": false,\n" +
-            "    \"is_house\": false,\n" +
-            "    \"safe_ad_approved\": true,\n" +
-            "    \"moat\": 1," +
-            "    \"show_padlock\": true,\n" +
-            "    \"campaign_type\": 1,\n" +
-            "    \"line_item_id\": 673,\n" +
-            "    \"campaign_id\": 556,\n" +
-            "    \"test\": false,\n" +
-            "    \"app\": 541,\n" +
-            "    \"device\": \"phone\"\n" +
-            "}\n";
+/**
+ * Created by gabriel.coman on 28/02/2017.
+ */
+
+public class TestSAAd_4 {
+
     private SAAd result;
 
-    public SAAds_ModelSpace_Tests6() {
-        super("tv.superawesome.lib", MainActivity.class);
-
-        result = new SAAd(100, 0, given);
+    @Before
+    public void setUp() {
+        String json = ResourceReader.readResource("mock_ad_response_3.json");
+        result = new SAAd(100, 0, json);
     }
 
-    @SmallTest
+    @Test
     public void test_SAAd () {
 
         int expected_error = 0;
         int expected_advertiserId = 1;
         int expected_publisherId = 1;
-        int expected_appId = 541;
-        int expected_lineItemId = 673;
-        int expected_campaignId = 556;
+        int expected_appId = 105;
+        int expected_lineItemId = 141;
+        double expected_moat = 0.5;
+        int expected_campaignId = 117;
         int expected_placementId = 100;
-        double expected_moat = 1;
-        SACampaignType expected_campaignType = SACampaignType.CPI;
-        String expected_device = "phone";
+        SACampaignType expected_campaignType = SACampaignType.CPM;
+        String expected_device = "web";
         boolean expected_isTest = false;
         boolean expected_isFallback = false;
         boolean expected_isFill = false;
@@ -106,21 +69,21 @@ public class SAAds_ModelSpace_Tests6 extends ActivityInstrumentationTestCase2<Ma
 
     }
 
-    @SmallTest
+    @Test
     public void test_SACreative () {
 
-        int expected_creative_id = 1051;
-        String expected_creative_name = "CPI Gab iOS Banner";
+        int expected_creative_id = 127;
+        String expected_creative_name = "Interstitial 3-1";
         int expected_creative_cpm = 0;
-        SACreativeFormat expected_creative_format = SACreativeFormat.image;
+        SACreativeFormat expected_creative_format = SACreativeFormat.tag;
         boolean expected_creative_live = true;
         boolean expected_creative_approved = true;
         String expected_creative_payload = null;
-        String expected_creative_clickUrl = "http://theguardian.com";
-        String expected_creative_clickCounterUrl = "http://zoso.ro";
+        String expected_creative_clickUrl = null;
+        String expected_creative_clickCounterUrl = null;
         String expected_creative_installUrl = null;
         String expected_creative_impressionUrl = null;
-        String expected_creative_bundle = "tv.superawesome.KWSDemo";
+        String expected_creative_bundle = null;
         List<String> expected_creative_osTarget = new ArrayList<>();
 
         assertNotNull(result.creative);
@@ -137,15 +100,16 @@ public class SAAds_ModelSpace_Tests6 extends ActivityInstrumentationTestCase2<Ma
         assertEquals(result.creative.impressionUrl, expected_creative_impressionUrl);
         assertEquals(result.creative.bundle, expected_creative_bundle);
         assertEquals(result.creative.osTarget, expected_creative_osTarget);
+
     }
 
-    @SmallTest
+    @Test
     public void test_SAReferral () {
 
         int expected_referral_configuration = 0;
-        int expected_referral_campaignId = 556;
-        int expected_referral_lineItemId = 673;
-        int expected_referral_creativeId = 1051;
+        int expected_referral_campaignId = 117;
+        int expected_referral_lineItemId = 141;
+        int expected_referral_creativeId = 127;
         int expected_referral_placementId = 100;
 
         assertNotNull(result.creative.referral);
@@ -155,29 +119,30 @@ public class SAAds_ModelSpace_Tests6 extends ActivityInstrumentationTestCase2<Ma
         assertEquals(result.creative.referral.creativeId, expected_referral_creativeId);
         assertEquals(result.creative.referral.placementId, expected_referral_placementId);
         assertTrue(result.creative.referral.writeToReferralQuery().contains("utm_source%3D0"));
-        assertTrue(result.creative.referral.writeToReferralQuery().contains("utm_campaign%3D556"));
-        assertTrue(result.creative.referral.writeToReferralQuery().contains("utm_term%3D673"));
-        assertTrue(result.creative.referral.writeToReferralQuery().contains("utm_content%3D1051"));
+        assertTrue(result.creative.referral.writeToReferralQuery().contains("utm_campaign%3D117"));
+        assertTrue(result.creative.referral.writeToReferralQuery().contains("utm_term%3D141"));
+        assertTrue(result.creative.referral.writeToReferralQuery().contains("utm_content%3D127"));
         assertTrue(result.creative.referral.writeToReferralQuery().contains("utm_medium%3D100"));
+
     }
 
-    @SmallTest
+    @Test
     public void test_SADetails () {
 
         int expected_details_width = 320;
-        int expected_details_height = 50;
+        int expected_details_height = 480;
         String expected_details_name = null;
         String expected_details_format = "mobile_display";
         int expected_details_bitrate = 0;
         int expected_details_duration = 0;
         int expected_details_value = 0;
-        String expected_details_image = "https://s3-eu-west-1.amazonaws.com/sb-ads-uploads/images/iwPc7H9hU94gNhw8bx7SBgoQy0rUy3o5.jpg";
-        String expected_details_video = "https://s3-eu-west-1.amazonaws.com/sb-ads-uploads/images/iwPc7H9hU94gNhw8bx7SBgoQy0rUy3o5.jpg";
-        String expected_details_tag = null;
+        String expected_details_image = null;
+        String expected_details_video = null;
+        String expected_details_tag = "<!-- Beginning PassBack for Ad unit FK:Site-Skyscraper-Passback ### size: [[120,600]] --><script type='text/javascript' src='http://www.googletagservices.com/tag/js/gpt.js'>googletag.pubads().definePassback('1002534/FK:Site-Skyscraper-Passback', [[120,600]]).display();</script><!-- End Passback -->";
         String expected_details_zip = null;
-        String expected_details_url = "https://s3-eu-west-1.amazonaws.com/sb-ads-uploads/images/iwPc7H9hU94gNhw8bx7SBgoQy0rUy3o5.jpg";
-        String expected_details_cdn = "https://s3-eu-west-1.amazonaws.com/sb-ads-uploads/images/";
-        String expected_details_base = "https://s3-eu-west-1.amazonaws.com";
+        String expected_details_url = null;
+        String expected_details_cdn = null;
+        String expected_details_base = "https://ads.superawesome.tv";
         String expected_details_vast = null;
 
         assertNotNull(result.creative.details);
@@ -196,9 +161,10 @@ public class SAAds_ModelSpace_Tests6 extends ActivityInstrumentationTestCase2<Ma
         assertEquals(result.creative.details.cdn, expected_details_cdn);
         assertEquals(result.creative.details.base, expected_details_base);
         assertEquals(result.creative.details.vast, expected_details_vast);
+
     }
 
-    @SmallTest
+    @Test
     public void test_SAMedia () {
 
         String expected_media_html = null;
@@ -215,7 +181,7 @@ public class SAAds_ModelSpace_Tests6 extends ActivityInstrumentationTestCase2<Ma
         assertEquals(result.creative.details.media.isDownloaded, expected_media_isDownloaded);
     }
 
-    @SmallTest
+    @Test
     public void test_SAVASTAd () {
 
         String expected_vastad_redirect = null;
@@ -232,5 +198,6 @@ public class SAAds_ModelSpace_Tests6 extends ActivityInstrumentationTestCase2<Ma
         assertNotNull(result.creative.details.media.vastAd.events);
         assertEquals(result.creative.details.media.vastAd.media.size(), expected_vastad_media.size());
         assertEquals(result.creative.details.media.vastAd.events.size(), expected_vastad_events.size());
+
     }
 }

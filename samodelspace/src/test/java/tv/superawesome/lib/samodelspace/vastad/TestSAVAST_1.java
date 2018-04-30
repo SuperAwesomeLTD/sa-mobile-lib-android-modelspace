@@ -1,29 +1,20 @@
-package superawesome.tv.samodelspacedemo;
+package tv.superawesome.lib.samodelspace.vastad;
 
-import android.app.Application;
-import android.test.ApplicationTestCase;
-import android.test.suitebuilder.annotation.SmallTest;
+import org.junit.Test;
 
-import tv.superawesome.lib.samodelspace.vastad.SAVASTEvent;
-import tv.superawesome.lib.samodelspace.vastad.SAVASTAd;
-import tv.superawesome.lib.samodelspace.vastad.SAVASTAdType;
-import tv.superawesome.lib.samodelspace.vastad.SAVASTMedia;
+import tv.superawesome.lib.samodelspace.testutils.ResourceReader;
 
-public class SAVAST_ModelSpace_Tests1 extends ApplicationTestCase<Application> {
-    public SAVAST_ModelSpace_Tests1() {
-        super(Application.class);
-    }
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertFalse;
+import static junit.framework.Assert.assertNotNull;
+import static junit.framework.Assert.assertTrue;
 
-    @SmallTest
+public class TestSAVAST_1 {
+    
+    @Test
     public void testSAVASTMedia1 () {
 
-        String json = "{\n" +
-                "\t\"type\": \"video/mp4\",\n" +
-                "\t\"url\": \"https://s3-eu-west-1.amazonaws.com/sb-ads-video-transcoded/c0sKSRTuPu8dDkok2HQTnLS1k3A6vL6c.mp4\",\n" +
-                "\t\"bitrate\": 720,\n" +
-                "\t\"width\": 600,\n" +
-                "\t\"height\": 480\n" +
-                "}";
+        String json = ResourceReader.readResource("mock_vast_response_1.json");
 
         SAVASTMedia savastMedia = new SAVASTMedia(json);
         assertNotNull(savastMedia);
@@ -42,14 +33,10 @@ public class SAVAST_ModelSpace_Tests1 extends ApplicationTestCase<Application> {
         assertTrue(savastMedia.isValid());
     }
 
-    @SmallTest
+    @Test
     public void testSAVASTMedia2 () {
 
-        String json = "{\n" +
-                "\t\"type\": \"video/mp4\",\n" +
-                "\t\"url\": \"https://s3-eu-west-1.amazonaws.com/sb-ads-video-transcoded/c0sKSRTuPu8dDkok2HQTnLS1k3A6vL6c.mp4\",\n" +
-                "\t\"height\": 480\n" +
-                "}";
+        String json = ResourceReader.readResource("mock_vast_response_2.json");
 
         SAVASTMedia savastMedia = new SAVASTMedia(json);
         assertNotNull(savastMedia);
@@ -68,14 +55,10 @@ public class SAVAST_ModelSpace_Tests1 extends ApplicationTestCase<Application> {
         assertTrue(savastMedia.isValid());
     }
 
-    @SmallTest
+    @Test
     public void testSAVASTMedia3 () {
 
-        String json = "{\n" +
-                "\t\"type\": \"video/mp4\",\n" +
-                "\t\"url\": \"https://s3-eu-west-1.amazonaws.com/sbh\": 600,\n" +
-                "\t\"height\": 480\n" +
-                "}";
+        String json = ResourceReader.readResource("mock_vast_response_3.json");
 
         SAVASTMedia savastMedia = new SAVASTMedia(json);
         assertNotNull(savastMedia);
@@ -94,7 +77,7 @@ public class SAVAST_ModelSpace_Tests1 extends ApplicationTestCase<Application> {
         assertFalse(savastMedia.isValid());
     }
 
-    @SmallTest
+    @Test
     public void testSAVASTMedia4 () {
 
         String json = null;

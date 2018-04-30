@@ -1,26 +1,21 @@
-package superawesome.tv.samodelspacedemo;
+package tv.superawesome.lib.samodelspace.referral;
 
-import android.app.Application;
-import android.test.ApplicationTestCase;
-import android.test.suitebuilder.annotation.SmallTest;
+import org.junit.Test;
 
 import tv.superawesome.lib.samodelspace.saad.SAReferral;
+import tv.superawesome.lib.samodelspace.testutils.ResourceReader;
 
-public class SARefferal_ModelSpace_Tests extends ApplicationTestCase<Application> {
-    public SARefferal_ModelSpace_Tests() {
-        super(Application.class);
-    }
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertFalse;
+import static junit.framework.Assert.assertNotNull;
+import static junit.framework.Assert.assertTrue;
 
-    @SmallTest
+public class TestSAReferral {
+
+    @Test
     public void testSARefferalData1 () {
 
-        String json = "{\n" +
-                "\t\"utm_source\": 1,\n" +
-                "\t\"utm_campaign\": 33,\n" +
-                "\t\"utm_term\": 22,\n" +
-                "\t\"utm_content\": 2041,\n" +
-                "\t\"utm_medium\": 28000\n" +
-                "}";
+        String json = ResourceReader.readResource("mock_referral_response_1.json");
 
         SAReferral referralData = new SAReferral(json);
         assertNotNull(referralData);
@@ -46,14 +41,10 @@ public class SARefferal_ModelSpace_Tests extends ApplicationTestCase<Application
 
     }
 
-    @SmallTest
+    @Test
     public void testSARefferalData2 () {
 
-        String json = "{\n" +
-                "\t\"utm_source\": 1,\n" +
-                "\t\"utm_campaign\": 33,\n" +
-                "\t\"utm_medium\": 28000\n" +
-                "}";
+        String json = ResourceReader.readResource("mock_referral_response_2.json");
 
         SAReferral referralData = new SAReferral(json);
         assertNotNull(referralData);
@@ -78,7 +69,7 @@ public class SARefferal_ModelSpace_Tests extends ApplicationTestCase<Application
         assertFalse(referralData.isValid());
     }
 
-    @SmallTest
+    @Test
     public void testSARefferalData3 () {
 
         // source JSON
