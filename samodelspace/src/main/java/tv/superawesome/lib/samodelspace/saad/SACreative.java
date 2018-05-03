@@ -7,7 +7,6 @@ package tv.superawesome.lib.samodelspace.saad;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.net.MalformedURLException;
@@ -19,7 +18,7 @@ import tv.superawesome.lib.sajsonparser.SABaseObject;
 import tv.superawesome.lib.sajsonparser.SAJsonParser;
 import tv.superawesome.lib.sajsonparser.SAJsonToList;
 import tv.superawesome.lib.sajsonparser.SAListToJson;
-import tv.superawesome.lib.samodelspace.vastad.SAVASTEvent;
+import tv.superawesome.lib.samodelspace.referral.SAReferral;
 
 /**
  * Class that contains creative info, such as:
@@ -55,7 +54,7 @@ public class SACreative extends SABaseObject implements Parcelable {
     public List<String>     osTarget        = new ArrayList<>();
 
     public String           bundle          = null;
-    public SAReferral       referral        = new SAReferral();
+    public SAReferral referral        = new SAReferral();
     public SADetails        details         = new SADetails();
 
     /**

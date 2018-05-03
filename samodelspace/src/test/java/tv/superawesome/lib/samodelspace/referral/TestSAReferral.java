@@ -2,7 +2,6 @@ package tv.superawesome.lib.samodelspace.referral;
 
 import org.junit.Test;
 
-import tv.superawesome.lib.samodelspace.saad.SAReferral;
 import tv.superawesome.lib.samodelspace.testutils.ResourceReader;
 
 import static junit.framework.Assert.assertEquals;

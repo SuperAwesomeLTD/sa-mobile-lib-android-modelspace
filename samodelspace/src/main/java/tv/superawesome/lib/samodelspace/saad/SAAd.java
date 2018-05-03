@@ -11,6 +11,7 @@ import org.json.JSONObject;
 
 import tv.superawesome.lib.sajsonparser.SABaseObject;
 import tv.superawesome.lib.sajsonparser.SAJsonParser;
+import tv.superawesome.lib.samodelspace.referral.SAReferral;
 
 /**
  * Main class that contains all the information needed to play an ad and send all relevant
