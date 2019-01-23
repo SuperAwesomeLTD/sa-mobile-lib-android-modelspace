@@ -290,7 +290,7 @@ public class SACreative extends SABaseObject implements Parcelable {
         dest.writeString(installUrl);
         dest.writeStringList(osTarget);
         dest.writeString(bundle);
-        dest.writeParcelable(details, flags);
         dest.writeParcelable(referral, flags);
+        dest.writeParcelable(details, flags);
     }
 }
